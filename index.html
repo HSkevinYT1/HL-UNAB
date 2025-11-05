@@ -82,7 +82,7 @@
 
         .logo-image {
             width: 40px;
-            height: 40px;                      /* Estilo para logo personalizado */
+            height: 40px;                     
             object-fit: contain;
             border-radius: 4px;
         }
@@ -108,7 +108,7 @@
         
         .nav-menu {
             display: flex;
-            gap: 30px;                      /* Navigation Menu */
+            gap: 30px;                      
             align-items: center;
             margin-left: 80px;
         }
@@ -137,7 +137,7 @@
         
         .notification-bell {
             position: relative;
-            cursor: pointer;                                 /* Notifications Bell */
+            cursor: pointer;                                
             color: white;
             font-size: 24px;
             padding: 8px;
@@ -175,7 +175,7 @@
             position: absolute;
             top: 70px;
             right: 50px;
-            background: white;                              /* Dropdown Notification Panel */
+            background: white;                            
             width: 350px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
@@ -273,7 +273,7 @@
 
        
         .user-menu {
-            position: relative;                            /* User Menu */
+            position: relative;                           
         }
 
         .user-button {
@@ -340,7 +340,7 @@
             right: 0;
             background: white;
             width: 220px;
-            border-radius: 12px;                                      /* User Dropdown */
+            border-radius: 12px;                                      
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             display: none;
             z-index: 2000;
@@ -754,7 +754,7 @@
 
         
         @media (max-width: 1024px) {
-            .container {                                   /* Responsive Design */
+            .container {                                   
                 grid-template-columns: 1fr;
                 gap: 50px;
                 padding: 30px;
@@ -974,7 +974,7 @@
 
        
         .quick-access {
-            background: rgba(255,255,255,0.1);                          /* Quick Access Badge */
+            background: rgba(255,255,255,0.1);                        
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
@@ -994,13 +994,15 @@
        
         <nav class="nav-menu" id="navMenu" style="display: none;">
             <a href="#inicio">Inicio</a>
-            <a href="#eventos">Eventos</a>                                       <a href="#actividades">Actividades</a>
+            <a href="#eventos">Eventos</a>                                       
+            <a href="#actividades">Actividades</a>
             <a href="#horarios">Horarios</a>
         </nav>
 
         <div class="header-right">
             
-            <div class="search-container" id="searchContainer" style="display: none;">                           <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
+            <div class="search-container" id="searchContainer" style="display: none;">                           
+                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
                 <span class="search-icon">🔍</span>
             </div>
 
@@ -1010,7 +1012,8 @@
             </div>
 
             
-            <div class="notification-dropdown" id="notificationDropdown">                           <div class="notification-header">
+            <div class="notification-dropdown" id="notificationDropdown">                           
+                <div class="notification-header">
                     Notificaciones
                 </div>
                 <div class="notification-list">
@@ -1043,7 +1046,8 @@
                                                                                 
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">    
-                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>         <div class="user-icon">👤</div>
+                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>         
+                    <div class="user-icon">👤</div>
                 </div>
 
                 
@@ -1052,7 +1056,8 @@
                         👤 Mi Perfil
                     </div>
                     <div class="user-dropdown-item" onclick="viewSettings()">
-                        ⚙️ Configuración                                                </div>
+                        ⚙️ Configuración                                                
+                    </div>
                     <div class="user-dropdown-item" onclick="viewHelp()">
                         ❓ Ayuda
                     </div>
@@ -1172,18 +1177,18 @@
         function switchTab(event, tabName) {
             
             const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {                                          // Ocultar todos los contenidos
+            contents.forEach(content => {                                          
                 content.classList.remove('active');
             });
 
             
-            const tabs = document.querySelectorAll('.tab');                        // Desactivar todas las pestañas
+            const tabs = document.querySelectorAll('.tab');                        
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
 
             
-            document.getElementById(tabName).classList.add('active');                // Activar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');                
             event.target.classList.add('active');
         }
 
@@ -1191,22 +1196,22 @@
             isLoggedIn = true;
             
             
-            document.getElementById('welcomeMessage').style.display = 'none';                  // Ocultar mensaje de bienvenida y auth section
+            document.getElementById('welcomeMessage').style.display = 'none';                  
             document.getElementById('authSection').style.display = 'none';
             
            
-            const userContent = document.getElementById('userContent');                     // Mostrar contenido del usuario
+            const userContent = document.getElementById('userContent');                    
             userContent.classList.remove('hidden');
             
             
             const userName = document.getElementById('loginId').value || 'Kevin Bayona'; 
             document.getElementById('mainTitle').textContent = `Hola, ${userName}`;
-            document.getElementById('userNameDisplay').textContent = userName;                      // Actualizar header
+            document.getElementById('userNameDisplay').textContent = userName;                      
             document.getElementById('userNameDisplay').classList.add('active');
             
            
             document.getElementById('navMenu').style.display = 'flex';
-            document.getElementById('notificationBell').style.display = 'block';                     // Mostrar elementos del header
+            document.getElementById('notificationBell').style.display = 'block';                     
             
             const searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = 'block';
@@ -1220,7 +1225,7 @@
 
             userContent.style.opacity = '0';
             setTimeout(() => {
-                userContent.style.transition = 'opacity 0.5s';                        // Animación de entrada
+                userContent.style.transition = 'opacity 0.5s';                        
                 userContent.style.opacity = '1';
             }, 10);
         }
@@ -1229,19 +1234,19 @@
             isLoggedIn = false;
             
             
-            document.getElementById('authSection').style.display = 'block';                                       // Mostrar autenticacion section y welcome message
+            document.getElementById('authSection').style.display = 'block';                                       
             document.getElementById('welcomeMessage').style.display = 'block';
             
             
-            document.getElementById('userContent').classList.add('hidden');                                      // Ocultar contenido del usuario
+            document.getElementById('userContent').classList.add('hidden');                                      
              
             
-            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';                            // Resetear header
+            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';                           
             document.getElementById('userNameDisplay').classList.remove('active');
             
             
             document.getElementById('navMenu').style.display = 'none';
-            document.getElementById('notificationBell').style.display = 'none';                              // Ocultar elementos del header
+            document.getElementById('notificationBell').style.display = 'none';                              
             
             document.getElementById('searchContainer').style.display = 'none';
             
@@ -1250,7 +1255,7 @@
             }
 
             
-            document.getElementById('userDropdown').classList.remove('active');                             // Cerrar dropdowns
+            document.getElementById('userDropdown').classList.remove('active');                            
             document.getElementById('notificationDropdown').classList.remove('active');
         }
 
@@ -1258,7 +1263,7 @@
             const dropdown = document.getElementById('notificationDropdown');
             dropdown.classList.toggle('active');
             
-            document.getElementById('userDropdown').classList.remove('active');                      // Cerrar user dropdown si está abierto
+            document.getElementById('userDropdown').classList.remove('active');                      
         }
 
         function toggleUserMenu() {
@@ -1271,7 +1276,7 @@
             dropdown.classList.toggle('active');
             
             
-            document.getElementById('notificationDropdown').classList.remove('active');                  // Cerrar notifications dropdown si está abierto
+            document.getElementById('notificationDropdown').classList.remove('active');                 
         }
 
         function viewProfile() {
@@ -1292,7 +1297,7 @@
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
-            }                                                                                                         // Cerrar cuando de click afuera
+            }                                                                                                         
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
             }
