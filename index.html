@@ -20,7 +20,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #2b5a9e 0%, #1e3a5f 100%);
+            background: #6b1fa8;
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
@@ -442,12 +442,12 @@
         }
 
         .tab.active {
-            color: #f9a825;
-            border-bottom-color: #f9a825;
+            color: #8600DD;
+            border-bottom-color: #8600DD;
         }
 
         .tab:hover {
-            color: #f9a825;
+            color: #000000;
         }
 
         .tab-content {
@@ -559,7 +559,7 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            background: #f9a825;
+            background: #8600DD;
             color: white;
             transition: background 0.3s;
         }
@@ -1266,8 +1266,7 @@
         }
 
         function viewProfile() {
-            alert('Ver perfil - Funcionalidad en desarrollo');
-            document.getElementById('userDropdown').classList.remove('active');
+            window.location.href = 'perfil.html';
         }
 
         function viewSettings() {
