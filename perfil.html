@@ -45,24 +45,96 @@
             font-weight: 700;
         }
 
-        .user-icon-header {
-            width: 45px;
-            height: 45px;
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #8b2fc9;
-            font-size: 24px;
-            cursor: pointer;
-            transition: transform 0.3s;
+            font-size: 18px;
+            color: #6b1fa8;
         }
 
-        
+        .user-name-display {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-        .user-icon-header:hover {
-            transform: scale(1.1);
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-dropdown-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+            color: #f44336;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f9f9f9;
         }
 
         .container {
@@ -232,6 +304,7 @@
             padding: 15px 25px;
             background: #ffffff;
             border-bottom: 1px solid #eee;
+            border-left: 4px solid #6b1fa8;
             transition: background 0.2s;
         }
 
@@ -349,8 +422,26 @@
             </div>
         </div>
         </div>
-        <div class="user-icon-header" onclick="goBack()">
-            👤
+        <div class="user-menu">
+            <div class="user-button" onclick="toggleUserMenu()">
+                <span class="user-name-display">Kevin </span>
+                <div class="user-icon">👤</div>
+            </div>
+            
+            <div class="user-dropdown" id="userDropdown">
+                <div class="user-dropdown-item" onclick="viewProfile()">
+                    👤 Mi Perfil
+                </div>
+                <div class="user-dropdown-item" onclick="viewSettings()">
+                    ⚙️ Configuración
+                </div>
+                <div class="user-dropdown-item" onclick="viewHelp()">
+                    ❓ Ayuda
+                </div>
+                <div class="user-dropdown-item" onclick="goBack()">
+                    � Cerrar Sesión
+                </div>
+            </div>
         </div>
     </header>
 
@@ -361,7 +452,7 @@
                 <div class="profile-placeholder-icon">👤</div>
             </div>
             <div class="profile-card-content">
-                <h1 class="profile-name">Kevin</h1>
+                <h1 class="profile-name">Kevin </h1>
                 
                 <div class="profile-info">
                     <div class="profile-info-item">
@@ -391,11 +482,11 @@
                         <span class="schedule-text">Cálculo II - Lun, 4pm - 6pm - Aula D21</span>
                     </div>
                     <div class="schedule-item">
-                        <span class="schedule-icon">�</span>
+                        <span class="schedule-icon">🔧</span>
                         <span class="schedule-text">Mecanica - jue, 10am - 1pm - Aula J21</span>
                     </div>
                     <div class="schedule-item">
-                        <span class="schedule-icon">�</span>
+                        <span class="schedule-icon">🧪</span>
                         <span class="schedule-text">Laboratorio - mar, 10am - 12pm - lab mecanica</span>
                     </div>
                 </div>
@@ -434,10 +525,11 @@
     </footer>
 
     <script>
-        // Cargar nombre de usuario del localStorage
+        
         window.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Kevin';
+            const userName = localStorage.getItem('userName') || 'Kevin Bayona';
             document.querySelector('.profile-name').textContent = userName;
+            document.querySelector('.user-name-display').textContent = userName;
         });
 
         function toggleCollapse(element) {
@@ -446,13 +538,39 @@
             content.classList.toggle('collapsed');
         }
 
+        function toggleUserMenu() {
+            document.getElementById('userDropdown').classList.toggle('active');
+        }
+
         function editProfile() {
             alert('Funcionalidad de editar perfil - En desarrollo');
+        }
+
+        function viewSettings() {
+            alert('Configuración - Funcionalidad en desarrollo');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function viewHelp() {
+            alert('Ayuda - Funcionalidad en desarrollo');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function viewProfile() {
+           
+            document.getElementById('userDropdown').classList.remove('active');
         }
 
         function goBack() {
             window.location.href = 'index.html';
         }
+
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
