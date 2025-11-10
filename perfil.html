@@ -27,6 +27,13 @@
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
+        /* Nuevo estilo para agrupar los elementos de la derecha */
+        .header-right { 
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Espacio entre los iconos */
+        }
 
         .logo-container {
             display: flex;
@@ -38,6 +45,35 @@
             height: 50px;
             width: auto;
         }
+
+        .logo-image {
+            height: 60px;
+            width: auto; /* Mantener proporción */
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform 0.25s;
+        }
+        
+        /* Estilo para botones que muestran solo icono */
+        .icon-btn {
+            background: rgba(255,255,255,0.1); /* Fondo para que se parezca al del perfil.html anterior */
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .icon-btn svg { display:block; }
 
         .logo-text {
             color: #ffd700;
@@ -130,8 +166,15 @@
         .user-dropdown-item:last-child {
             border-radius: 0 0 12px 12px;
             border-bottom: none;
-            color: #f44336;
+            color: #333; /* Mantener color para el enlace de "Volver" */
         }
+        
+        /* Estilo especial para el último item, si se usa como "volver" o "cerrar sesión" */
+        .user-dropdown-item.logout-or-back:last-child {
+             color: #f44336; /* Si fuera Cerrar Sesión (rojo) */
+             /* Se mantiene en negro para "Volver a Inicio" */
+        }
+
 
         .user-dropdown-item:hover {
             background: #f9f9f9;
@@ -348,7 +391,7 @@
         }
 
         .footer-links a {
-            color: #666;
+            color: #f5f5f5;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -416,33 +459,41 @@
 <body>
     <header>
         <div class="logo-container">
-            <div class="logo-container">
             <div class="logo">
-                <div><img src="logo_unab.png" alt="Logo UNAB" style="height: 60px; width: 200px;"></div>
+                <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
             </div>
         </div>
-        </div>
-        <div class="user-menu">
-            <div class="user-button" onclick="toggleUserMenu()">
-                <span class="user-name-display">Kevin </span>
-                <div class="user-icon">👤</div>
+        
+        <div class="header-right"> 
+            <a href="Amigos.html" class="icon-btn" aria-label="Chat" title="Chat">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </a>
+
+            <div class="user-menu">
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display">Kevin </span>
+                    <div class="user-icon">👤</div>
+                </div>
+                
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="viewProfile()">
+                        👤 Mi Perfil
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewSettings()">
+                        ⚙️ Configuración
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewHelp()">
+                        ❓ Ayuda
+                    </div>
+                    <div class="user-dropdown-item" onclick="goBack()">
+                        🏠 Volver a Inicio
+                    </div>
+                </div>
             </div>
-            
-            <div class="user-dropdown" id="userDropdown">
-                <div class="user-dropdown-item" onclick="viewProfile()">
-                    👤 Mi Perfil
-                </div>
-                <div class="user-dropdown-item" onclick="viewSettings()">
-                    ⚙️ Configuración
-                </div>
-                <div class="user-dropdown-item" onclick="viewHelp()">
-                    ❓ Ayuda
-                </div>
-                <div class="user-dropdown-item" onclick="goBack()">
-                    � Cerrar Sesión
-                </div>
-            </div>
         </div>
+        
     </header>
 
     <div class="container">
@@ -450,6 +501,7 @@
             <div class="profile-card-header"></div>
             <div class="profile-image-container">
                 <div class="profile-placeholder-icon">👤</div>
+                
             </div>
             <div class="profile-card-content">
                 <h1 class="profile-name">Kevin </h1>
@@ -562,12 +614,13 @@
         }
 
         function goBack() {
+            // Función usada por "Volver a Inicio"
             window.location.href = 'index.html';
         }
 
         // Cerrar el menú cuando se hace clic fuera de él
         document.addEventListener('click', function(event) {
-            if (!event.target.closest('.user-menu')) {
+            if (!event.target.closest('.user-menu') && !event.target.closest('.icon-btn')) {
                 document.getElementById('userDropdown').classList.remove('active');
             }
         });
