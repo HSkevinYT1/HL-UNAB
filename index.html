@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horas libres UNAB</title>
     <style>
+        /* ... Tu CSS anterior (no modificado) ... */
         * {
             margin: 0;
             padding: 0;
@@ -34,7 +35,7 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: px;
             cursor: pointer;
         }
 
@@ -81,10 +82,11 @@
         }
 
         .logo-image {
-            width: 40px;
-            height: 40px;                     
+            height: 60px;
+            width: auto;                      /* Ajuste: mantener proporción */
             object-fit: contain;
             border-radius: 4px;
+            transition: transform 0.25s;
         }
 
         .logo-text {
@@ -108,7 +110,7 @@
         
         .nav-menu {
             display: flex;
-            gap: 30px;                      
+            gap: 30px;                      /* Navigation Menu */
             align-items: center;
             margin-left: 80px;
         }
@@ -137,7 +139,7 @@
         
         .notification-bell {
             position: relative;
-            cursor: pointer;                                
+            cursor: pointer;                                 /* Notifications Bell */
             color: white;
             font-size: 24px;
             padding: 8px;
@@ -175,7 +177,7 @@
             position: absolute;
             top: 70px;
             right: 50px;
-            background: white;                            
+            background: white;                              /* Dropdown Notification Panel */
             width: 350px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
@@ -273,7 +275,7 @@
 
        
         .user-menu {
-            position: relative;                           
+            position: relative;                            /* User Menu */
         }
 
         .user-button {
@@ -340,7 +342,7 @@
             right: 0;
             background: white;
             width: 220px;
-            border-radius: 12px;                                      
+            border-radius: 12px;                                      /* User Dropdown */
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             display: none;
             z-index: 2000;
@@ -754,7 +756,7 @@
 
         
         @media (max-width: 1024px) {
-            .container {                                   
+            .container {                                 
                 grid-template-columns: 1fr;
                 gap: 50px;
                 padding: 30px;
@@ -907,13 +909,21 @@
                 font-size: 36px;
             }
 
+            .progress-number span {
+                font-size: 18px !important;
+            }
+
+            .hours-card h3 {
+                font-size: 18px;
+            }
+
             .options-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
 
             .option-image {
-                height: 120px;
+                height: 100px;
             }
 
             footer {
@@ -981,28 +991,44 @@
             color: white;
             font-weight: 600;
         }
+        
+        .icon-btn {
+            padding: 8px;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .icon-btn svg { display:block; }
     </style>
 </head>
 <body>
     <header>
         <div class="logo-container">
             <div class="logo">
-                <div><img src="logo_unab.png" alt="Logo UNAB" style="height: 60px; width: 200px;"></div>
+                
+                <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
             </div>
         </div>
 
        
         <nav class="nav-menu" id="navMenu" style="display: none;">
             <a href="#inicio">Inicio</a>
-            <a href="#eventos">Eventos</a>                                       
-            <a href="#actividades">Actividades</a>
+            <a href="#eventos">Eventos</a>                                       <a href="#actividades">Actividades</a>
             <a href="#horarios">Horarios</a>
         </nav>
 
         <div class="header-right">
             
-            <div class="search-container" id="searchContainer" style="display: none;">                           
-                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
+            <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </a>
+            
+            <div class="search-container" id="searchContainer" style="display: none;">                           <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
                 <span class="search-icon">🔍</span>
             </div>
 
@@ -1012,8 +1038,7 @@
             </div>
 
             
-            <div class="notification-dropdown" id="notificationDropdown">                           
-                <div class="notification-header">
+            <div class="notification-dropdown" id="notificationDropdown">                           <div class="notification-header">
                     Notificaciones
                 </div>
                 <div class="notification-list">
@@ -1046,8 +1071,7 @@
                                                                                 
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">    
-                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>         
-                    <div class="user-icon">👤</div>
+                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>         <div class="user-icon">👤</div>
                 </div>
 
                 
@@ -1056,8 +1080,7 @@
                         👤 Mi Perfil
                     </div>
                     <div class="user-dropdown-item" onclick="viewSettings()">
-                        ⚙️ Configuración                                                
-                    </div>
+                        ⚙️ Configuración                                                </div>
                     <div class="user-dropdown-item" onclick="viewHelp()">
                         ❓ Ayuda
                     </div>
@@ -1172,98 +1195,111 @@
     </footer>
 
     <script>
-        let isLoggedIn = false;
+        
+        let isLoggedIn = !!localStorage.getItem('userName'); 
 
         function switchTab(event, tabName) {
             
             const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {                                          
+            contents.forEach(content => {                                          // Ocultar todos los contenidos
                 content.classList.remove('active');
             });
 
             
-            const tabs = document.querySelectorAll('.tab');                        
+            const tabs = document.querySelectorAll('.tab');                        // Desactivar todas las pestañas
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
 
             
-            document.getElementById(tabName).classList.add('active');                
+            document.getElementById(tabName).classList.add('active');                // Activar la pestaña seleccionada
             event.target.classList.add('active');
         }
 
         function login() {
+            const user = document.getElementById('loginId').value || 'Kevin Bayona';
+            if (!user) {
+                alert('Por favor, ingresa tu ID de estudiante.');
+                return;
+            }
+            
+           
             isLoggedIn = true;
+            localStorage.setItem('userName', user);
+            
+            updateUI(user);
             
             
-            document.getElementById('welcomeMessage').style.display = 'none';                  
+            document.getElementById('welcomeMessage').style.display = 'none';                  // Ocultar mensaje de bienvenida y auth section
             document.getElementById('authSection').style.display = 'none';
             
            
-            const userContent = document.getElementById('userContent');                    
+            const userContent = document.getElementById('userContent');                     // Mostrar contenido del usuario
             userContent.classList.remove('hidden');
             
             
-            const userName = document.getElementById('loginId').value || 'Kevin Bayona'; 
-            document.getElementById('mainTitle').textContent = `Hola, ${userName}`;
-            document.getElementById('userNameDisplay').textContent = userName;                      
-            document.getElementById('userNameDisplay').classList.add('active');
-            
-           
-            document.getElementById('navMenu').style.display = 'flex';
-            document.getElementById('notificationBell').style.display = 'block';                     
-            
-            const searchContainer = document.getElementById('searchContainer');
-            searchContainer.style.display = 'block';
-
-            if (window.innerWidth <= 768) {
-               
-                const searchBarHeight = searchContainer.offsetHeight; 
-                
-                document.querySelector('.container').style.paddingTop = (searchBarHeight + 20) + 'px';
-            }
-
             userContent.style.opacity = '0';
             setTimeout(() => {
-                userContent.style.transition = 'opacity 0.5s';                        
+                userContent.style.transition = 'opacity 0.5s';                        // Animación de entrada
                 userContent.style.opacity = '1';
             }, 10);
         }
 
         function logout() {
             isLoggedIn = false;
+            localStorage.removeItem('userName');
+            
+            updateUI('');
             
             
-            document.getElementById('authSection').style.display = 'block';                                       
+            document.getElementById('authSection').style.display = 'block';                                       // Mostrar autenticacion section y welcome message
             document.getElementById('welcomeMessage').style.display = 'block';
             
             
-            document.getElementById('userContent').classList.add('hidden');                                      
+            document.getElementById('userContent').classList.add('hidden');                                      // Ocultar contenido del usuario
              
             
-            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';                           
-            document.getElementById('userNameDisplay').classList.remove('active');
+            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';                            // Resetear header
             
             
-            document.getElementById('navMenu').style.display = 'none';
-            document.getElementById('notificationBell').style.display = 'none';                              
-            
-            document.getElementById('searchContainer').style.display = 'none';
-            
-            if (window.innerWidth <= 768) {
-                document.querySelector('.container').style.paddingTop = '20px'; 
-            }
-
-            
-            document.getElementById('userDropdown').classList.remove('active');                            
+            document.getElementById('userDropdown').classList.remove('active');                             // Cerrar dropdowns
             document.getElementById('notificationDropdown').classList.remove('active');
         }
+        
+        
+        function goToAmigos() {
+            if (isLoggedIn) {
+                window.location.href = 'amigos.html';
+            } else {
+                alert('Debes iniciar sesión para acceder al chat de Amigos.');
+            }
+        }
+        
+        function updateUI(user) {
+            const userName = user || localStorage.getItem('userName') || 'Usuario';
+            
+            document.getElementById('mainTitle').textContent = isLoggedIn ? `Hola, ${userName}` : 'Hola, Bienvenido';
+            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0]; 
+            
+            document.getElementById('userNameDisplay').classList.toggle('active', isLoggedIn);
+            
+            document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
+            document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
+            
+            
+            document.getElementById('authSection').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('welcomeMessage').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('userContent').classList.toggle('hidden', !isLoggedIn);
+        }
+
 
         function toggleNotifications() {
+            if (!isLoggedIn) return;
             const dropdown = document.getElementById('notificationDropdown');
             dropdown.classList.toggle('active');
             
-            document.getElementById('userDropdown').classList.remove('active');                      
+            document.getElementById('userDropdown').classList.remove('active');                      // Cerrar user dropdown si está abierto
         }
 
         function toggleUserMenu() {
@@ -1276,11 +1312,13 @@
             dropdown.classList.toggle('active');
             
             
-            document.getElementById('notificationDropdown').classList.remove('active');                 
+            document.getElementById('notificationDropdown').classList.remove('active');                  // Cerrar notifications dropdown si está abierto
         }
 
         function viewProfile() {
-            window.location.href = 'perfil.html';
+            if (isLoggedIn) {
+                window.location.href = 'perfil.html';
+            }
         }
 
         function viewSettings() {
@@ -1297,9 +1335,22 @@
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
-            }                                                                                                         
+            }                                                                                                         // Cerrar cuando de click afuera
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+        
+       
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const storedUserName = localStorage.getItem('userName');
+            
+            
+            if (isLoggedIn) {
+                updateUI(storedUserName);
+            } else {
+                updateUI(''); 
             }
         });
     </script>
