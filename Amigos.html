@@ -90,19 +90,105 @@
             transform: translateY(-2px);
         }
 
-       .user-icon {
-            width: 35px;
-            height: 35px;
+       /* ESTILOS DE USUARIO COPIADOS DE INDEX.HTML */
+       .user-menu {
+            position: relative;                            /* User Menu */
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .user-name-display {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+        }
+
+        .user-name-display.active {
+            display: block;
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             color: #8C0FAA;
         }
 
-        /* Layout - Eliminar espacios vacíos */
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            width: 220px;
+            border-radius: 12px;                                      /* User Dropdown */
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+            color: #f44336;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f9f9f9;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* FIN ESTILOS DE USUARIO */
+
         .container {
             flex: 1; 
             padding: 0; 
@@ -514,19 +600,40 @@
 </head>
 <body>
     <header>
-        <div class="logo-container">
+        <a href="index.html" class="logo-container">
             <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
-        </div>
+        </a>
+        
         <div class="header-right">
-            <a href="Amigos.html" class="icon-btn" aria-label="Chat" title="Chat">
+            
+            <span class="icon-btn" aria-label="Chat" title="Chat" style="pointer-events: none; background: rgba(255, 255, 255, 0.4);">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
-            </a>
-            <a href="perfil.html" class="icon-btn" aria-label="Perfil" title="Perfil">
-                <span class="user-icon">👤</span>
-            </a>
-        </div>
+            </span>
+            
+            <div class="user-menu">
+                <div class="user-button" onclick="toggleUserMenu()">    
+                    <span class="user-name-display" id="userNameDisplay">Usuario</span>         
+                    <div class="user-icon">👤</div>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="viewProfile()">
+                        👤 Mi Perfil
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewSettings()">
+                        ⚙️ Configuración                                                
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewHelp()">
+                        ❓ Ayuda
+                    </div>
+                    <div class="user-dropdown-item" onclick="logout()">
+                        🚪 Cerrar Sesión
+                    </div>
+                </div>
+            </div>
+            </div>
     </header>
 
     <div class="container">
@@ -582,8 +689,69 @@
     </footer>
 
     <script>
-        // Script de chat (se mantiene)
+        // Inicialización de sesión (clave para el menú)
+        let isLoggedIn = !!localStorage.getItem('userName'); 
+        
+        // --- FUNCIONES DE SESIÓN Y MENÚ (COPIADAS DE INDEX.HTML) ---
+        function updateUI(user) {
+            const userName = user || localStorage.getItem('userName') || 'Usuario';
+            
+            // Si no hay sesión, redirige a index.html o muestra un error (depende de la lógica de seguridad). 
+            // Para mantener la funcionalidad de chat, simplemente actualizamos el menú.
+            
+            const nameDisplay = document.getElementById('userNameDisplay');
+            if (nameDisplay) {
+                nameDisplay.textContent = userName.split(' ')[0]; // Mostrar solo el primer nombre
+                nameDisplay.classList.toggle('active', isLoggedIn);
+            }
+        }
+
+        function toggleUserMenu() {
+            if (!isLoggedIn) {
+                // Si la sesión caducó mientras estaba en el chat, redirigir al login
+                window.location.href = 'index.html';
+                return;
+            }
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function viewProfile() {
+            window.location.href = 'perfil.html';
+        }
+
+        function viewSettings() {
+            alert('Configuración - Funcionalidad en desarrollo');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function viewHelp() {
+            alert('Ayuda - Funcionalidad en desarrollo');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function logout() {
+            localStorage.removeItem('userName');
+            isLoggedIn = false;
+            // Redirigir a la página de inicio de sesión
+            window.location.href = 'index.html';
+        }
+        
+        // Cierre de dropdown al hacer click fuera
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-menu')) {
+                const userDropdown = document.getElementById('userDropdown');
+                if (userDropdown) {
+                    userDropdown.classList.remove('active');
+                }
+            }
+        });
+        // --- FIN FUNCIONES DE SESIÓN Y MENÚ ---
+
+        
+        // Script de chat original (ajustado para usar la sesión)
         const friends = [
+            // ... (Lista de amigos)
             {
                 id: 1,
                 name: 'Achli',
@@ -716,6 +884,7 @@
                     messageRow.appendChild(bubble);
                     const avatar = document.createElement('div');
                     avatar.className = 'message-avatar';
+                    // Nota: Aquí podrías usar el avatar del usuario logueado
                     messageRow.appendChild(avatar);
                 } else {
                     const avatar = document.createElement('div');
@@ -772,8 +941,20 @@
         });
 
         // Inicializar
-        renderContacts();
-        renderMessages();
+        document.addEventListener('DOMContentLoaded', () => {
+             // Redirigir si no hay sesión iniciada (doble verificación de seguridad)
+            if (!localStorage.getItem('userName')) {
+                // En un entorno de producción, esto debería redirigir inmediatamente
+                // window.location.href = 'index.html'; 
+            }
+            
+            // Inicializar la interfaz de usuario al cargar la página
+            const storedUserName = localStorage.getItem('userName');
+            updateUI(storedUserName); 
+            
+            renderContacts();
+            renderMessages();
+        });
     </script>
 </body>
 </html>
