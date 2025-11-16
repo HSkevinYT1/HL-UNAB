@@ -40,17 +40,38 @@
             gap: 15px;
         }
 
-        .logo-unab {
-            height: 50px;
-            width: auto;
-        }
-
         .logo-image {
             height: 60px;
             width: auto;
             object-fit: contain;
             border-radius: 4px;
             transition: transform 0.25s;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-left: 80px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.2);
         }
         
         .icon-btn {
@@ -72,12 +93,6 @@
         }
         
         .icon-btn svg { display:block; }
-
-        .logo-text {
-            color: #ffd700;
-            font-size: 24px;
-            font-weight: 700;
-        }
 
         .user-menu {
             position: relative;
@@ -219,13 +234,6 @@
             margin: -60px auto 30px auto;
         }
 
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
         .profile-placeholder-icon {
             font-size: 50px;
             color: #8C0FAA;
@@ -363,7 +371,7 @@
 
         footer {
             background: white;
-            padding: 25px 50px;
+            padding: 30px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -391,6 +399,11 @@
             color: #8C0FAA;
         }
 
+        /* Barra de navegación móvil (oculta en desktop) */
+        .mobile-nav {
+            display: none;
+        }
+
         @media (max-width: 1024px) {
             .container {
                 grid-template-columns: 1fr;
@@ -407,42 +420,116 @@
                 padding: 15px 20px;
             }
 
+            .logo-image {
+                height: 50px;
+            }
+
+            .nav-menu {
+                display: none !important;
+            }
+
+            .user-name-display {
+                display: none !important;
+            }
+
+            .icon-btn {
+                display: none !important;
+            }
+
             .container {
                 padding: 20px 15px;
+                padding-bottom: 100px;
             }
 
             .profile-card {
-                padding: 30px 20px;
+                padding: 0;
+                min-width: 100%;
+            }
+
+            .profile-card-content {
+                padding: 0 25px 25px 25px;
             }
 
             .profile-image-container {
-                width: 140px;
-                height: 140px;
+                width: 100px;
+                height: 100px;
             }
 
             .profile-placeholder-icon {
-                font-size: 60px;
+                font-size: 40px;
             }
 
             .profile-name {
                 font-size: 24px;
+                text-align: center;
+            }
+
+            .profile-info-item {
+                font-size: 14px;
+            }
+
+            .edit-profile-btn {
+                width: 100%;
+                text-align: center;
             }
 
             .info-card {
-                padding: 20px;
+                padding: 0;
             }
 
             .info-card-header {
-                margin: -20px -20px 15px -20px;
-                padding: 12px 20px;
+                padding: 15px 20px;
                 font-size: 18px;
             }
 
+            .schedule-item, .notification-item-card {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
             footer {
+                display: none !important;
+            }
+
+            /* Barra de navegación móvil inferior */
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
                 flex-direction: column;
-                gap: 15px;
-                padding: 20px;
-                text-align: center;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+
+            .mobile-nav-item.active {
+                color: #8600DD;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.95);
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
@@ -454,6 +541,13 @@
                 <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
             </a>
         </div>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
+        </nav>
         
         <div class="header-right"> 
             <a href="Amigos.html" class="icon-btn" aria-label="Chat" title="Chat">
@@ -484,7 +578,6 @@
                 </div>
             </div>
         </div>
-        
     </header>
 
     <div class="container">
@@ -492,7 +585,6 @@
             <div class="profile-card-header"></div>
             <div class="profile-image-container">
                 <div class="profile-placeholder-icon">👤</div>
-                
             </div>
             <div class="profile-card-content">
                 <h1 class="profile-name">Kevin </h1>
@@ -521,7 +613,7 @@
                 </div>
                 <div class="info-card-content">
                     <div class="schedule-item">
-                        <span class="schedule-icon">🕑</span>
+                        <span class="schedule-icon">🕐</span>
                         <span class="schedule-text">Cálculo II - Lun, 4pm - 6pm - Aula D21</span>
                     </div>
                     <div class="schedule-item">
@@ -542,7 +634,7 @@
                 </div>
                 <div class="info-card-content">
                     <div class="notification-item-card">
-                        <span class="notification-icon">📝</span>
+                        <span class="notification-icon">📊</span>
                         <span class="notification-text">Tienes una nueva calificación en Calculo</span>
                     </div>
                     <div class="notification-item-card">
@@ -562,9 +654,43 @@
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
         <div class="footer-links">
             <a href="#">Acerca de</a>
-            <a href="Soporte.html">soporte</a>
+            <a href="soporte.html">soporte</a>
         </div>
     </footer>
+
+    
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
 
     <script>
         window.addEventListener('DOMContentLoaded', function() {
@@ -593,7 +719,7 @@
         }
 
         function viewHelp() {
-            alert('Ayuda - Funcionalidad en desarrollo');
+            window.location.href = 'soporte.html';
         }
 
         function viewProfile() {
@@ -612,5 +738,3 @@
     </script>
 </body>
 </html>
-
-
