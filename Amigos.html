@@ -1120,10 +1120,10 @@
             .chat-panel {
                 display: none;
                 position: fixed;
-                top: 75px;
+                top: 70px;
                 left: 0;
                 right: 0;
-                bottom: 0;
+                bottom: 65px;
                 z-index: 1001;
                 background: white;
                 flex-direction: column;
@@ -1192,7 +1192,7 @@
 
             .messages-container {
                 padding: 15px;
-                padding-bottom: 150px;
+                padding-bottom: 15px;
                 flex: 1;
                 overflow-y: auto;
                 background: white;
@@ -1203,11 +1203,7 @@
                 background: white;
                 border-top: 1px solid var(--light-gray);
                 flex-shrink: 0;
-                position: fixed;
-                bottom: 65px;
-                left: 0;
-                right: 0;
-                z-index: 1050;
+                position: static;
                 display: flex !important;
                 align-items: center;
                 gap: 6px;
@@ -1222,7 +1218,7 @@
                 left: 10px;
                 right: 10px;
                 max-width: none;
-                bottom: 145px;
+                bottom: 80px;
             }
 
             .chat-menu-dropdown {
@@ -1399,7 +1395,7 @@
             
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="buscar amigos...">
+                <input type="text" id="searchInput" placeholder="   Buscar amigos...">
             </div>
             
             <div class="filters">
@@ -1707,7 +1703,7 @@
         const emojiPicker = document.getElementById('emojiPicker');
         const imageInput = document.getElementById('imageInput');
 
-       
+        
         const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👏', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
 
         
@@ -1881,7 +1877,7 @@
                 chatPanel.classList.add('active');
                 sidebar.classList.add('hidden');
                 
-               
+                
                 const chatHeader = chatPanel.querySelector('.chat-header');
                 if (chatHeader) {
                     chatHeader.style.display = 'flex';
@@ -1955,10 +1951,10 @@
             chatUserName.textContent = activeFriend.name;
             chatAvatar.style.background = activeFriend.avatarColor;
             
-            
+           
             messageInput.value = '';
             
-           
+            
             updateChatHeader();
             
             renderMessages();
@@ -2038,7 +2034,7 @@
             const file = e.target.files[0];
             if (!file || !activeFriend) return;
             
-           
+            
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona una imagen válida');
                 return;
@@ -2130,6 +2126,9 @@
             
             renderContacts();
             
+            
+
+           
             if (window.innerWidth > 768) {
                 
                 chatPanel.style.display = 'none';
@@ -2152,7 +2151,7 @@
                     emojiPicker.classList.remove('active');
                 }
                 
-              
+                
                 if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
                     document.getElementById('chatMenuDropdown').classList.remove('active');
                 }
