@@ -489,23 +489,25 @@
             text-overflow: ellipsis;
         }
 
-        .new-chat-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 12px 16px; 
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 15px; 
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%; 
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+            .new-chat-btn {
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                padding: 12px 16px; 
+                border-radius: 8px;
+                font-weight: 700;
+                font-size: 15px; 
+                cursor: pointer;
+                transition: all 0.3s;
+                width: 100%; 
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 15px;
+                flex-shrink: 0;
+            }
 
         .new-chat-btn:hover {
             background: var(--purple);
@@ -980,7 +982,8 @@
             align-items: center;
             color: var(--text);
             font-size: 0.75rem;
-            min-height: 40px; 
+            min-height: 40px;
+            flex-shrink: 0;
         }
 
         .footer-links {
@@ -1074,10 +1077,11 @@
                 display: flex;
                 border-right: none;
                 padding: 15px;
-                padding-bottom: 0;
+                padding-bottom: 10px;
                 margin-top: 80px;
                 overflow-y: auto;
-                height: calc(100vh - 140px);
+                overflow-x: hidden;
+                height: calc(100vh - 145px);
                 flex-direction: column;
             }
 
@@ -1086,9 +1090,30 @@
             }
             
             .contacts-list {
-                flex: 1;
+                flex: 0 1 auto;
                 overflow-y: visible;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+
+            .new-chat-btn {
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                padding: 12px 16px; 
+                border-radius: 8px;
+                font-weight: 700;
+                font-size: 15px; 
+                cursor: pointer;
+                transition: all 0.3s;
+                width: 100%; 
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 15px;
+                flex-shrink: 0;
             }
 
             
@@ -1211,22 +1236,27 @@
             footer {
                 display: block !important;
                 position: relative;
-                bottom: auto;
                 background: var(--bg-gray);
                 padding: 15px 10px 80px 10px;
                 font-size: 0.65rem;
                 text-align: center;
-                margin-top: auto;
+                margin-top: 15px;
+                width: 100%;
+                flex-shrink: 0;
             }
             
             footer p {
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
             
             .footer-links {
                 justify-content: center;
                 gap: 15px;
                 font-size: 0.65rem;
+            }
+            
+            .sidebar.hidden footer {
+                display: none !important;
             }
 
             
@@ -1369,7 +1399,7 @@
             
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="  Buscar amigos...">
+                <input type="text" id="searchInput" placeholder="buscar amigos...">
             </div>
             
             <div class="filters">
@@ -1677,7 +1707,7 @@
         const emojiPicker = document.getElementById('emojiPicker');
         const imageInput = document.getElementById('imageInput');
 
-        
+       
         const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👏', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
 
         
@@ -1771,7 +1801,7 @@
             const muteMenuItem = document.getElementById('muteMenuItem');
             const blockMenuItem = document.getElementById('blockMenuItem');
             
-          
+            
             if (activeFriend.blocked) {
                 statusIcon.textContent = '🚫';
                 statusIcon.title = 'Bloqueado';
@@ -1782,7 +1812,7 @@
                 statusIcon.textContent = '';
             }
             
-           
+            
             if (activeFriend.muted) {
                 muteMenuItem.innerHTML = '🔔 Activar notificaciones';
             } else {
@@ -1851,7 +1881,7 @@
                 chatPanel.classList.add('active');
                 sidebar.classList.add('hidden');
                 
-                
+               
                 const chatHeader = chatPanel.querySelector('.chat-header');
                 if (chatHeader) {
                     chatHeader.style.display = 'flex';
@@ -1928,7 +1958,7 @@
             
             messageInput.value = '';
             
-            
+           
             updateChatHeader();
             
             renderMessages();
@@ -1955,7 +1985,7 @@
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${msg.from === 'me' ? 'right' : 'left'}`;
                 
-               
+                
                 if (msg.image) {
                     bubble.innerHTML = `${msg.text ? msg.text + '<br>' : ''}<img src="${msg.image}" alt="Imagen">`;
                 } else {
@@ -2008,18 +2038,18 @@
             const file = e.target.files[0];
             if (!file || !activeFriend) return;
             
-            
+           
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona una imagen válida');
                 return;
             }
             
-           
+            
             const reader = new FileReader();
             reader.onload = function(event) {
                 const imageUrl = event.target.result;
                 
-               
+                
                 const newMessage = {
                     from: 'me',
                     text: messageInput.value.trim() || '',
@@ -2100,30 +2130,29 @@
             
             renderContacts();
             
-
-           
             if (window.innerWidth > 768) {
                 
                 chatPanel.style.display = 'none';
             }
             
-            
+           
             if (window.innerWidth <= 768) {
                 const footer = document.querySelector('footer');
                 const sidebar = document.getElementById('sidebar');
-                if (footer && sidebar) {
+                if (footer && sidebar && !sidebar.contains(footer)) {
                     sidebar.appendChild(footer);
+                    footer.style.display = 'block';
                 }
             }
             
-            
+           
             document.addEventListener('click', (e) => {
                 
                 if (!e.target.closest('#emojiBtn') && !e.target.closest('#emojiPicker')) {
                     emojiPicker.classList.remove('active');
                 }
                 
-                
+              
                 if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
                     document.getElementById('chatMenuDropdown').classList.remove('active');
                 }
