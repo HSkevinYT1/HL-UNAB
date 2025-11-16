@@ -33,32 +33,58 @@
             flex-direction: column;
         }
 
-        /* Header (Ahora sticky y consistente) */
+       
         header {
             background: #6b1fa8;
-            padding: 20px 50px; 
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky; 
+            position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-         .logo-container {
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
+            cursor: pointer;
+            text-decoration: none;
         }
 
-
         .logo-image {
-            height: 60px; 
+            height: 60px;
             width: auto;
             object-fit: contain;
             border-radius: 4px;
-            transition: transform 0.25s;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-left: 80px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.2);
         }
 
         .header-right {
@@ -66,33 +92,158 @@
             align-items: center;
             gap: 20px;
         }
+
         
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            padding: 8px;
+            transition: transform 0.3s;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+            background: white;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .notification-dropdown.active {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background: #e3f2fd;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .notification-item-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .notification-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 200px;
+            font-size: 14px;
+            transition: width 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            width: 240px;
+        }
+
+        .search-icon-header {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+
         .icon-btn {
             background: rgba(255,255,255,0.1);
-            width: 42px; 
+            color: white;
+            padding: 8px;
+            width: 42px;
             height: 42px;
-            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            text-decoration: none;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
         }
-
-        .perfil-btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
 
         .icon-btn:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-2px);
         }
 
-       /* ESTILOS DE USUARIO COPIADOS DE INDEX.HTML */
-       .user-menu {
-            position: relative;                            /* User Menu */
+        .icon-btn svg {
+            display: block;
+        }
+
+        .user-menu {
+            position: relative;
         }
 
         .user-button {
@@ -141,7 +292,7 @@
             right: 0;
             background: white;
             width: 220px;
-            border-radius: 12px;                                      /* User Dropdown */
+            border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             display: none;
             z-index: 2000;
@@ -187,7 +338,6 @@
                 transform: translateY(0);
             }
         }
-        /* FIN ESTILOS DE USUARIO */
 
         .container {
             flex: 1; 
@@ -200,7 +350,7 @@
             overflow: hidden;
         }
 
-        /* Sidebar */
+        
         .sidebar {
             background: #fff;
             border-radius: 0; 
@@ -250,30 +400,35 @@
 
         .filters {
             display: flex;
-            gap: 0.5vw;
-            margin-bottom: 1vh;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 0.6vh 0.8vw;
-            border-radius: 16px;
-            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--light-gray);
             font-weight: 600;
-            font-size: clamp(10px, 1.3vh, 13px);
-            background: var(--bg-gray);
+            font-size: 13px;
+            background: white;
             color: var(--text);
             cursor: pointer;
             transition: all 0.3s;
+            flex: 1;
+            min-width: fit-content;
         }
 
         .filter-btn.active {
             background: var(--accent);
             color: #fff;
+            border-color: var(--accent);
         }
 
         .filter-btn:hover {
             background: var(--accent);
             color: #fff;
+            border-color: var(--accent);
         }
 
         .contacts-list {
@@ -282,7 +437,6 @@
             margin-bottom: 10px;
         }
 
-        /* Contactos más grandes */
         .contact-item {
             display: flex;
             align-items: center;
@@ -335,27 +489,165 @@
             text-overflow: ellipsis;
         }
 
-        /* Botón Nuevo chat centrado */
         .new-chat-btn {
             background: var(--accent);
             color: #fff;
             border: none;
-            padding: 1.2vh 0.8vw; 
-            border-radius: 6px;
+            padding: 12px 16px; 
+            border-radius: 8px;
             font-weight: 700;
-            font-size: clamp(12px, 1.7vh, 16px); 
+            font-size: 15px; 
             cursor: pointer;
             transition: all 0.3s;
             width: 100%; 
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .new-chat-btn:hover {
             background: var(--purple);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(134, 0, 221, 0.3);
+        }
+
+        .new-chat-btn:active {
+            transform: translateY(0);
+        }
+
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #f44336;
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fafafa;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            background: #e0e0e0;
+            color: #666;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-add {
+            flex: 1;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(134, 0, 221, 0.4);
         }
         
-        /* Chat Panel */
+        
         .chat-panel {
             background: #fff;
             border-radius: 0; 
@@ -376,6 +668,16 @@
             border-bottom: 1px solid #ddd;
         }
 
+        .back-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text);
+            padding: 5px;
+        }
+
         .chat-avatar {
             width: clamp(32px, 4vh, 42px);
             height: clamp(32px, 4vh, 42px);
@@ -392,21 +694,78 @@
 
         .chat-menu {
             color: #666;
-            font-size: clamp(16px, 2.2vh, 22px);
+            font-size: 24px;
             cursor: pointer;
+            padding: 5px 10px;
+            transition: background 0.2s;
+            border-radius: 6px;
+        }
+
+        .chat-menu:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        
+        .chat-menu-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            min-width: 200px;
+            animation: slideDown 0.3s;
+        }
+
+        .chat-menu-dropdown.active {
+            display: block;
+        }
+
+        .chat-menu-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .chat-menu-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .chat-menu-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+        }
+
+        .chat-menu-item:hover {
+            background: #f9f9f9;
+        }
+
+        .chat-menu-item.danger {
+            color: #f44336;
+        }
+
+        .chat-menu-item.danger:hover {
+            background: #ffebee;
         }
 
         .messages-container {
             flex: 1;
-            padding: 2vh 1.5vw;
+            padding: 20px 20px;
             overflow-y: auto;
             background: #fff;
             display: flex;
             flex-direction: column;
-            gap: 1.5vh; 
+            gap: 16px;
         }
 
-        /* ESTILOS PARA LA BARRA DE DESPLAZAMIENTO (SCROLLBAR) */
         .messages-container::-webkit-scrollbar {
             width: 8px; 
             height: 8px;
@@ -426,26 +785,25 @@
         .messages-container::-webkit-scrollbar-thumb:hover {
             background-color: #a0a0a0; 
         }
-        /* FIN DE ESTILOS DE SCROLLBAR */
-
 
         .message-row {
             display: flex;
-            gap: 0.8vw;
+            gap: 10px;
             align-items: flex-end;
+            margin-bottom: 8px;
         }
 
         .message-row.right {
             justify-content: flex-end;
         }
 
-        /* Mensajes más grandes */
         .message-bubble {
             max-width: 65%; 
-            padding: 1.5vh 1.5vw; 
-            border-radius: 20px; 
+            padding: 12px 16px; 
+            border-radius: 18px; 
             word-wrap: break-word;
-            font-size: clamp(13px, 1.8vh, 16px); 
+            font-size: 15px;
+            line-height: 1.4;
         }
 
         .message-bubble.left {
@@ -461,35 +819,85 @@
         }
 
         .message-avatar {
-            width: clamp(28px, 3.5vh, 38px);
-            height: clamp(28px, 3.5vh, 38px);
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: #fff;
             border: 2px solid var(--light-gray);
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
         }
 
         .chat-input-container {
-            padding: 1.2vh 1.5vw;
+            padding: 12px 20px;
             border-top: 1px solid var(--light-gray);
             display: flex;
-            gap: 0.8vw;
+            gap: 10px;
             align-items: center;
+            background: white;
         }
 
-        .emoji-btn {
-            font-size: clamp(16px, 2vh, 20px);
+        .emoji-btn, .input-icon {
+            font-size: 22px;
             cursor: pointer;
             background: none;
             border: none;
+            padding: 5px;
+            transition: transform 0.2s;
+            color: #666;
+        }
+
+        .emoji-btn:hover, .input-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .emoji-btn:active, .input-icon:active {
+            transform: scale(0.95);
+        }
+
+        
+        .emoji-picker {
+            position: absolute;
+            bottom: 70px;
+            left: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            padding: 15px;
+            display: none;
+            z-index: 1000;
+            max-width: 300px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .emoji-picker.active {
+            display: flex;
+        }
+
+        .emoji-item {
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .emoji-item:hover {
+            background: var(--bg-gray);
         }
 
         .chat-input {
             flex: 1;
-            padding: 1vh 1vw;
+            padding: 10px 15px;
             border-radius: 20px;
             border: 1px solid var(--light-gray);
-            font-size: clamp(11px, 1.5vh, 14px);
+            font-size: 14px;
             background: var(--bg-gray);
         }
 
@@ -500,24 +908,18 @@
 
         .input-icons {
             display: flex;
-            gap: 0.8vw;
+            gap: 10px;
             align-items: center;
-        }
-
-        .input-icon {
-            cursor: pointer;
-            color: #666;
-            font-size: clamp(16px, 2vh, 20px);
         }
 
         .send-btn {
             background: var(--accent);
             color: #fff;
             border: none;
-            width: clamp(32px, 4vh, 42px);
-            height: clamp(32px, 4vh, 42px);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            font-size: clamp(18px, 2.5vh, 24px);
+            font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -530,7 +932,15 @@
             transform: scale(1.1);
         }
 
-        /* Footer - CORRECCIÓN: Fondo igual al color principal de la página (--bg-gray) */
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+    
+        .file-input {
+            display: none;
+        }
+
         footer {
             background: var(--bg-gray); 
             padding: 20px 50px; 
@@ -557,25 +967,12 @@
             color: var(--accent);
         }
 
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-                padding: 0 20px; 
-            }
-            
-            .sidebar {
-                display: none;
-            }
-
-            .chat-panel {
-                border-radius: 12px;
-            }
-
-            .chat-header {
-                border-radius: 12px 12px 0 0;
-            }
+        
+        .mobile-nav {
+            display: none;
         }
 
+       
         @media (max-width: 768px) {
             header {
                 padding: 15px 20px;
@@ -585,15 +982,173 @@
                 height: 50px;
             }
 
+            
+            .nav-menu {
+                display: none !important;
+            }
+
+            
+            .icon-btn {
+                display: none !important;
+            }
+
+            
+            .search-container {
+                display: none !important;
+            }
+
+            .notification-bell {
+                font-size: 18px;
+                padding: 4px;
+            }
+
+            .notification-dropdown {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+
+            .user-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .user-name-display {
+                display: none !important;
+            }
+
+            .user-dropdown {
+                right: 0;
+                width: 200px;
+            }
+
+            
             .container {
-                padding: 0 15px;
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+
+            
+            .sidebar {
+                display: flex;
+                border-right: none;
+                padding: 15px;
+                padding-bottom: 90px; 
+            }
+
+            .sidebar.hidden {
+                display: none;
+            }
+
+            
+            .chat-panel {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 999;
+                padding-bottom: 80px; 
+            }
+
+            .chat-panel.active {
+                display: flex;
+            }
+
+            
+            .back-btn {
+                display: block !important;
+            }
+
+            .chat-header {
+                padding: 15px;
+            }
+
+            .messages-container {
+                padding: 15px;
+            }
+
+            .chat-input-container {
+                padding: 10px 15px;
+            }
+
+            .message-bubble {
+                max-width: 75%;
+                padding: 10px 15px;
+            }
+
+            .emoji-picker {
+                left: 10px;
+                right: 10px;
+                max-width: none;
+                bottom: 65px;
+            }
+
+            .chat-menu-dropdown {
+                right: 10px;
+                left: auto;
             }
 
             footer {
+                display: none !important;
+            }
+
+            
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
                 flex-direction: column;
-                gap: 15px;
-                padding: 20px;
-                text-align: center;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+
+            .mobile-nav-item.active {
+                color: #8600DD;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.95);
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-title {
+                font-size: 20px;
+            }
+
+            .contact-item {
+                padding: 12px 10px;
+            }
+
+            .contact-avatar {
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
@@ -601,21 +1156,58 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
-        
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
+        </nav>
+
         <div class="header-right">
-            
-            <span class="icon-btn" aria-label="Chat" title="Chat" style="pointer-events: none; background: rgba(255, 255, 255, 0.4);">
+            <a href="Amigos.html" class="icon-btn" aria-label="Amigos">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
-            </span>
-            
+            </a>
+
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" placeholder="Buscar...">
+                <span class="search-icon-header">🔍</span>
+            </div>
+
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()">
+                🔔
+                <span class="notification-badge">2</span>
+            </div>
+
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">Notificaciones</div>
+                <div class="notification-list">
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Nuevo mensaje</div>
+                        <div class="notification-item-text">Achli te envió un mensaje</div>
+                        <div class="notification-item-time">Hace 5 minutos</div>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Recordatorio</div>
+                        <div class="notification-item-text">Reunión de grupo a las 3:00 PM</div>
+                        <div class="notification-item-time">Hace 1 hora</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-item-title">Evento próximo</div>
+                        <div class="notification-item-text">Conferencia de tecnología mañana</div>
+                        <div class="notification-item-time">Hace 2 horas</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="user-menu">
-                <div class="user-button" onclick="toggleUserMenu()">    
-                    <span class="user-name-display" id="userNameDisplay">Usuario</span>         
-                    <div class="user-icon">👤</div>
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display" id="userNameDisplay">Kevin</span>
+                    <div class="user-icon" id="userIcon">👤</div>
                 </div>
 
                 <div class="user-dropdown" id="userDropdown">
@@ -623,7 +1215,7 @@
                         👤 Mi Perfil
                     </div>
                     <div class="user-dropdown-item" onclick="viewSettings()">
-                        ⚙️ Configuración                                                
+                        ⚙️ Configuración
                     </div>
                     <div class="user-dropdown-item" onclick="viewHelp()">
                         ❓ Ayuda
@@ -633,11 +1225,11 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </header>
 
     <div class="container">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-title">Amigos y chat</div>
             
             <div class="search-box">
@@ -651,72 +1243,175 @@
                 <button class="filter-btn" data-filter="groups">Grupos</button>
             </div>
             
-            <div class="contacts-list" id="contactsList">
-                </div>
+            <div class="contacts-list" id="contactsList"></div>
             
-            <button class="new-chat-btn" id="newChatBtn">Nuevo chat</button>
+            <button class="new-chat-btn" id="newChatBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                Agregar amigo
+            </button>
         </aside>
 
-        <section class="chat-panel">
+        <section class="chat-panel" id="chatPanel">
             <div class="chat-header">
+                <button class="back-btn" id="backBtn" onclick="closeChatMobile()">←</button>
                 <div class="chat-avatar" id="chatAvatar"></div>
                 <div class="chat-user-name" id="chatUserName">Lee</div>
-                <div class="chat-menu">•••</div>
+                <div class="chat-menu" id="chatMenuBtn" onclick="toggleChatMenu()">⋮</div>
             </div>
 
-            <div class="messages-container" id="messagesContainer">
+            <div class="chat-menu-dropdown" id="chatMenuDropdown">
+                <div class="chat-menu-item" onclick="viewContactInfo()">
+                    👤 Ver información
                 </div>
+                <div class="chat-menu-item" onclick="muteContact()">
+                    🔕 Silenciar notificaciones
+                </div>
+                <div class="chat-menu-item danger" onclick="blockContact()">
+                    🚫 Bloquear contacto
+                </div>
+                <div class="chat-menu-item danger" onclick="deleteContact()">
+                    🗑️ Eliminar chat
+                </div>
+            </div>
+
+            <div class="messages-container" id="messagesContainer"></div>
+
+            <div class="emoji-picker" id="emojiPicker"></div>
 
             <div class="chat-input-container">
-                <button class="emoji-btn">😀</button>
+                <button class="emoji-btn" id="emojiBtn" onclick="toggleEmojiPicker()">😀</button>
                 <input type="text" class="chat-input" id="messageInput" placeholder="Mensaje...">
                 <div class="input-icons">
-                    <span class="input-icon">🎙</span>
-                    <span class="input-icon">📷</span>
+                    <label for="audioInput" class="input-icon" title="Grabar audio">🎙</label>
+                    <input type="file" id="audioInput" class="file-input" accept="audio/*">
+                    
+                    <label for="imageInput" class="input-icon" title="Adjuntar imagen">📷</label>
+                    <input type="file" id="imageInput" class="file-input" accept="image/*">
                 </div>
-                <button class="send-btn" id="sendMessageBtn">+</button>
+                <button class="send-btn" id="sendMessageBtn">➤</button>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>© 2025 Universidad Autonoma de Bucaramanga</p>
+        <p>© 2025 Universidad Autónoma de Bucaramanga</p>
         <div class="footer-links">
             <a href="#">Acerca de</a>
-            <a href="Soporte.html">soporte</a>
+            <a href="soporte.html">soporte</a>
         </div>
     </footer>
 
+    
+    <div class="modal" id="addFriendModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Agregar nuevo amigo</h2>
+                <button class="close-modal" onclick="closeAddFriendModal()">✕</button>
+            </div>
+            <form id="addFriendForm">
+                <div class="form-group">
+                    <label>Nombre del amigo *</label>
+                    <input type="text" id="friendName" required placeholder="Ej: María García">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje inicial (opcional)</label>
+                    <input type="text" id="friendMessage" placeholder="Hola! 👋">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeAddFriendModal()">Cancelar</button>
+                    <button type="submit" class="btn-add">✓ Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
+
     <script>
-        // Inicialización de sesión (clave para el menú)
         let isLoggedIn = !!localStorage.getItem('userName'); 
-        
-        // --- FUNCIONES DE SESIÓN Y MENÚ (COPIADAS DE INDEX.HTML) ---
+
         function updateUI(user) {
-            const userName = user || localStorage.getItem('userName') || 'Usuario';
-            
-            // Si no hay sesión, redirige a index.html o muestra un error (depende de la lógica de seguridad). 
-            // Para mantener la funcionalidad de chat, simplemente actualizamos el menú.
+            const userName = user || localStorage.getItem('userName') || 'Invitado';
+            const firstName = userName.split(' ')[0];
+            const initial = firstName.charAt(0).toUpperCase();
             
             const nameDisplay = document.getElementById('userNameDisplay');
+            const userIcon = document.getElementById('userIcon');
+            
             if (nameDisplay) {
-                nameDisplay.textContent = userName.split(' ')[0]; // Mostrar solo el primer nombre
+                nameDisplay.textContent = firstName;
                 nameDisplay.classList.toggle('active', isLoggedIn);
             }
+            
+            if (userIcon) {
+                userIcon.textContent = (firstName === 'Invitado') ? '👤' : initial;
+            }
+
+            
+            document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
+            document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
+
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleNotifications() {
+            if (!isLoggedIn) return;
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+            document.getElementById('userDropdown').classList.remove('active');
         }
 
         function toggleUserMenu() {
             if (!isLoggedIn) {
-                // Si la sesión caducó mientras estaba en el chat, redirigir al login
                 window.location.href = 'index.html';
                 return;
             }
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
+            document.getElementById('notificationDropdown').classList.remove('active');
         }
 
         function viewProfile() {
-            window.location.href = 'perfil.html';
+            if (isLoggedIn) {
+                window.location.href = 'perfil.html';
+            }
         }
 
         function viewSettings() {
@@ -725,18 +1420,16 @@
         }
 
         function viewHelp() {
-            alert('Ayuda - Funcionalidad en desarrollo');
+            window.location.href = 'soporte.html';
             document.getElementById('userDropdown').classList.remove('active');
         }
 
         function logout() {
             localStorage.removeItem('userName');
             isLoggedIn = false;
-            // Redirigir a la página de inicio de sesión
             window.location.href = 'index.html';
         }
         
-        // Cierre de dropdown al hacer click fuera
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.user-menu')) {
                 const userDropdown = document.getElementById('userDropdown');
@@ -744,13 +1437,13 @@
                     userDropdown.classList.remove('active');
                 }
             }
+            if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
+                document.getElementById('notificationDropdown').classList.remove('active');
+            }
         });
-        // --- FIN FUNCIONES DE SESIÓN Y MENÚ ---
 
         
-        // Script de chat original (ajustado para usar la sesión)
         const friends = [
-            // ... (Lista de amigos)
             {
                 id: 1,
                 name: 'Achli',
@@ -828,13 +1521,166 @@
         const messageInput = document.getElementById('messageInput');
         const sendMessageBtn = document.getElementById('sendMessageBtn');
         const searchInput = document.getElementById('searchInput');
+        const sidebar = document.getElementById('sidebar');
+        const chatPanel = document.getElementById('chatPanel');
+        const emojiPicker = document.getElementById('emojiPicker');
 
-        // Renderizar lista de contactos
+        // Emojis comunes
+        const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👏', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
+
+        
+        let currentFilter = 'all';
+
+        
+        function openAddFriendModal() {
+            document.getElementById('addFriendModal').classList.add('active');
+        }
+
+        
+        function closeAddFriendModal() {
+            document.getElementById('addFriendModal').classList.remove('active');
+            document.getElementById('addFriendForm').reset();
+        }
+
+        
+        function toggleEmojiPicker() {
+            emojiPicker.classList.toggle('active');
+            if (emojiPicker.classList.contains('active') && emojiPicker.children.length === 0) {
+                renderEmojiPicker();
+            }
+        }
+
+        
+        function renderEmojiPicker() {
+            emojiPicker.innerHTML = '';
+            commonEmojis.forEach(emoji => {
+                const emojiSpan = document.createElement('span');
+                emojiSpan.className = 'emoji-item';
+                emojiSpan.textContent = emoji;
+                emojiSpan.onclick = () => insertEmoji(emoji);
+                emojiPicker.appendChild(emojiSpan);
+            });
+        }
+
+        
+        function insertEmoji(emoji) {
+            const input = document.getElementById('messageInput');
+            input.value += emoji;
+            input.focus();
+            emojiPicker.classList.remove('active');
+        }
+
+        
+        function toggleChatMenu() {
+            const dropdown = document.getElementById('chatMenuDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        
+        function viewContactInfo() {
+            alert(`📋 Información de ${activeFriend.name}\n\nÚltima vez en línea: Hace 5 min`);
+            document.getElementById('chatMenuDropdown').classList.remove('active');
+        }
+
+        function muteContact() {
+            alert(`🔕 Notificaciones silenciadas para ${activeFriend.name}`);
+            document.getElementById('chatMenuDropdown').classList.remove('active');
+        }
+
+        function blockContact() {
+            if (confirm(`¿Estás seguro de bloquear a ${activeFriend.name}?`)) {
+                alert(`🚫 ${activeFriend.name} ha sido bloqueado`);
+                document.getElementById('chatMenuDropdown').classList.remove('active');
+            }
+        }
+
+        function deleteContact() {
+            if (confirm(`¿Estás seguro de eliminar el chat con ${activeFriend.name}?`)) {
+                const index = friends.findIndex(f => f.id === activeFriend.id);
+                if (index > -1) {
+                    friends.splice(index, 1);
+                    if (friends.length > 0) {
+                        selectFriend(friends[0].id);
+                    }
+                    renderContacts();
+                    alert(`🗑️ Chat eliminado`);
+                }
+                document.getElementById('chatMenuDropdown').classList.remove('active');
+                closeChatMobile();
+            }
+        }
+
+        
+        function addNewFriend(name, initialMessage) {
+            const colors = ['#F8BBD0', '#C5CAE9', '#FFE0B2', '#C8E6C9', '#FFCCBC', '#B2DFDB', '#F0E68C', '#E1BEE7', '#BBDEFB'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const newFriend = {
+                id: friends.length + 1,
+                name: name,
+                last: initialMessage || 'Nuevo amigo agregado',
+                avatarColor: randomColor,
+                messages: initialMessage ? [{from: 'me', text: initialMessage}] : []
+            };
+            
+            friends.unshift(newFriend); 
+            renderContacts();
+            
+            
+            alert(`¡${name} ha sido agregado a tus amigos! 🎉`);
+        }
+
+        
+        function closeChatMobile() {
+            chatPanel.classList.remove('active');
+            sidebar.classList.remove('hidden');
+        }
+
+        
+        function openChatMobile() {
+            if (window.innerWidth <= 768) {
+                chatPanel.classList.add('active');
+                sidebar.classList.add('hidden');
+            }
+        }
+
+        
         function renderContacts(filter = '') {
             contactsList.innerHTML = '';
-            const filtered = friends.filter(f => 
+            
+            
+            let filtered = friends.filter(f => 
                 f.name.toLowerCase().includes(filter.toLowerCase())
             );
+
+           
+            if (currentFilter === 'online') {
+                
+                filtered = filtered.slice(0, Math.ceil(filtered.length / 2));
+            } else if (currentFilter === 'groups') {
+                
+                if (filter === '') {
+                    contactsList.innerHTML = `
+                        <div style="text-align: center; padding: 40px 20px; color: #999;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">💬</div>
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">No hay grupos</div>
+                            <div style="font-size: 13px;">Los grupos aparecerán aquí</div>
+                        </div>
+                    `;
+                    return;
+                }
+                filtered = [];
+            }
+
+            if (filtered.length === 0 && filter !== '') {
+                contactsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #999;">
+                        <div style="font-size: 48px; margin-bottom: 10px;">🔍</div>
+                        <div style="font-size: 14px;">No se encontraron amigos</div>
+                    </div>
+                `;
+                return;
+            }
 
             filtered.forEach(friend => {
                 const contactDiv = document.createElement('div');
@@ -858,16 +1704,17 @@
             });
         }
 
-        // Seleccionar amigo
+        
         function selectFriend(id) {
             activeFriend = friends.find(f => f.id === id);
             chatUserName.textContent = activeFriend.name;
             chatAvatar.style.background = activeFriend.avatarColor;
             renderMessages();
             renderContacts();
+            openChatMobile(); 
         }
 
-        // Renderizar mensajes
+        
         function renderMessages() {
             messagesContainer.innerHTML = '';
             
@@ -883,12 +1730,15 @@
                     messageRow.appendChild(bubble);
                     const avatar = document.createElement('div');
                     avatar.className = 'message-avatar';
-                    // Nota: Aquí podrías usar el avatar del usuario logueado
+                    avatar.style.background = '#d4b3e8';
+                    const userName = localStorage.getItem('userName') || 'Usuario';
+                    avatar.textContent = userName.charAt(0).toUpperCase();
                     messageRow.appendChild(avatar);
                 } else {
                     const avatar = document.createElement('div');
                     avatar.className = 'message-avatar';
                     avatar.style.background = activeFriend.avatarColor;
+                    avatar.textContent = activeFriend.name.charAt(0);
                     messageRow.appendChild(avatar);
                     messageRow.appendChild(bubble);
                 }
@@ -899,7 +1749,7 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Enviar mensaje
+        
         function sendMessage() {
             const text = messageInput.value.trim();
             if (!text || !activeFriend) return;
@@ -909,7 +1759,7 @@
             renderMessages();
             messageInput.value = '';
             
-            // Respuesta automática de demostración
+           
             setTimeout(() => {
                 const reply = {from: 'other', text: 'Respuesta automática de prueba'};
                 activeFriend.messages.push(reply);
@@ -917,7 +1767,7 @@
             }, 800);
         }
 
-        // Event listeners
+       
         sendMessageBtn.addEventListener('click', sendMessage);
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
@@ -928,33 +1778,66 @@
         });
 
         document.getElementById('newChatBtn').addEventListener('click', () => {
-            alert('Funcionalidad de nuevo chat - En desarrollo');
+            openAddFriendModal();
         });
 
-        // Filtros
+        
+        document.getElementById('addFriendForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('friendName').value.trim();
+            const message = document.getElementById('friendMessage').value.trim();
+            
+            if (name) {
+                addNewFriend(name, message);
+                closeAddFriendModal();
+            }
+        });
+
+       
+        document.getElementById('addFriendModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('addFriendModal')) {
+                closeAddFriendModal();
+            }
+        });
+
+        
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderContacts(searchInput.value);
             });
         });
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-             // Redirigir si no hay sesión iniciada (doble verificación de seguridad)
-            if (!localStorage.getItem('userName')) {
-                // En un entorno de producción, esto debería redirigir inmediatamente
-                // window.location.href = 'index.html'; 
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                
+                sidebar.classList.remove('hidden');
+                chatPanel.classList.remove('active');
             }
-            
-            // Inicializar la interfaz de usuario al cargar la página
+        });
+
+       
+        document.addEventListener('DOMContentLoaded', () => {
             const storedUserName = localStorage.getItem('userName');
-            updateUI(storedUserName); 
+            
+            if (isLoggedIn && storedUserName) {
+                updateUI(storedUserName);
+            } else {
+                window.location.href = 'index.html';
+                return;
+            }
             
             renderContacts();
             renderMessages();
+
+           
+            if (window.innerWidth > 768) {
+                chatPanel.style.display = 'flex';
+            }
         });
     </script>
 </body>
 </html>
-
