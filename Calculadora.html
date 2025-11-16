@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas - UNAB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #6b1fa8;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-left: 80px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .perfil-btn {
+            background: white;
+            color: #6b1fa8;
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .perfil-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .user-name-display {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #6b1fa8;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-dropdown-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+            color: #f44336;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f9f9f9;
+        }
+
+        .main-content {
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .config-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fafafa;
+            transition: border 0.3s;
+        }
+
+        select:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #8600DD;
+        }
+
+        .notes-table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        .table-header {
+            background: #f0f0f0;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .notes-table th,
+        .notes-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .notes-table input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 16px;
+            background: #fafafa;
+        }
+
+        .notes-table input[type="text"] {
+            border: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .notes-table input[type="text"]:focus {
+            border: 1px solid #8600DD;
+            background: #fafafa;
+        }
+
+        .notes-table input:focus {
+            outline: none;
+            border-color: #8600DD;
+        }
+
+        .results-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .result-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .result-value {
+            background: linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            font-size: 64px;
+            font-weight: 700;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .result-description {
+            flex: 1;
+            padding-left: 30px;
+            font-size: 20px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #8600DD;
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            background: #6b1fa8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 47, 201, 0.4);
+        }
+
+        footer {
+            background: white;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #8600DD;
+        }
+
+        @media (max-width: 1024px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+        }
+
+        /* Barra de navegación móvil (oculta en desktop) */
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-image {
+                height: 50px;
+            }
+
+            .nav-menu {
+                display: none !important;
+            }
+
+            .user-name-display {
+                display: none !important;
+            }
+
+            .perfil-btn {
+                display: none !important;
+            }
+
+            .header-right {
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+                padding-bottom: 100px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .config-section,
+            .results-section {
+                padding: 25px;
+            }
+
+            .result-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .result-value {
+                min-width: 100%;
+                margin-bottom: 20px;
+                font-size: 48px;
+                padding: 30px;
+            }
+
+            .result-description {
+                padding-left: 0;
+                font-size: 16px;
+            }
+
+            footer {
+                display: none !important;
+            }
+
+            /* Barra de navegación móvil inferior */
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+
+            .mobile-nav-item.active {
+                color: #8600DD;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.95);
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
+        </a>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html" class="active">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
+        </nav>
+
+        <div class="header-right">
+            <a href="Amigos.html" class="perfil-btn" aria-label="Amigos">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </a>
+
+            <div class="user-menu">
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display" id="userNameDisplay">Kevin</span>
+                    <div class="user-icon">👤</div>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="viewProfile()">
+                        👤 Mi Perfil
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewSettings()">
+                        ⚙️ Configuración
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewHelp()">
+                        ❓ Ayuda
+                    </div>
+                    <div class="user-dropdown-item" onclick="logout()">
+                        🚪 Cerrar Sesión
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <h1>Calculadora de notas</h1>
+
+        <div class="calculator-container">
+            <div class="config-section">
+                <h2 class="section-title">Configuración de nota</h2>
+
+                <div class="input-group">
+                    <label>Meta de promedio:</label>
+                    <input type="number" id="targetGrade" placeholder="Ej: 3.5" min="0" max="5" step="0.1">
+                </div>
+
+                <div class="input-group">
+                    <label>Ingreso de notas y valor</label>
+                    <table class="notes-table">
+                        <thead>
+                            <tr class="table-header">
+                                <th>Valor de nota</th>
+                                <th>Valor (%)</th>
+                                <th>Nota obtenida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" id="nombre1" placeholder="Ej: Parcial 1"></td>
+                                <td><input type="number" id="peso1" placeholder="30" min="0" max="100" step="1"></td>
+                                <td><input type="number" id="parcial1" placeholder="?" min="0" max="5" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="nombre2" placeholder="Ej: Parcial 2"></td>
+                                <td><input type="number" id="peso2" placeholder="30" min="0" max="100" step="1"></td>
+                                <td><input type="number" id="parcial2" placeholder="?" min="0" max="5" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="nombre3" placeholder="Ej: Proyecto"></td>
+                                <td><input type="number" id="peso3" placeholder="40" min="0" max="100" step="1"></td>
+                                <td><input type="number" id="proyecto" placeholder="?" min="0" max="5" step="0.1"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2 class="section-title">Resultados y Análisis</h2>
+
+                <div class="result-card">
+                    <div class="result-value" id="resultValue">?</div>
+                    <div class="result-description" id="resultDescription">Ingresa tus datos para calcular</div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateGrade()">Calcular nota</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Universidad Autonoma de Bucaramanga</p>
+        <div class="footer-links">
+            <a href="#">Acerca de</a>
+            <a href="soporte.html">soporte</a>
+        </div>
+    </footer>
+
+    <!-- Barra de navegación móvil (solo visible en móviles) -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
+
+    <script>
+        // Cargar nombre de usuario si está logueado
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+                document.getElementById('navMenu').style.display = 'flex';
+            } else {
+                // Redirigir a login si no está autenticado
+                window.location.href = 'index.html';
+            }
+        });
+
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function viewProfile() {
+            window.location.href = 'perfil.html';
+        }
+
+        function viewSettings() {
+            alert('Configuración - Funcionalidad en desarrollo');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function viewHelp() {
+            window.location.href = 'soporte.html';
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+                localStorage.removeItem('userName');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+
+        function calculateGrade() {
+            // Verificar que los elementos existan
+            if (!document.getElementById('targetGrade')) return;
+
+            const targetGrade = parseFloat(document.getElementById('targetGrade').value);
+            
+            // Obtener las notas ingresadas
+            const parcial1 = parseFloat(document.getElementById('parcial1').value);
+            const parcial2 = parseFloat(document.getElementById('parcial2').value);
+            const proyecto = parseFloat(document.getElementById('proyecto').value);
+
+            // Obtener los pesos (convertir de porcentaje a decimal)
+            const peso1 = parseFloat(document.getElementById('peso1').value) / 100;
+            const peso2 = parseFloat(document.getElementById('peso2').value) / 100;
+            const pesoProyecto = parseFloat(document.getElementById('peso3').value) / 100;
+
+            // Obtener los nombres de las notas
+            const nombre1 = document.getElementById('nombre1').value || 'nota 1';
+            const nombre2 = document.getElementById('nombre2').value || 'nota 2';
+            const nombre3 = document.getElementById('nombre3').value || 'nota 3';
+
+            const resultElement = document.getElementById('resultValue');
+            const descriptionElement = document.getElementById('resultDescription');
+
+            // Validar que haya meta de promedio
+            if (isNaN(targetGrade)) {
+                resultElement.textContent = '?';
+                resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
+                descriptionElement.textContent = 'Ingresa tu meta de promedio';
+                return;
+            }
+
+            let notaNecesaria = 0;
+            let campoVacio = '';
+
+            // Determinar qué campo está vacío y calcular la nota necesaria
+            if (isNaN(parcial1) && !isNaN(parcial2) && !isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
+                // Falta Parcial 1
+                if (peso1 === 0) {
+                    resultElement.textContent = 'N/A';
+                    descriptionElement.textContent = `El peso de ${nombre1} es 0%`;
+                    return;
+                }
+                notaNecesaria = (targetGrade - (parcial2 * peso2) - (proyecto * pesoProyecto)) / peso1;
+                campoVacio = nombre1;
+            } else if (!isNaN(parcial1) && isNaN(parcial2) && !isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
+                // Falta Parcial 2
+                if (peso2 === 0) {
+                    resultElement.textContent = 'N/A';
+                    descriptionElement.textContent = `El peso de ${nombre2} es 0%`;
+                    return;
+                }
+                notaNecesaria = (targetGrade - (parcial1 * peso1) - (proyecto * pesoProyecto)) / peso2;
+                campoVacio = nombre2;
+            } else if (!isNaN(parcial1) && !isNaN(parcial2) && isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
+                // Falta Proyecto
+                if (pesoProyecto === 0) {
+                    resultElement.textContent = 'N/A';
+                    descriptionElement.textContent = `El peso de ${nombre3} es 0%`;
+                    return;
+                }
+                notaNecesaria = (targetGrade - (parcial1 * peso1) - (parcial2 * peso2)) / pesoProyecto;
+                campoVacio = nombre3;
+            } else {
+                // Ningún campo vacío o más de uno vacío o faltan porcentajes
+                resultElement.textContent = '?';
+                resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
+                descriptionElement.textContent = 'Completa los datos correctamente';
+                return;
+            }
+
+            // Mostrar resultado
+            if (notaNecesaria > 5) {
+                resultElement.textContent = notaNecesaria.toFixed(1);
+                resultElement.style.background = 'linear-gradient(135deg, #f44336 0%, #c62828 100%)';
+            } else if (notaNecesaria < 0) {
+                resultElement.textContent = '0.0';
+                resultElement.style.background = 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)';
+            } else {
+                resultElement.textContent = notaNecesaria.toFixed(1);
+                resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
+            }
+
+            // Actualizar el texto descriptivo
+            descriptionElement.textContent = `Nota requerida en ${campoVacio}`;
+        }
+    </script>
+</body>
+</html>
