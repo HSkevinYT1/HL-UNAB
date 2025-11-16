@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horas libres UNAB</title>
     <style>
-        /* ... Tu CSS anterior (no modificado) ... */
         * {
             margin: 0;
             padding: 0;
@@ -35,82 +34,21 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: px;
+            gap: 15px;
             cursor: pointer;
-        }
-
-        .logo-unab {
-            height: 40px;
-            width: auto;
-            transition: transform 0.3s;
-        }
-
-        .logo-unab:hover {
-            transform: scale(1.05);
-        }
-
-        .logo {
-            padding: 8px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-icon {
-            width: 30px;
-            height: 30px;
-            background: white;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 8px;
-            border: 3px solid #f9a825;
-            border-radius: 2px;
         }
 
         .logo-image {
             height: 60px;
-            width: auto;                      /* Ajuste: mantener proporción */
+            width: auto;
             object-fit: contain;
             border-radius: 4px;
             transition: transform 0.25s;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            color: white;
-        }
-
-        .logo-text span:first-child {
-            font-size: 14px;
-            font-weight: 300;
-        }
-
-        .logo-text span:last-child {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f9a825;
-            line-height: 0.9;
-        }
-
-        
         .nav-menu {
             display: flex;
-            gap: 30px;                      /* Navigation Menu */
+            gap: 30px;
             align-items: center;
             margin-left: 80px;
         }
@@ -136,10 +74,9 @@
             gap: 20px;
         }
 
-        
         .notification-bell {
             position: relative;
-            cursor: pointer;                                 /* Notifications Bell */
+            cursor: pointer;
             color: white;
             font-size: 24px;
             padding: 8px;
@@ -172,12 +109,11 @@
             50% { transform: scale(1.1); }
         }
 
-        
         .notification-dropdown {
             position: absolute;
             top: 70px;
             right: 50px;
-            background: white;                              /* Dropdown Notification Panel */
+            background: white;
             width: 350px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
@@ -245,9 +181,8 @@
             margin-top: 5px;
         }
 
-        
         .search-container {
-            position: relative;                        
+            position: relative;
         }
 
         .search-input {
@@ -273,9 +208,8 @@
             pointer-events: none;
         }
 
-       
         .user-menu {
-            position: relative;                            /* User Menu */
+            position: relative;
         }
 
         .user-button {
@@ -335,14 +269,13 @@
             color: #2b5a9e;
         }
 
-        
         .user-dropdown {
             position: absolute;
             top: 60px;
             right: 0;
             background: white;
             width: 220px;
-            border-radius: 12px;                                      /* User Dropdown */
+            border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             display: none;
             z-index: 2000;
@@ -470,56 +403,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .profile-placeholder {
-            background: #f5f5f5;
-            padding: 30px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .avatar-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #c4d4e8;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .avatar-placeholder::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-        }
-
-        .avatar-placeholder::after {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 35px;
-            height: 25px;
-            background: white;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .profile-text {
-            flex: 1;
-            height: 12px;
-            background: #d0d0d0;
-            border-radius: 6px;
-            width: 150px;
         }
 
         .input-group {
@@ -754,9 +637,27 @@
             text-decoration: none;
         }
 
+        .icon-btn {
+            padding: 8px;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
         
+        .icon-btn svg { 
+            display:block; 
+        }
+
+        /* Barra de navegación móvil (oculta en desktop) */
+        .mobile-nav {
+            display: none;
+        }
+
         @media (max-width: 1024px) {
-            .container {                                 
+            .container {
                 grid-template-columns: 1fr;
                 gap: 50px;
                 padding: 30px;
@@ -770,36 +671,14 @@
         @media (max-width: 768px) {
             header {
                 padding: 15px 20px;
-                position: relative;
-                min-height: auto;
-                flex-wrap: nowrap;
             }
 
-            .logo-unab {
-                height: 40px;
+            .logo-image {
+                height: 50px;
             }
 
             .nav-menu {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: linear-gradient(135deg, #2b5a9e 0%, #1e3a5f 100%);
-                flex-direction: column;
-                gap: 0;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s;
-            }
-
-            .nav-menu.active {
-                max-height: 300px;
-            }
-
-            .nav-menu a {
-                padding: 15px 20px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                display: none !important;
             }
 
             .header-right {
@@ -807,24 +686,11 @@
             }
 
             .search-container {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                padding: 15px 20px;
-                background: white;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                display: none !important
-                
-            }
-
-            .search-input {
-                width: 100%;
+                display: none !important;
             }
 
             .perfil-btn {
-                padding: 8px 20px;
-                font-size: 14px;
+                display: none !important;
             }
 
             .user-icon {
@@ -855,6 +721,7 @@
 
             .container {
                 padding: 20px 15px;
+                padding-bottom: 100px;
                 gap: 30px;
             }
 
@@ -927,18 +794,48 @@
             }
 
             footer {
+                display: none !important;
+            }
+
+            /* Barra de navegación móvil inferior */
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
                 flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-                text-align: center;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
             }
 
-            .footer-links {
-                gap: 20px;
+            .mobile-nav-item.active {
+                color: #8600DD;
             }
 
-            .quick-access {
-                display: none !important
+            .mobile-nav-item:active {
+                transform: scale(0.95);
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
             }
         }
 
@@ -981,61 +878,40 @@
                 height: 100px;
             }
         }
-
-       
-        .quick-access {
-            background: rgba(255,255,255,0.1);                        
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .icon-btn {
-            padding: 8px;
-            width: 42px;
-            height: 42px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        .icon-btn svg { display:block; }
     </style>
 </head>
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
-       
         <nav class="nav-menu" id="navMenu" style="display: none;">
-            <a href="#inicio">Inicio</a>
-            <a href="#eventos">Eventos</a>                                       <a href="#actividades">Actividades</a>
-            <a href="#horarios">Horarios</a>
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
         </nav>
 
         <div class="header-right">
-            
             <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
             </a>
             
-            <div class="search-container" id="searchContainer" style="display: none;">                           <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
+            <div class="search-container" id="searchContainer" style="display: none;">
+                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
                 <span class="search-icon">🔍</span>
             </div>
 
-          
-            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()" style="display: none;">        🔔
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()" style="display: none;">
+                🔔
                 <span class="notification-badge">2</span>
             </div>
 
-            
-            <div class="notification-dropdown" id="notificationDropdown">                           <div class="notification-header">
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">
                     Notificaciones
                 </div>
                 <div class="notification-list">
@@ -1062,22 +938,19 @@
                 </div>
             </div>
 
-            
-           
-
-                                                                                
             <div class="user-menu">
-                <div class="user-button" onclick="toggleUserMenu()">    
-                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>         <div class="user-icon">👤</div>
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>
+                    <div class="user-icon">👤</div>
                 </div>
 
-                
                 <div class="user-dropdown" id="userDropdown">
                     <div class="user-dropdown-item" onclick="viewProfile()">
                         👤 Mi Perfil
                     </div>
                     <div class="user-dropdown-item" onclick="viewSettings()">
-                        ⚙️ Configuración                                                </div>
+                        ⚙️ Configuración
+                    </div>
                     <div class="user-dropdown-item" onclick="viewHelp()">
                         ❓ Ayuda
                     </div>
@@ -1086,7 +959,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </header>
 
@@ -1186,29 +1058,59 @@
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
         <div class="footer-links">
             <a href="#">Acerca de</a>
-            <a href="Soporte.html">soporte</a>
+            <a href="soporte.html">soporte</a>
         </div>
     </footer>
 
+   
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
+
     <script>
-        
-        let isLoggedIn = !!localStorage.getItem('userName'); 
+        let isLoggedIn = !!localStorage.getItem('userName');
 
         function switchTab(event, tabName) {
-            
             const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {                                          // Ocultar todos los contenidos
+            contents.forEach(content => {
                 content.classList.remove('active');
             });
 
-            
-            const tabs = document.querySelectorAll('.tab');                        // Desactivar todas las pestañas
+            const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            
-            document.getElementById(tabName).classList.add('active');                // Activar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
 
@@ -1218,25 +1120,21 @@
                 alert('Por favor, ingresa tu ID de estudiante.');
                 return;
             }
-            
-           
+
             isLoggedIn = true;
             localStorage.setItem('userName', user);
-            
+
             updateUI(user);
-            
-            
-            document.getElementById('welcomeMessage').style.display = 'none';                  // Ocultar mensaje de bienvenida y auth section
+
+            document.getElementById('welcomeMessage').style.display = 'none';
             document.getElementById('authSection').style.display = 'none';
-            
-           
-            const userContent = document.getElementById('userContent');                     // Mostrar contenido del usuario
+
+            const userContent = document.getElementById('userContent');
             userContent.classList.remove('hidden');
-            
-            
+
             userContent.style.opacity = '0';
             setTimeout(() => {
-                userContent.style.transition = 'opacity 0.5s';                        // Animación de entrada
+                userContent.style.transition = 'opacity 0.5s';
                 userContent.style.opacity = '1';
             }, 10);
         }
@@ -1244,25 +1142,20 @@
         function logout() {
             isLoggedIn = false;
             localStorage.removeItem('userName');
-            
+
             updateUI('');
-            
-            
-            document.getElementById('authSection').style.display = 'block';                                       // Mostrar autenticacion section y welcome message
+
+            document.getElementById('authSection').style.display = 'block';
             document.getElementById('welcomeMessage').style.display = 'block';
-            
-            
-            document.getElementById('userContent').classList.add('hidden');                                      // Ocultar contenido del usuario
-             
-            
-            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';                            // Resetear header
-            
-            
-            document.getElementById('userDropdown').classList.remove('active');                             // Cerrar dropdowns
+
+            document.getElementById('userContent').classList.add('hidden');
+
+            document.getElementById('mainTitle').textContent = 'Hola, Bienvenido';
+
+            document.getElementById('userDropdown').classList.remove('active');
             document.getElementById('notificationDropdown').classList.remove('active');
         }
-        
-        
+
         function goToAmigos() {
             if (isLoggedIn) {
                 window.location.href = 'Amigos.html';
@@ -1270,45 +1163,41 @@
                 alert('Debes iniciar sesión para acceder al chat de Amigos.');
             }
         }
-        
+
         function updateUI(user) {
             const userName = user || localStorage.getItem('userName') || 'Usuario';
-            
+
             document.getElementById('mainTitle').textContent = isLoggedIn ? `Hola, ${userName}` : 'Hola, Bienvenido';
-            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0]; 
-            
+            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+
             document.getElementById('userNameDisplay').classList.toggle('active', isLoggedIn);
-            
+
             document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
             document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
-            
-            
+
             document.getElementById('authSection').style.display = isLoggedIn ? 'none' : 'block';
             document.getElementById('welcomeMessage').style.display = isLoggedIn ? 'none' : 'block';
             document.getElementById('userContent').classList.toggle('hidden', !isLoggedIn);
         }
 
-
         function toggleNotifications() {
             if (!isLoggedIn) return;
             const dropdown = document.getElementById('notificationDropdown');
             dropdown.classList.toggle('active');
-            
-            document.getElementById('userDropdown').classList.remove('active');                      // Cerrar user dropdown si está abierto
+
+            document.getElementById('userDropdown').classList.remove('active');
         }
 
         function toggleUserMenu() {
             if (!isLoggedIn) {
                 return;
             }
-          
 
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
-            
-            
-            document.getElementById('notificationDropdown').classList.remove('active');                  // Cerrar notifications dropdown si está abierto
+
+            document.getElementById('notificationDropdown').classList.remove('active');
         }
 
         function viewProfile() {
@@ -1323,34 +1212,27 @@
         }
 
         function viewHelp() {
-            alert('Ayuda - Funcionalidad en desarrollo');
-            document.getElementById('userDropdown').classList.remove('active');
+            window.location.href = 'soporte.html';
         }
-
 
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
-            }                                                                                                         // Cerrar cuando de click afuera
+            }
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
             }
         });
-        
-       
+
         document.addEventListener('DOMContentLoaded', () => {
-            
             const storedUserName = localStorage.getItem('userName');
-            
-            
+
             if (isLoggedIn) {
                 updateUI(storedUserName);
             } else {
-                updateUI(''); 
+                updateUI('');
             }
         });
     </script>
-    </body>
+</body>
 </html>
-
-
