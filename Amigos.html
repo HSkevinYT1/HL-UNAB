@@ -735,6 +735,7 @@
             z-index: 2000;
             min-width: 200px;
             animation: slideDown 0.3s;
+            margin-top: 10px;
         }
 
         .chat-menu-dropdown.active {
@@ -748,7 +749,7 @@
             transition: background 0.2s;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 15px;
             border-bottom: 1px solid #f0f0f0;
         }
@@ -1173,7 +1174,7 @@
             }
 
             .chat-input-container {
-                padding: 10px 15px;
+                padding: 10px 10px 12px 10px;
                 background: white;
                 border-top: 1px solid var(--light-gray);
                 flex-shrink: 0;
@@ -1184,7 +1185,7 @@
                 z-index: 1050;
                 display: flex !important;
                 align-items: center;
-                gap: 8px;
+                gap: 6px;
             }
 
             .message-bubble {
@@ -1201,9 +1202,10 @@
 
             .chat-menu-dropdown {
                 position: fixed;
-                top: auto;
+                top: 155px;
                 right: 10px;
                 left: auto;
+                margin-top: 0;
             }
 
             footer {
@@ -1367,7 +1369,7 @@
             
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="   Buscar amigos...">
+                <input type="text" id="searchInput" placeholder="  Buscar amigos...">
             </div>
             
             <div class="filters">
@@ -1662,7 +1664,7 @@
             }
         ];
 
-        let activeFriend = friends[8]; 
+        let activeFriend = null; 
         const contactsList = document.getElementById('contactsList');
         const messagesContainer = document.getElementById('messagesContainer');
         const chatUserName = document.getElementById('chatUserName');
@@ -1763,11 +1765,13 @@
         }
         
         function updateChatHeader() {
+            if (!activeFriend) return;
+            
             const statusIcon = document.getElementById('chatStatusIcon');
             const muteMenuItem = document.getElementById('muteMenuItem');
             const blockMenuItem = document.getElementById('blockMenuItem');
             
-           
+          
             if (activeFriend.blocked) {
                 statusIcon.textContent = '🚫';
                 statusIcon.title = 'Bloqueado';
@@ -1924,17 +1928,25 @@
             
             messageInput.value = '';
             
-           
+            
             updateChatHeader();
             
             renderMessages();
             renderContacts();
+            
+           
+            if (window.innerWidth > 768) {
+                chatPanel.style.display = 'flex';
+            }
+            
             openChatMobile(); 
         }
 
         
         function renderMessages() {
             messagesContainer.innerHTML = '';
+            
+            if (!activeFriend) return;
             
             activeFriend.messages.forEach(msg => {
                 const messageRow = document.createElement('div');
@@ -1943,7 +1955,7 @@
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${msg.from === 'me' ? 'right' : 'left'}`;
                 
-                
+               
                 if (msg.image) {
                     bubble.innerHTML = `${msg.text ? msg.text + '<br>' : ''}<img src="${msg.image}" alt="Imagen">`;
                 } else {
@@ -1996,13 +2008,13 @@
             const file = e.target.files[0];
             if (!file || !activeFriend) return;
             
-           
+            
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona una imagen válida');
                 return;
             }
             
-          
+           
             const reader = new FileReader();
             reader.onload = function(event) {
                 const imageUrl = event.target.result;
@@ -2087,12 +2099,14 @@
             }
             
             renderContacts();
-            renderMessages();
+            
 
            
             if (window.innerWidth > 768) {
-                chatPanel.style.display = 'flex';
+                
+                chatPanel.style.display = 'none';
             }
+            
             
             if (window.innerWidth <= 768) {
                 const footer = document.querySelector('footer');
@@ -2102,13 +2116,14 @@
                 }
             }
             
+            
             document.addEventListener('click', (e) => {
-               
+                
                 if (!e.target.closest('#emojiBtn') && !e.target.closest('#emojiPicker')) {
                     emojiPicker.classList.remove('active');
                 }
                 
-               
+                
                 if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
                     document.getElementById('chatMenuDropdown').classList.remove('active');
                 }
