@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Amigos y Chat - UNAB</title>
     <style>
         * {
@@ -666,6 +666,15 @@
             gap: 1vw;
             border-radius: 0; 
             border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .chat-status-icon {
+            font-size: 16px;
+            margin-left: auto;
+            margin-right: 10px;
         }
 
         .back-btn {
@@ -676,6 +685,15 @@
             cursor: pointer;
             color: var(--text);
             padding: 5px;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-btn:active {
+            transform: scale(0.9);
         }
 
         .chat-avatar {
@@ -818,6 +836,13 @@
             border-bottom-right-radius: 8px; 
         }
 
+        .message-bubble img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 8px;
+            display: block;
+        }
+
         .message-avatar {
             width: 32px;
             height: 32px;
@@ -843,13 +868,17 @@
         }
 
         .emoji-btn, .input-icon {
-            font-size: 22px;
+            font-size: 26px;
             cursor: pointer;
             background: none;
             border: none;
-            padding: 5px;
+            padding: 6px;
             transition: transform 0.2s;
             color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .emoji-btn:hover, .input-icon:hover {
@@ -916,15 +945,16 @@
             background: var(--accent);
             color: #fff;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .send-btn:hover {
@@ -975,6 +1005,11 @@
        
         @media (max-width: 768px) {
             header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1002;
                 padding: 15px 20px;
             }
 
@@ -1034,7 +1069,8 @@
                 display: flex;
                 border-right: none;
                 padding: 15px;
-                padding-bottom: 90px; 
+                padding-bottom: 90px;
+                margin-top: 80px;
             }
 
             .sidebar.hidden {
@@ -1045,33 +1081,96 @@
             .chat-panel {
                 display: none;
                 position: fixed;
-                top: 0;
+                top: 75px;
                 left: 0;
                 right: 0;
-                bottom: 0;
-                z-index: 999;
-                padding-bottom: 80px; 
+                bottom: 130px;
+                z-index: 1001;
+                background: white;
+                flex-direction: column;
+                overflow: hidden;
             }
 
             .chat-panel.active {
-                display: flex;
+                display: flex !important;
             }
 
             
             .back-btn {
-                display: block !important;
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                font-size: 32px;
+                font-weight: bold;
+                margin-right: 10px;
+                width: 40px;
+                height: 40px;
+                background: transparent;
+                border: none;
+                color: #333;
+                cursor: pointer;
             }
 
             .chat-header {
                 padding: 15px;
+                background: #f0f0f0;
+                z-index: 100;
+                display: flex !important;
+                align-items: center;
+                gap: 12px;
+                flex-shrink: 0;
+                border-bottom: 2px solid #ddd;
+                margin-top: 0;
+                min-height: 70px;
+            }
+            
+            .chat-avatar {
+                width: 45px;
+                height: 45px;
+                flex-shrink: 0;
+            }
+            
+            .chat-user-name {
+                font-size: 19px;
+                font-weight: 700;
+                flex: 1;
+            }
+            
+            .chat-status-icon {
+                font-size: 20px;
+            }
+            
+            .chat-menu {
+                font-size: 32px;
+                padding: 5px;
+                line-height: 1;
+            }
+
+            .chat-menu {
+                position: relative;
             }
 
             .messages-container {
                 padding: 15px;
+                padding-bottom: 20px;
+                flex: 1;
+                overflow-y: auto;
+                background: white;
             }
 
             .chat-input-container {
                 padding: 10px 15px;
+                background: white;
+                border-top: 1px solid var(--light-gray);
+                flex-shrink: 0;
+                position: fixed;
+                bottom: 60px;
+                left: 0;
+                right: 0;
+                z-index: 50;
+                display: flex !important;
+                align-items: center;
+                gap: 8px;
             }
 
             .message-bubble {
@@ -1083,10 +1182,12 @@
                 left: 10px;
                 right: 10px;
                 max-width: none;
-                bottom: 65px;
+                bottom: 135px;
             }
 
             .chat-menu-dropdown {
+                position: fixed;
+                top: auto;
                 right: 10px;
                 left: auto;
             }
@@ -1156,7 +1257,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu">
@@ -1258,6 +1359,7 @@
                 <button class="back-btn" id="backBtn" onclick="closeChatMobile()">←</button>
                 <div class="chat-avatar" id="chatAvatar"></div>
                 <div class="chat-user-name" id="chatUserName">Lee</div>
+                <span class="chat-status-icon" id="chatStatusIcon"></span>
                 <div class="chat-menu" id="chatMenuBtn" onclick="toggleChatMenu()">⋮</div>
             </div>
 
@@ -1265,10 +1367,10 @@
                 <div class="chat-menu-item" onclick="viewContactInfo()">
                     👤 Ver información
                 </div>
-                <div class="chat-menu-item" onclick="muteContact()">
+                <div class="chat-menu-item" id="muteMenuItem" onclick="toggleMute()">
                     🔕 Silenciar notificaciones
                 </div>
-                <div class="chat-menu-item danger" onclick="blockContact()">
+                <div class="chat-menu-item danger" id="blockMenuItem" onclick="toggleBlock()">
                     🚫 Bloquear contacto
                 </div>
                 <div class="chat-menu-item danger" onclick="deleteContact()">
@@ -1284,9 +1386,6 @@
                 <button class="emoji-btn" id="emojiBtn" onclick="toggleEmojiPicker()">😀</button>
                 <input type="text" class="chat-input" id="messageInput" placeholder="Mensaje...">
                 <div class="input-icons">
-                    <label for="audioInput" class="input-icon" title="Grabar audio">🎙</label>
-                    <input type="file" id="audioInput" class="file-input" accept="audio/*">
-                    
                     <label for="imageInput" class="input-icon" title="Adjuntar imagen">📷</label>
                     <input type="file" id="imageInput" class="file-input" accept="image/*">
                 </div>
@@ -1449,56 +1548,72 @@
                 name: 'Achli',
                 last: 'UWU',
                 avatarColor: '#F8BBD0',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 2,
                 name: 'Frankie',
                 last: 'Guau',
                 avatarColor: '#C5CAE9',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 3,
                 name: 'Sebas',
                 last: 'Bro xd',
                 avatarColor: '#FFE0B2',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 4,
                 name: 'Luis',
                 last: 'Hiciste la tarea?',
                 avatarColor: '#C8E6C9',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 5,
                 name: 'Jhon',
                 last: 'Ya se',
                 avatarColor: '#FFCCBC',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 6,
                 name: 'Tony',
                 last: 'Estudiate para el parcial',
                 avatarColor: '#B2DFDB',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 7,
                 name: 'Tiffany',
                 last: 'Danzarió',
                 avatarColor: '#F0E68C',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 8,
                 name: 'Elias',
                 last: 'El pepe',
                 avatarColor: '#E1BEE7',
-                messages: []
+                messages: [],
+                muted: false,
+                blocked: false
             },
             {
                 id: 9,
@@ -1509,7 +1624,9 @@
                     {from: 'other', text: 'Hey, did you finish the group project for history class?'},
                     {from: 'me', text: "Not yet. I've been drowning in math homework all week. You?"},
                     {from: 'other', text: 'Same here. I stayed up \'til 2 a.m. last night just trying to finish the presentation slides.'}
-                ]
+                ],
+                muted: false,
+                blocked: false
             }
         ];
 
@@ -1524,6 +1641,7 @@
         const sidebar = document.getElementById('sidebar');
         const chatPanel = document.getElementById('chatPanel');
         const emojiPicker = document.getElementById('emojiPicker');
+        const imageInput = document.getElementById('imageInput');
 
         // Emojis comunes
         const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👏', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
@@ -1582,15 +1700,65 @@
             document.getElementById('chatMenuDropdown').classList.remove('active');
         }
 
-        function muteContact() {
-            alert(`🔕 Notificaciones silenciadas para ${activeFriend.name}`);
+        function toggleMute() {
+            activeFriend.muted = !activeFriend.muted;
+            updateChatHeader();
+            
+            if (activeFriend.muted) {
+                alert(`🔕 Notificaciones silenciadas para ${activeFriend.name}`);
+            } else {
+                alert(`🔔 Notificaciones activadas para ${activeFriend.name}`);
+            }
+            
             document.getElementById('chatMenuDropdown').classList.remove('active');
         }
 
-        function blockContact() {
-            if (confirm(`¿Estás seguro de bloquear a ${activeFriend.name}?`)) {
-                alert(`🚫 ${activeFriend.name} ha sido bloqueado`);
-                document.getElementById('chatMenuDropdown').classList.remove('active');
+        function toggleBlock() {
+            if (!activeFriend.blocked) {
+                if (confirm(`¿Estás seguro de bloquear a ${activeFriend.name}?`)) {
+                    activeFriend.blocked = true;
+                    updateChatHeader();
+                    alert(`🚫 ${activeFriend.name} ha sido bloqueado`);
+                }
+            } else {
+                if (confirm(`¿Deseas desbloquear a ${activeFriend.name}?`)) {
+                    activeFriend.blocked = false;
+                    updateChatHeader();
+                    alert(`✅ ${activeFriend.name} ha sido desbloqueado`);
+                }
+            }
+            document.getElementById('chatMenuDropdown').classList.remove('active');
+        }
+        
+        function updateChatHeader() {
+            const statusIcon = document.getElementById('chatStatusIcon');
+            const muteMenuItem = document.getElementById('muteMenuItem');
+            const blockMenuItem = document.getElementById('blockMenuItem');
+            
+           
+            if (activeFriend.blocked) {
+                statusIcon.textContent = '🚫';
+                statusIcon.title = 'Bloqueado';
+            } else if (activeFriend.muted) {
+                statusIcon.textContent = '🔕';
+                statusIcon.title = 'Silenciado';
+            } else {
+                statusIcon.textContent = '';
+            }
+            
+            
+            if (activeFriend.muted) {
+                muteMenuItem.innerHTML = '🔔 Activar notificaciones';
+            } else {
+                muteMenuItem.innerHTML = '🔕 Silenciar notificaciones';
+            }
+            
+            if (activeFriend.blocked) {
+                blockMenuItem.innerHTML = '✅ Desbloquear contacto';
+                blockMenuItem.classList.remove('danger');
+            } else {
+                blockMenuItem.innerHTML = '🚫 Bloquear contacto';
+                blockMenuItem.classList.add('danger');
             }
         }
 
@@ -1620,7 +1788,9 @@
                 name: name,
                 last: initialMessage || 'Nuevo amigo agregado',
                 avatarColor: randomColor,
-                messages: initialMessage ? [{from: 'me', text: initialMessage}] : []
+                messages: initialMessage ? [{from: 'me', text: initialMessage}] : [],
+                muted: false,
+                blocked: false
             };
             
             friends.unshift(newFriend); 
@@ -1639,8 +1809,17 @@
         
         function openChatMobile() {
             if (window.innerWidth <= 768) {
+                const chatPanel = document.getElementById('chatPanel');
+                const sidebar = document.getElementById('sidebar');
+                
                 chatPanel.classList.add('active');
                 sidebar.classList.add('hidden');
+                
+               
+                const chatHeader = chatPanel.querySelector('.chat-header');
+                if (chatHeader) {
+                    chatHeader.style.display = 'flex';
+                }
             }
         }
 
@@ -1709,6 +1888,13 @@
             activeFriend = friends.find(f => f.id === id);
             chatUserName.textContent = activeFriend.name;
             chatAvatar.style.background = activeFriend.avatarColor;
+            
+           
+            messageInput.value = '';
+            
+            
+            updateChatHeader();
+            
             renderMessages();
             renderContacts();
             openChatMobile(); 
@@ -1724,7 +1910,13 @@
                 
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${msg.from === 'me' ? 'right' : 'left'}`;
-                bubble.textContent = msg.text;
+                
+                
+                if (msg.image) {
+                    bubble.innerHTML = `${msg.text ? msg.text + '<br>' : ''}<img src="${msg.image}" alt="Imagen">`;
+                } else {
+                    bubble.textContent = msg.text;
+                }
                 
                 if (msg.from === 'me') {
                     messageRow.appendChild(bubble);
@@ -1766,6 +1958,38 @@
                 renderMessages();
             }, 800);
         }
+
+        
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file || !activeFriend) return;
+            
+            
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor selecciona una imagen válida');
+                return;
+            }
+            
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imageUrl = event.target.result;
+                
+               
+                const newMessage = {
+                    from: 'me',
+                    text: messageInput.value.trim() || '',
+                    image: imageUrl
+                };
+                
+                activeFriend.messages.push(newMessage);
+                renderMessages();
+                messageInput.value = '';
+                imageInput.value = ''; 
+            };
+            
+            reader.readAsDataURL(file);
+        });
 
        
         sendMessageBtn.addEventListener('click', sendMessage);
@@ -1837,8 +2061,20 @@
             if (window.innerWidth > 768) {
                 chatPanel.style.display = 'flex';
             }
+            
+           
+            document.addEventListener('click', (e) => {
+                // Cerrar emoji picker
+                if (!e.target.closest('#emojiBtn') && !e.target.closest('#emojiPicker')) {
+                    emojiPicker.classList.remove('active');
+                }
+                
+              
+                if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
+                    document.getElementById('chatMenuDropdown').classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
 </html>
-
