@@ -664,7 +664,7 @@
     <header>
         <div class="logo-container">
             <a href="index.html" class="logo-container">
-                <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+                <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
             </a>
         </div>
 
@@ -807,7 +807,10 @@
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
-    
+        <div class="footer-links">
+            <a href="#">Acerca de</a>
+            <a href="soporte.html">soporte</a>
+        </div>
     </footer>
 
     <nav class="mobile-nav">
@@ -846,56 +849,64 @@
     <script>
         let isEditing = false;
 
-      
+        // ====================================
+        // SISTEMA DE ICONOS DE USUARIO GLOBAL
+        // ====================================
+
+        /**
+         * Inicializa todos los iconos de usuario en la página
+         */
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-          
+            // Buscar todos los iconos de usuario en la página
             const userIcons = document.querySelectorAll('.user-icon');
             
             userIcons.forEach(icon => {
                 if (userPhotoUrl && userPhotoUrl !== '') {
-                   
+                    // Si hay foto, mostrarla
                     icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
                 } else {
-                 
+                    // Si no hay foto, mostrar inicial
                     icon.textContent = initial;
                 }
             });
         }
 
-       
+        /**
+         * Maneja la carga de una nueva foto de perfil
+         */
         function handleProfilePhotoUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-          
+            // Validar que sea una imagen
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona un archivo de imagen válido.');
                 return;
             }
 
-          
+            // Validar tamaño (máximo 5MB)
             if (file.size > 5 * 1024 * 1024) {
                 alert('La imagen es demasiado grande. Por favor selecciona una imagen menor a 5MB.');
                 return;
             }
 
-           
+            // Leer el archivo como Data URL (base64)
             const reader = new FileReader();
             
             reader.onload = function(e) {
                 const imageDataUrl = e.target.result;
                 
-                
+                // Guardar en localStorage
                 localStorage.setItem('userPhotoUrl', imageDataUrl);
                 
-                
+                // Actualizar todos los iconos en la página actual
                 initializeUserIcon();
                 
-                
+                // Actualizar la imagen de perfil grande
                 const profileImage = document.getElementById('profileImage');
                 const profileCardIcon = document.getElementById('profileCardIcon');
                 
@@ -905,7 +916,7 @@
                     profileCardIcon.style.display = 'none';
                 }
                 
-               
+                // Mostrar botón de eliminar foto
                 document.getElementById('removePhotoBtn').style.display = 'block';
                 
                 alert('¡Foto de perfil actualizada con éxito!');
@@ -918,7 +929,9 @@
             reader.readAsDataURL(file);
         }
 
-      
+        /**
+         * Elimina la foto de perfil actual
+         */
         function removeProfilePhoto() {
             if (!confirm('¿Estás seguro de que quieres eliminar tu foto de perfil?')) {
                 return;
@@ -927,7 +940,7 @@
             localStorage.removeItem('userPhotoUrl');
             initializeUserIcon();
             
-           
+            // Actualizar vista de perfil
             const profileImage = document.getElementById('profileImage');
             const profileCardIcon = document.getElementById('profileCardIcon');
             
@@ -939,13 +952,15 @@
                 profileCardIcon.textContent = userName.charAt(0).toUpperCase();
             }
             
-            
+            // Ocultar botón de eliminar foto
             document.getElementById('removePhotoBtn').style.display = 'none';
             
             alert('Foto de perfil eliminada.');
         }
 
-       
+        /**
+         * Carga todos los datos del perfil del usuario
+         */
         function loadProfileData() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userId = localStorage.getItem('userId') || 'U00000000';
@@ -954,7 +969,7 @@
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-        
+            // 1. Actualizar elementos de visualización
             const profileNameDisplay = document.getElementById('profileNameDisplay');
             const profileIdDisplay = document.getElementById('profileIdDisplay');
             const profileProgramDisplay = document.getElementById('profileProgramDisplay');
@@ -965,7 +980,7 @@
             if (profileProgramDisplay) profileProgramDisplay.textContent = userProgram;
             if (profileSemesterDisplay) profileSemesterDisplay.textContent = userSemester + 'do';
             
-         
+            // 2. Actualizar elementos de edición
             const editName = document.getElementById('editName');
             const editId = document.getElementById('editId');
             const editProgram = document.getElementById('editProgram');
@@ -976,7 +991,7 @@
             if (editProgram) editProgram.value = userProgram;
             if (editSemester) editSemester.value = userSemester;
 
-           
+            // 3. Configurar foto de perfil en la tarjeta grande
             const profileImage = document.getElementById('profileImage');
             const profileCardIcon = document.getElementById('profileCardIcon');
             
@@ -995,17 +1010,19 @@
                 }
             }
             
-          
+            // 4. Actualizar nombre en header
             const headerUserName = document.getElementById('headerUserName');
             if (headerUserName) {
                 headerUserName.textContent = userName.split(' ')[0];
             }
             
-           
+            // 5. Inicializar iconos de usuario (header, etc.)
             initializeUserIcon();
         }
 
-       
+        // ====================================
+        // FUNCIONALIDAD EDITAR PERFIL
+        // ====================================
 
         function handleEditProfile() {
             isEditing ? saveProfile() : toggleEditMode(true);
@@ -1019,7 +1036,7 @@
             const editBtn = document.getElementById('editProfileBtn');
 
             if (shouldEdit) {
-                
+                // Modo Edición
                 isEditing = true;
 
                 nameDisplay.style.display = 'none';
@@ -1031,7 +1048,7 @@
                 editBtn.setAttribute('data-editing', 'true');
 
             } else {
-               
+                // Modo Visualización
                 isEditing = false;
                 loadProfileData();
                 
@@ -1055,18 +1072,20 @@
                 return;
             }
 
-            
+            // Guardar en localStorage
             localStorage.setItem('userName', newName);
             localStorage.setItem('userProgram', newProgram);
             localStorage.setItem('userSemester', newSemester);
             
-           
+            // Volver a modo de visualización y recargar datos
             toggleEditMode(false);
             
             alert('Perfil actualizado con éxito!');
         }
 
-        
+        // ====================================
+        // OTRAS FUNCIONALIDADES
+        // ====================================
 
         function toggleCollapse(element) {
             element.classList.toggle('collapsed');
@@ -1104,7 +1123,7 @@
             localStorage.removeItem('userId'); 
             localStorage.removeItem('userProgram'); 
             localStorage.removeItem('userSemester');
-            localStorage.removeItem('userPhotoUrl'); 
+            localStorage.removeItem('userPhotoUrl');
             
             window.location.href = 'index.html';
         }
@@ -1115,12 +1134,259 @@
             }
         });
 
-       
+        function applyGlobalTheme() {
+            const theme = localStorage.getItem('globalTheme') || 'light';
+            const header = document.querySelector('header');
+            const body = document.body;
+            
+            if (theme === 'dark') {
+                body.style.background = '#1a1a1a';
+                body.style.color = '#fff';
+                
+                if (header) {
+                    header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
+                    header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = '#ffffff';
+                });
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255, 255, 255, 0.2)';
+                    userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+                
+                const iconBtn = document.querySelector('.icon-btn');
+                if (iconBtn) {
+                    iconBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    iconBtn.style.color = '#ffffff';
+                }
+                
+                document.querySelectorAll('.user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = '#2a2a2a';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
+                    dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#fff';
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#ff5252';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = '#2a2a2a';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(139, 47, 201, 0.3)';
+                    mobileNav.style.borderTop = '1px solid rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#9d4fda';
+                });
+                
+                document.querySelectorAll('.profile-card, .info-card').forEach(card => {
+                    card.style.background = '#2a2a2a';
+                    card.style.color = '#fff';
+                    card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
+                });
+                
+                document.querySelectorAll('.profile-name').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.profile-info-item').forEach(item => {
+                    item.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.profile-info-label').forEach(label => {
+                    label.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.profile-input').forEach(input => {
+                    input.style.background = '#333';
+                    input.style.color = '#fff';
+                    input.style.borderColor = '#444';
+                });
+                
+                const editName = document.getElementById('editName');
+                if (editName) {
+                    editName.style.borderBottomColor = '#444';
+                    editName.style.color = '#fff';
+                }
+                
+                document.querySelectorAll('.info-card-header').forEach(header => {
+                    header.style.background = '#8C0FAA';
+                });
+                
+                document.querySelectorAll('.info-card-content').forEach(content => {
+                    content.style.background = '#2a2a2a';
+                });
+                
+                document.querySelectorAll('.schedule-item, .notification-item-card').forEach(item => {
+                    item.style.background = '#333';
+                    item.style.borderBottomColor = '#444';
+                    item.style.borderLeftColor = '#8C0FAA';
+                });
+                
+                document.querySelectorAll('.schedule-item:hover, .notification-item-card:hover').forEach(item => {
+                    item.style.background = '#3a3a3a';
+                });
+                
+                document.querySelectorAll('.schedule-text, .notification-text').forEach(text => {
+                    text.style.color = '#fff';
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#2a2a2a';
+                    footer.style.color = '#b0b0b0';
+                    footer.style.boxShadow = '0 -2px 10px rgba(255,255,255,0.05)';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#b0b0b0';
+                });
+                
+            } else if (theme === 'light') {
+                body.style.background = '#f5f5f5';
+                body.style.color = '#1a1a1a';
+                
+                if (header) {
+                    header.style.background = '#6b1fa8';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = 'white';
+                });
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255,255,255,0.1)';
+                    userButton.style.borderColor = 'transparent';
+                }
+                
+                const iconBtn = document.querySelector('.icon-btn');
+                if (iconBtn) {
+                    iconBtn.style.background = 'rgba(255,255,255,0.1)';
+                    iconBtn.style.color = '#fff';
+                }
+                
+                document.querySelectorAll('.user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = 'white';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+                    dropdown.style.border = 'none';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#333';
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#333';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = 'white';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.1)';
+                    mobileNav.style.borderTop = 'none';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#8600DD';
+                });
+                
+                document.querySelectorAll('.profile-card, .info-card').forEach(card => {
+                    card.style.background = 'white';
+                    card.style.color = '#1a1a1a';
+                    card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+                });
+                
+                document.querySelectorAll('.profile-name').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.profile-info-item').forEach(item => {
+                    item.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.profile-info-label').forEach(label => {
+                    label.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.profile-input').forEach(input => {
+                    input.style.background = '#fff';
+                    input.style.color = '#333';
+                    input.style.borderColor = '#ddd';
+                });
+                
+                const editName = document.getElementById('editName');
+                if (editName) {
+                    editName.style.borderBottomColor = '#ddd';
+                    editName.style.color = '#333';
+                }
+                
+                document.querySelectorAll('.info-card-header').forEach(header => {
+                    header.style.background = '#8C0FAA';
+                });
+                
+                document.querySelectorAll('.info-card-content').forEach(content => {
+                    content.style.background = 'white';
+                });
+                
+                document.querySelectorAll('.schedule-item, .notification-item-card').forEach(item => {
+                    item.style.background = '#ffffff';
+                    item.style.borderBottomColor = '#eee';
+                    item.style.borderLeftColor = '#8C0FAA';
+                });
+                
+                document.querySelectorAll('.schedule-item:hover, .notification-item-card:hover').forEach(item => {
+                    item.style.background = '#f8f8f8';
+                });
+                
+                document.querySelectorAll('.schedule-text, .notification-text').forEach(text => {
+                    text.style.color = '#333';
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = 'white';
+                    footer.style.color = '#666';
+                    footer.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.05)';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#666';
+                });
+                
+            } else if (theme === 'auto') {
+                const hour = new Date().getHours();
+                const isDark = hour < 6 || hour >= 18;
+                localStorage.setItem('globalTheme', isDark ? 'dark' : 'light');
+                applyGlobalTheme();
+            }
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             loadProfileData();
+            applyGlobalTheme();
             
-          
             document.getElementById('photoUploadInput').addEventListener('change', handleProfilePhotoUpload);
         });
     </script>
