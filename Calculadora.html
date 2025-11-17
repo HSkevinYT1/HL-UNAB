@@ -454,7 +454,7 @@
                 display: none !important;
             }
 
-          
+           
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -500,7 +500,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu">
@@ -599,9 +599,12 @@
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
+        <div class="footer-links">
+            
+        </div>
     </footer>
 
-    
+  
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -643,7 +646,7 @@
                 document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
                 document.getElementById('navMenu').style.display = 'flex';
             } else {
-               
+            
                 window.location.href = 'index.html';
             }
         });
@@ -657,14 +660,13 @@
             window.location.href = 'perfil.html';
         }
 
-       function viewSettings() {
-           window.location.href = 'Configuracion.html';
-           document.getElementById('userDropdown'.classlist.remove('active');
+        function viewSettings() {
+            window.location.href = 'Configuracion.html';
+            document.getElementById('userDropdown').classList.remove('active');
         }
 
         function viewHelp() {
-           window.location.href = 'Soporte.html';
-           document.getElementById('userDropdown'.classlist.remove('active');
+            window.location.href = 'soporte.html';
         }
 
         function logout() {
@@ -674,7 +676,7 @@
             }
         }
 
-       
+        
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
@@ -682,7 +684,7 @@
         });
 
         function calculateGrade() {
-            
+           
             if (!document.getElementById('targetGrade')) return;
 
             const targetGrade = parseFloat(document.getElementById('targetGrade').value);
@@ -692,7 +694,7 @@
             const parcial2 = parseFloat(document.getElementById('parcial2').value);
             const proyecto = parseFloat(document.getElementById('proyecto').value);
 
-          
+           
             const peso1 = parseFloat(document.getElementById('peso1').value) / 100;
             const peso2 = parseFloat(document.getElementById('peso2').value) / 100;
             const pesoProyecto = parseFloat(document.getElementById('peso3').value) / 100;
@@ -727,7 +729,7 @@
                 notaNecesaria = (targetGrade - (parcial2 * peso2) - (proyecto * pesoProyecto)) / peso1;
                 campoVacio = nombre1;
             } else if (!isNaN(parcial1) && isNaN(parcial2) && !isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
-              
+               
                 if (peso2 === 0) {
                     resultElement.textContent = 'N/A';
                     descriptionElement.textContent = `El peso de ${nombre2} es 0%`;
@@ -736,7 +738,7 @@
                 notaNecesaria = (targetGrade - (parcial1 * peso1) - (proyecto * pesoProyecto)) / peso2;
                 campoVacio = nombre2;
             } else if (!isNaN(parcial1) && !isNaN(parcial2) && isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
-              
+                
                 if (pesoProyecto === 0) {
                     resultElement.textContent = 'N/A';
                     descriptionElement.textContent = `El peso de ${nombre3} es 0%`;
@@ -764,13 +766,9 @@
                 resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
             }
 
-            
+           
             descriptionElement.textContent = `Nota requerida en ${campoVacio}`;
         }
     </script>
 </body>
-
 </html>
-
-
-
