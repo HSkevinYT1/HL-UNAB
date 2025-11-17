@@ -267,6 +267,15 @@
             justify-content: center;
             font-size: 16px;
             color: #2b5a9e;
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .user-dropdown {
@@ -614,6 +623,49 @@
             display: inline-block;
         }
 
+        .external-links-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .external-links-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .link-grid a {
+            display: block;
+            padding: 12px 15px;
+            background: #e3f2fd; 
+            color: #1565c0; 
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            font-size: 14px;
+        }
+
+        .link-grid a:hover {
+            background: #bbdefb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
         footer {
             background: white;
             padding: 30px 50px;
@@ -621,6 +673,7 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            margin-top: auto;
         }
 
         footer p {
@@ -651,9 +704,99 @@
             display:block; 
         }
 
-        /* Barra de navegación móvil (oculta en desktop) */
         .mobile-nav {
             display: none;
+        }
+
+        /* Modal de recuperación de contraseña */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn-primary {
+            background: #8600DD;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #6b1fa8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 47, 201, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #e0e0e0;
         }
 
         @media (max-width: 1024px) {
@@ -721,7 +864,7 @@
 
             .container {
                 padding: 20px 15px;
-                padding-bottom: 100px;
+                padding-bottom: 20px;
                 gap: 30px;
             }
 
@@ -793,11 +936,26 @@
                 height: 100px;
             }
 
-            footer {
-                display: none !important;
+            .external-links-card {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            .link-grid {
+                grid-template-columns: 1fr;
             }
 
-            /* Barra de navegación móvil inferior */
+            footer {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                margin-bottom: 70px;
+            }
+
+            .footer-links {
+                gap: 20px;
+            }
+
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -836,6 +994,14 @@
             .mobile-nav-item svg {
                 width: 24px;
                 height: 24px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .modal-header {
+                font-size: 20px;
             }
         }
 
@@ -883,7 +1049,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu" style="display: none;">
@@ -894,7 +1060,7 @@
         </nav>
 
         <div class="header-right">
-            <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos">
+            <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos" style="display: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
@@ -940,8 +1106,8 @@
 
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">
-                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>
-                    <div class="user-icon">👤</div>
+                    <span class="user-name-display" id="userNameDisplay">Usuario</span>
+                    <div class="user-icon" id="headerUserIcon">👤</div>
                 </div>
 
                 <div class="user-dropdown" id="userDropdown">
@@ -970,6 +1136,15 @@
                 <div class="placeholder-line"></div>
             </div>
 
+            <div class="external-links-card" id="externalLinksCard" style="display: none;">
+                <h3>Acceso a otras páginas UNAB</h3>
+                <div class="link-grid">
+                    <a href="https://miportalu.unab.edu.co/" target="_blank">Mi portal U 🌐</a>
+                    <a href="https://tema.unab.edu.co/" target="_blank">TEMA 💻</a>
+                    <a href="https://cosmos.unab.edu.co/" target="_blank">COSMOS 🛒</a>
+                    <a href="https://unab.edu.co/sistema-de-bibliotecas-unab/" target="_blank">Biblioteca 📚</a>
+                </div>
+            </div>
             <div class="auth-section" id="authSection">
                 <div class="tabs">
                     <button class="tab active" onclick="switchTab(event, 'login')">Iniciar Sesión</button>
@@ -983,11 +1158,11 @@
                     </div>
                     <div class="input-group">
                         <label>Contraseña</label>
-                        <input type="password" placeholder="Ingresa tu contraseña">
+                        <input type="password" id="loginPassword" placeholder="Ingresa tu contraseña">
                     </div>
                     <button class="btn" onclick="login()">Iniciar Sesión</button>
                     <div class="forgot-password">
-                        <a href="#">¿Olvidaste tu contraseña?</a>
+                        <a href="#" onclick="openForgotPasswordModal(event)">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
 
@@ -998,23 +1173,32 @@
                     </div>
                     <div class="input-group">
                         <label>ID de estudiante</label>
-                        <input type="text" placeholder="Ingresa tu ID">
+                        <input type="text" id="registerId" placeholder="Ingresa tu ID">
                     </div>
                     <div class="input-group">
                         <label>Correo electrónico</label>
-                        <input type="email" placeholder="correo@unab.edu.co">
+                        <input type="email" id="registerEmail" placeholder="correo@unab.edu.co">
+                    </div>
+                    <div class="input-group">
+                        <label>Carrera/Programa</label>
+                        <input type="text" id="registerProgram" placeholder="Ingresa tu carrera/programa">
+                    </div>
+                    <div class="input-group">
+                        <label>Semestre</label>
+                        <input type="number" id="registerSemester" placeholder="Ingresa tu semestre (ej: 2)">
                     </div>
                     <div class="input-group">
                         <label>Contraseña</label>
-                        <input type="password" placeholder="Crea una contraseña">
+                        <input type="password" id="registerPassword" placeholder="Crea una contraseña">
                     </div>
                     <div class="input-group">
                         <label>Confirmar contraseña</label>
-                        <input type="password" placeholder="Confirma tu contraseña">
+                        <input type="password" id="confirmPassword" placeholder="Confirma tu contraseña">
                     </div>
-                    <button class="btn">Registrar Usuario</button>
+                    <button class="btn" onclick="register()">Registrar Usuario</button>
                 </div>
             </div>
+            
         </div>
 
         <div class="welcome-message" id="welcomeMessage">
@@ -1027,7 +1211,7 @@
             <div class="progress-card">
                 <h4>Horas libres progreso</h4>
                 <div class="progress-number">100 <span style="font-size: 24px; font-weight: 600;">Horas obtenidas</span></div>
-                <p class="progress-text">te faltan <strong>20</strong></p>
+                <p class="progress-text">te faltan 20</p>
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
                 </div>
@@ -1051,18 +1235,15 @@
                 </div>
                 <a href="#" class="ver-lugares">Ver lugares disponibles</a>
             </div>
+            
         </div>
     </div>
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
-        <div class="footer-links">
-            <a href="#">Acerca de</a>
-            <a href="soporte.html">soporte</a>
-        </div>
+       
     </footer>
 
-   
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item active">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -1096,8 +1277,58 @@
         </a>
     </nav>
 
+    
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">Recuperar Contraseña</div>
+            <div class="modal-description">
+                Ingresa tu ID de estudiante y tu correo electrónico registrado. Te mostraremos tu contraseña si los datos coinciden.
+            </div>
+            
+            <div class="input-group">
+                <label>ID de estudiante</label>
+                <input type="text" id="recoveryId" placeholder="Ingresa tu ID">
+            </div>
+            
+            <div class="input-group">
+                <label>Correo electrónico</label>
+                <input type="email" id="recoveryEmail" placeholder="correo@unab.edu.co">
+            </div>
+            
+            <div id="recoveryResult" style="margin-top: 15px; padding: 12px; border-radius: 8px; display: none;"></div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" onclick="closeForgotPasswordModal()">Cancelar</button>
+                <button class="modal-btn modal-btn-primary" onclick="recoverPassword()">Recuperar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+      
+        const USERS_KEY = 'registeredUsers';
+        
+       
         let isLoggedIn = !!localStorage.getItem('userName');
+       
+        function initializeUserIcon() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const initial = userName.charAt(0).toUpperCase();
+
+           
+            const userIcons = document.querySelectorAll('.user-icon');
+            
+            userIcons.forEach(icon => {
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                  
+                    icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
+                } else {
+                   
+                    icon.textContent = initial;
+                }
+            });
+        }
 
         function switchTab(event, tabName) {
             const contents = document.querySelectorAll('.tab-content');
@@ -1113,37 +1344,119 @@
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
-
-        function login() {
-            const user = document.getElementById('loginId').value || 'Kevin Bayona';
-            if (!user) {
-                alert('Por favor, ingresa tu ID de estudiante.');
+        
+        
+        function register() {
+            const registerName = document.getElementById('registerName').value.trim();
+            const registerId = document.getElementById('registerId').value.trim();
+            const registerEmail = document.getElementById('registerEmail').value.trim();
+            const registerProgram = document.getElementById('registerProgram').value.trim();
+            const registerSemester = document.getElementById('registerSemester').value.trim();
+            const registerPassword = document.getElementById('registerPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            
+            if (!registerName || !registerId || !registerEmail || !registerProgram || !registerSemester || !registerPassword || !confirmPassword) {
+                alert('Error: Todos los campos son obligatorios, incluyendo Carrera/Programa y Semestre.');
                 return;
             }
 
-            isLoggedIn = true;
-            localStorage.setItem('userName', user);
+            if (registerPassword !== confirmPassword) {
+                alert('Error: Las contraseñas no coinciden.');
+                return;
+            }
+            
+            if (registerPassword.length < 6) {
+                alert('Error: La contraseña debe tener al menos 6 caracteres.');
+                return;
+            }
+            
+            const registeredUsers = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            
+            const userExists = registeredUsers.some(user => user.id === registerId);
+            if (userExists) {
+                alert('Error: El ID de estudiante ya está registrado.');
+                return;
+            }
 
-            updateUI(user);
+            const newUser = {
+                id: registerId,
+                name: registerName,
+                email: registerEmail,
+                program: registerProgram,
+                semester: registerSemester,
+                password: registerPassword 
+            };
+            
+            registeredUsers.push(newUser);
+            localStorage.setItem(USERS_KEY, JSON.stringify(registeredUsers));
 
-            document.getElementById('welcomeMessage').style.display = 'none';
-            document.getElementById('authSection').style.display = 'none';
+            alert(`¡Registro exitoso! Ya puedes iniciar sesión con tu ID: ${registerId}`);
 
-            const userContent = document.getElementById('userContent');
-            userContent.classList.remove('hidden');
-
-            userContent.style.opacity = '0';
-            setTimeout(() => {
-                userContent.style.transition = 'opacity 0.5s';
-                userContent.style.opacity = '1';
-            }, 10);
+            document.getElementById('registerName').value = '';
+            document.getElementById('registerId').value = '';
+            document.getElementById('registerEmail').value = '';
+            document.getElementById('registerProgram').value = ''; 
+            document.getElementById('registerSemester').value = '';
+            document.getElementById('registerPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            const loginTab = document.querySelector('.tabs .tab:first-child');
+            switchTab({target: loginTab}, 'login');
         }
 
+      
+        function login() {
+            const loginId = document.getElementById('loginId').value.trim();
+            const loginPassword = document.getElementById('loginPassword').value.trim();
+            
+            if (!loginId || !loginPassword) {
+                alert('Por favor, ingresa tu ID y contraseña.');
+                return;
+            }
+            
+            const registeredUsers = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            
+            const user = registeredUsers.find(
+                u => u.id === loginId && u.password === loginPassword
+            );
+
+            if (user) {
+                isLoggedIn = true;
+                localStorage.setItem('userName', user.name); 
+                localStorage.setItem('userId', user.id); 
+                localStorage.setItem('userProgram', user.program); 
+                localStorage.setItem('userSemester', user.semester);
+
+                updateUI(user.name);
+
+                document.getElementById('welcomeMessage').style.display = 'none';
+                document.getElementById('authSection').style.display = 'none';
+
+                const userContent = document.getElementById('userContent');
+                userContent.classList.remove('hidden');
+
+                userContent.style.opacity = '0';
+                setTimeout(() => {
+                    userContent.style.transition = 'opacity 0.5s';
+                    userContent.style.opacity = '1';
+                }, 10);
+            } else {
+                alert('Error: ID o contraseña incorrectos. Por favor, regístrate si aún no lo has hecho.');
+            }
+        }
+        
         function logout() {
             isLoggedIn = false;
             localStorage.removeItem('userName');
+            localStorage.removeItem('userId'); 
+            localStorage.removeItem('userProgram'); 
+            localStorage.removeItem('userSemester');
+            localStorage.removeItem('userPhotoUrl'); 
 
             updateUI('');
+
+            const loginTab = document.querySelector('.tabs .tab:first-child');
+            switchTab({target: loginTab}, 'login');
 
             document.getElementById('authSection').style.display = 'block';
             document.getElementById('welcomeMessage').style.display = 'block';
@@ -1154,6 +1467,12 @@
 
             document.getElementById('userDropdown').classList.remove('active');
             document.getElementById('notificationDropdown').classList.remove('active');
+            
+            
+            const headerUserIcon = document.getElementById('headerUserIcon');
+            if (headerUserIcon) {
+                headerUserIcon.textContent = '👤';
+            }
         }
 
         function goToAmigos() {
@@ -1164,21 +1483,86 @@
             }
         }
 
+        
+
+        function openForgotPasswordModal(event) {
+            event.preventDefault();
+            document.getElementById('forgotPasswordModal').classList.add('active');
+            document.getElementById('recoveryId').value = '';
+            document.getElementById('recoveryEmail').value = '';
+            document.getElementById('recoveryResult').style.display = 'none';
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.remove('active');
+        }
+
+        function recoverPassword() {
+            const recoveryId = document.getElementById('recoveryId').value.trim();
+            const recoveryEmail = document.getElementById('recoveryEmail').value.trim();
+            const resultDiv = document.getElementById('recoveryResult');
+            
+            if (!recoveryId || !recoveryEmail) {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#ffebee';
+                resultDiv.style.color = '#c62828';
+                resultDiv.textContent = 'Por favor, completa todos los campos.';
+                return;
+            }
+            
+            const registeredUsers = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            
+            const user = registeredUsers.find(
+                u => u.id === recoveryId && u.email === recoveryEmail
+            );
+            
+            if (user) {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#e8f5e9';
+                resultDiv.style.color = '#2e7d32';
+                resultDiv.innerHTML = `
+                    <strong>✓ Cuenta encontrada</strong><br>
+                    <div style="margin-top: 10px;">
+                        <strong>Tu contraseña es:</strong> ${user.password}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 13px; color: #666;">
+                        Te recomendamos cambiarla después de iniciar sesión.
+                    </div>
+                `;
+            } else {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#ffebee';
+                resultDiv.style.color = '#c62828';
+                resultDiv.textContent = 'No se encontró ninguna cuenta con esos datos. Verifica tu ID y correo electrónico.';
+            }
+        }
+
         function updateUI(user) {
             const userName = user || localStorage.getItem('userName') || 'Usuario';
+            const firstName = userName.split(' ')[0]; 
 
-            document.getElementById('mainTitle').textContent = isLoggedIn ? `Hola, ${userName}` : 'Hola, Bienvenido';
-            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+            document.getElementById('mainTitle').textContent = isLoggedIn ? `Hola, ${firstName}` : 'Hola, Bienvenido';
+            document.getElementById('userNameDisplay').textContent = firstName;
 
             document.getElementById('userNameDisplay').classList.toggle('active', isLoggedIn);
 
             document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
             document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('amigosLink').style.display = isLoggedIn ? 'flex' : 'none';
 
             document.getElementById('authSection').style.display = isLoggedIn ? 'none' : 'block';
             document.getElementById('welcomeMessage').style.display = isLoggedIn ? 'none' : 'block';
             document.getElementById('userContent').classList.toggle('hidden', !isLoggedIn);
+            
+            const externalLinksCard = document.getElementById('externalLinksCard');
+
+            if (externalLinksCard) {
+                externalLinksCard.style.display = isLoggedIn ? 'block' : 'none';
+            }
+
+           
+            initializeUserIcon();
         }
 
         function toggleNotifications() {
@@ -1207,12 +1591,15 @@
         }
 
         function viewSettings() {
-            alert('Configuración - Funcionalidad en desarrollo');
-            document.getElementById('userDropdown').classList.remove('active');
+            if (isLoggedIn) {
+                alert('Ver Configuración');
+            } else {
+                alert('Debes iniciar sesión para acceder a la configuración.');
+            }
         }
 
         function viewHelp() {
-            window.location.href = 'soporte.html';
+            alert('Ver Ayuda');
         }
 
         document.addEventListener('click', function(event) {
@@ -1221,6 +1608,12 @@
             }
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
+            }
+            
+           
+            const modal = document.getElementById('forgotPasswordModal');
+            if (event.target === modal) {
+                closeForgotPasswordModal();
             }
         });
 
@@ -1231,9 +1624,138 @@
                 updateUI(storedUserName);
             } else {
                 updateUI('');
+                const loginTab = document.querySelector('.tabs .tab:first-child');
+                switchTab({target: loginTab}, 'login');
             }
+            
+            applyGlobalTheme();
+            initializeUserIcon(); 
         });
+
+        
+        function applyGlobalTheme() {
+            const theme = localStorage.getItem('globalTheme') || 'light';
+            
+            if (theme === 'dark') {
+                document.body.style.background = '#1a1a1a';
+                document.body.style.color = '#fff';
+                
+                document.querySelectorAll('.auth-section, .welcome-message, .progress-card, .hours-card, .external-links-card').forEach(card => {
+                    card.style.background = '#2a2a2a';
+                    card.style.color = '#fff';
+                    card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
+                });
+                
+                document.querySelectorAll('.left-section h1, .welcome-message h2, .welcome-message p, .progress-card h4, .hours-card h3, .external-links-card h3').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.progress-number, .progress-text, .option-label').forEach(el => {
+                    el.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('input').forEach(input => {
+                    input.style.background = '#333';
+                    input.style.color = '#fff';
+                    input.style.borderColor = '#555';
+                });
+                
+                document.querySelectorAll('.input-group label').forEach(label => {
+                    label.style.color = '#ccc';
+                });
+
+                document.querySelectorAll('.link-grid a').forEach(a => {
+                    a.style.background = '#333';
+                    a.style.color = '#bbb';
+                });
+                
+                document.querySelectorAll('.tab').forEach(tab => {
+                    if (!tab.classList.contains('active')) {
+                        tab.style.color = '#999';
+                    }
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#2a2a2a';
+                    footer.style.color = '#ccc';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.placeholder-line').forEach(line => {
+                    line.style.background = '#444';
+                });
+                
+            } else if (theme === 'light') {
+                document.body.style.background = '#f5f5f5';
+                document.body.style.color = '#1a1a1a';
+                
+                document.querySelectorAll('.auth-section, .welcome-message, .progress-card, .hours-card, .external-links-card').forEach(card => {
+                    card.style.background = '#fff';
+                    card.style.color = '#1a1a1a';
+                    card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+                });
+                
+                document.querySelectorAll('.left-section h1, .welcome-message h2, .progress-card h4, .hours-card h3, .external-links-card h3').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.welcome-message p').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.progress-number').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.progress-text, .option-label').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                document.querySelectorAll('input').forEach(input => {
+                    input.style.background = '#fafafa';
+                    input.style.color = '#1a1a1a';
+                    input.style.borderColor = '#ddd';
+                });
+                
+                document.querySelectorAll('.input-group label').forEach(label => {
+                    label.style.color = '#555';
+                });
+
+                document.querySelectorAll('.link-grid a').forEach(a => {
+                    a.style.background = '#e3f2fd';
+                    a.style.color = '#1565c0';
+                });
+                
+                document.querySelectorAll('.tab').forEach(tab => {
+                    if (!tab.classList.contains('active')) {
+                        tab.style.color = '#999';
+                    }
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#fff';
+                    footer.style.color = '#666';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.placeholder-line').forEach(line => {
+                    line.style.background = '#d0d0d0';
+                });
+            } else if (theme === 'auto') {
+                const hour = new Date().getHours();
+                const isDark = hour < 6 || hour >= 18;
+                localStorage.setItem('globalTheme', isDark ? 'dark' : 'light');
+                applyGlobalTheme();
+            }
+        }
     </script>
 </body>
 </html>
-
