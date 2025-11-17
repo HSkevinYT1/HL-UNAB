@@ -599,10 +599,6 @@
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
-        <div class="footer-links">
-            <a href="#">Acerca de</a>
-            <a href="soporte.html">soporte</a>
-        </div>
     </footer>
 
     
@@ -662,19 +658,13 @@
         }
 
        function viewSettings() {
-            if (isLoggedIn) {
-                window.location.href = 'Configuracion.html';
-            } else {
-                alert('Debes iniciar sesión para acceder a la configuración.');
-            }
+           window.location.href = 'Configuracion.html';
+           document.getElementById('userDropdown'.classlist.remove('active');
         }
 
         function viewHelp() {
-            if (isLoggedIn) {
-                window.location.href = 'Soporte.html';
-            } else {
-                alert('Debes iniciar sesión para acceder a la ayuda');
-            }
+           window.location.href = 'Soporte.html';
+           document.getElementById('userDropdown'.classlist.remove('active');
         }
 
         function logout() {
@@ -781,5 +771,6 @@
 </body>
 
 </html>
+
 
 
