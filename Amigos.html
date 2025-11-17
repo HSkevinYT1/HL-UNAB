@@ -1590,13 +1590,19 @@
         }
 
         function viewSettings() {
-            alert('Configuración - Funcionalidad en desarrollo');
-            document.getElementById('userDropdown').classList.remove('active');
+            if (isLoggedIn) {
+                window.location.href = 'Configuracion.html';
+            } else {
+                alert('Debes iniciar sesión para acceder a la configuración.');
+            }
         }
 
         function viewHelp() {
-            window.location.href = 'soporte.html';
-            document.getElementById('userDropdown').classList.remove('active');
+            if (isLoggedIn) {
+                window.location.href = 'Soporte.html';
+            } else {
+                alert('Debes iniciar sesión para acceder a la ayuda');
+            }
         }
 
         function logout() {
@@ -2170,3 +2176,4 @@
     </script>
 </body>
 </html>s
+
