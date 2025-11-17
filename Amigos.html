@@ -1725,7 +1725,7 @@
         const emojiPicker = document.getElementById('emojiPicker');
         const imageInput = document.getElementById('imageInput');
 
-        // Emojis comunes
+        
         const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👏', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
 
         
@@ -1819,7 +1819,7 @@
             const muteMenuItem = document.getElementById('muteMenuItem');
             const blockMenuItem = document.getElementById('blockMenuItem');
             
-            // Actualizar icono de estado
+            
             if (activeFriend.blocked) {
                 statusIcon.textContent = '🚫';
                 statusIcon.title = 'Bloqueado';
@@ -1830,7 +1830,7 @@
                 statusIcon.textContent = '';
             }
             
-            // Actualizar texto del menú
+           
             if (activeFriend.muted) {
                 muteMenuItem.innerHTML = '🔔 Activar notificaciones';
             } else {
@@ -1967,16 +1967,16 @@
             chatUserName.textContent = activeFriend.name;
             chatAvatar.style.background = activeFriend.avatarColor;
             
-            // Limpiar el input de mensaje al cambiar de chat
+            
             messageInput.value = '';
             
-            // Actualizar el header con los iconos de estado
+           
             updateChatHeader();
             
             renderMessages();
             renderContacts();
             
-            // Mostrar el chat panel en PC
+            
             if (window.innerWidth > 768) {
                 chatPanel.style.display = 'flex';
             }
@@ -1997,7 +1997,7 @@
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${msg.from === 'me' ? 'right' : 'left'}`;
                 
-                // Si el mensaje tiene una imagen
+               
                 if (msg.image) {
                     bubble.innerHTML = `${msg.text ? msg.text + '<br>' : ''}<img src="${msg.image}" alt="Imagen">`;
                 } else {
@@ -2050,18 +2050,18 @@
             const file = e.target.files[0];
             if (!file || !activeFriend) return;
             
-            // Validar que sea una imagen
+           
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona una imagen válida');
                 return;
             }
             
-            // Leer la imagen como URL
+            
             const reader = new FileReader();
             reader.onload = function(event) {
                 const imageUrl = event.target.result;
                 
-                // Crear mensaje con imagen
+               
                 const newMessage = {
                     from: 'me',
                     text: messageInput.value.trim() || '',
@@ -2071,7 +2071,7 @@
                 activeFriend.messages.push(newMessage);
                 renderMessages();
                 messageInput.value = '';
-                imageInput.value = ''; // Limpiar el input de archivo
+                imageInput.value = ''; 
             };
             
             reader.readAsDataURL(file);
@@ -2142,15 +2142,15 @@
             
             renderContacts();
             
-            // No renderizar mensajes al inicio porque no hay chat activo
+           
 
            
             if (window.innerWidth > 768) {
-                // En PC, no mostrar el chat panel hasta que selecciones un contacto
+                
                 chatPanel.style.display = 'none';
             }
             
-            // En móvil, asegurar que el footer esté visible en el sidebar
+            
             if (window.innerWidth <= 768) {
                 const footer = document.querySelector('footer');
                 const sidebar = document.getElementById('sidebar');
@@ -2160,14 +2160,14 @@
                 }
             }
             
-            // Cerrar emoji picker y chat menu al hacer click fuera
+            
             document.addEventListener('click', (e) => {
-                // Cerrar emoji picker
+                
                 if (!e.target.closest('#emojiBtn') && !e.target.closest('#emojiPicker')) {
                     emojiPicker.classList.remove('active');
                 }
                 
-                // Cerrar chat menu dropdown
+               
                 if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
                     document.getElementById('chatMenuDropdown').classList.remove('active');
                 }
@@ -2176,4 +2176,5 @@
     </script>
 </body>
 </html>s
+
 
