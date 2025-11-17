@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - UNAB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #6b1fa8;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform 0.25s;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-left: 80px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            padding: 8px;
+            transition: transform 0.3s;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-name-display {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #6b1fa8;
+        }
+
+        .perfil-btn {
+            background: white;
+            color: #6b1fa8;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .icon-btn {
+            padding: 8px;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .icon-btn svg {
+            display: block;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .settings-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .settings-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .setting-description {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #d1d5db;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #8600DD;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .select-input {
+            padding: 10px 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            min-width: 150px;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: #8600DD;
+        }
+
+        .input-field {
+            padding: 10px 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 300px;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #8600DD;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: #8600DD;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #6b1fa8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: white;
+            color: #666;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #999;
+            color: #333;
+        }
+
+        .danger-zone {
+            border: 2px solid #f44336;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .danger-zone h3 {
+            color: #f44336;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .danger-zone p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .btn-danger {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        footer {
+            background: white;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-image {
+                height: 50px;
+            }
+
+            .nav-menu {
+                display: none !important;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .search-container {
+                display: none !important;
+            }
+
+            .perfil-btn {
+                display: none !important;
+            }
+
+            .user-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .user-name-display {
+                display: none !important;
+            }
+
+            .notification-bell {
+                font-size: 18px;
+                padding: 4px;
+            }
+
+            main {
+                padding: 20px 15px;
+                padding-bottom: 100px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .settings-card {
+                padding: 20px;
+            }
+
+            .settings-card h2 {
+                font-size: 20px;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 15px 0;
+            }
+
+            .select-input,
+            .input-field {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            footer {
+                display: none !important;
+            }
+
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+
+            .mobile-nav-item.active {
+                color: #8600DD;
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 22px;
+            }
+
+            .settings-card {
+                padding: 18px;
+            }
+
+            .settings-card h2 {
+                font-size: 18px;
+            }
+
+            .setting-label {
+                font-size: 14px;
+            }
+
+            .setting-description {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
+        </a>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
+        </nav>
+
+        <div class="header-right">
+            <a href="Amigos.html" class="perfil-btn icon-btn" aria-label="Amigos (chat)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </a>
+
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="notification-bell">
+                🔔
+                <span class="notification-badge">2</span>
+            </div>
+
+            <div class="user-menu">
+                <div class="user-button">
+                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>
+                    <div class="user-icon">👤</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">⚙️ Configuración</h1>
+            <p class="page-subtitle">Personaliza tu experiencia en HL UNAB</p>
+        </div>
+
+        <div class="settings-container">
+            <!-- Notificaciones -->
+            <div class="settings-card">
+                <h2>🔔 Notificaciones</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Notificaciones push</div>
+                        <div class="setting-description">Recibe alertas sobre nuevos eventos y actividades</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Notificaciones por email</div>
+                        <div class="setting-description">Recibe resúmenes semanales en tu correo</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Recordatorios de eventos</div>
+                        <div class="setting-description">Te avisaremos 1 día antes de cada evento inscrito</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+
+            <!-- Apariencia -->
+            <div class="settings-card">
+                <h2>🎨 Apariencia</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Tema</div>
+                        <div class="setting-description">Selecciona el tema de la aplicación</div>
+                    </div>
+                    <select class="select-input" onchange="changeTheme(this.value)">
+                        <option value="light">Claro</option>
+                        <option value="dark">Oscuro</option>
+                        <option value="auto">Automático</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Idioma</div>
+                        <div class="setting-description">Cambia el idioma de la interfaz</div>
+                    </div>
+                    <select class="select-input">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Privacidad -->
+            <div class="settings-card">
+                <h2>🔒 Privacidad y Seguridad</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Perfil público</div>
+                        <div class="setting-description">Otros usuarios pueden ver tu perfil y progreso</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Cambiar contraseña</div>
+                        <div class="setting-description">Actualiza tu contraseña regularmente</div>
+                    </div>
+                    <button class="btn-secondary" onclick="changePassword()">Cambiar</button>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Autenticación de dos factores</div>
+                        <div class="setting-description">Añade una capa extra de seguridad</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+
+            <!-- Cuenta -->
+            <div class="settings-card">
+                <h2>👤 Información de la Cuenta</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Correo electrónico</div>
+                        <div class="setting-description">kbayona435@unab.edu.co</div>
+                    </div>
+                    <button class="btn-secondary" onclick="changeEmail()">Editar</button>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">ID de estudiante</div>
+                        <div class="setting-description">U00123456</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="saveSettings()">Guardar cambios</button>
+                    <button class="btn-secondary" onclick="cancelSettings()">Cancelar</button>
+                </div>
+
+                <div class="danger-zone">
+                    <h3>⚠️ Zona de Peligro</h3>
+                    <p>Una vez elimines tu cuenta, no hay vuelta atrás. Por favor, ten cuidado.</p>
+                    <button class="btn-danger" onclick="deleteAccount()">Eliminar cuenta</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Universidad Autonoma de Bucaramanga</p>
+        <div class="footer-links">
+            <a href="#">Acerca de</a>
+            <a href="soporte.html">Soporte</a>
+        </div>
+    </footer>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
+
+    <script>
+        // Cargar configuración guardada al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            const userName = localStorage.getItem('userName') || 'Kevin Bayona';
+            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+        });
+
+        // Cargar configuración desde localStorage
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('userSettings')) || {
+                notificationsPush: true,
+                notificationsEmail: false,
+                notificationsReminders: true,
+                theme: 'light',
+                language: 'es',
+                publicProfile: true,
+                twoFactor: false
+            };
+
+            // Aplicar estados de los toggles
+            const toggles = document.querySelectorAll('.toggle-switch');
+            toggles[0].classList.toggle('active', settings.notificationsPush);
+            toggles[1].classList.toggle('active', settings.notificationsEmail);
+            toggles[2].classList.toggle('active', settings.notificationsReminders);
+            toggles[3].classList.toggle('active', settings.publicProfile);
+            toggles[4].classList.toggle('active', settings.twoFactor);
+
+            // Aplicar selects
+            document.querySelector('select[onchange*="changeTheme"]').value = settings.theme;
+            document.querySelectorAll('select')[1].value = settings.language;
+
+            // Aplicar tema
+            applyTheme(settings.theme);
+        }
+
+        // Guardar configuración en localStorage
+        function saveCurrentSettings() {
+            const toggles = document.querySelectorAll('.toggle-switch');
+            const settings = {
+                notificationsPush: toggles[0].classList.contains('active'),
+                notificationsEmail: toggles[1].classList.contains('active'),
+                notificationsReminders: toggles[2].classList.contains('active'),
+                publicProfile: toggles[3].classList.contains('active'),
+                twoFactor: toggles[4].classList.contains('active'),
+                theme: document.querySelector('select[onchange*="changeTheme"]').value,
+                language: document.querySelectorAll('select')[1].value
+            };
+
+            localStorage.setItem('userSettings', JSON.stringify(settings));
+        }
+
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+            const settingCard = element.closest('.settings-card');
+            const settingLabel = element.previousElementSibling.querySelector('.setting-label').textContent;
+            const isActive = element.classList.contains('active');
+            
+            // Guardar automáticamente
+            saveCurrentSettings();
+            
+            // Mostrar notificación
+            showNotification(`${settingLabel}: ${isActive ? 'Activado ✓' : 'Desactivado'}`);
+        }
+
+        function changeTheme(theme) {
+            applyTheme(theme);
+            saveCurrentSettings();
+            showNotification(`Tema ${theme === 'light' ? 'claro' : theme === 'dark' ? 'oscuro' : 'automático'} aplicado ✓`);
+        }
+
+        function applyTheme(theme) {
+            const body = document.body;
+            
+            if (theme === 'dark') {
+                body.style.background = '#1a1a1a';
+                body.style.color = '#fff';
+                document.querySelectorAll('.settings-card').forEach(card => {
+                    card.style.background = '#2a2a2a';
+                    card.style.color = '#fff';
+                });
+                document.querySelectorAll('.setting-label').forEach(label => {
+                    label.style.color = '#fff';
+                });
+                document.querySelectorAll('.setting-description').forEach(desc => {
+                    desc.style.color = '#ccc';
+                });
+            } else if (theme === 'light') {
+                body.style.background = '#f5f5f5';
+                body.style.color = '#1a1a1a';
+                document.querySelectorAll('.settings-card').forEach(card => {
+                    card.style.background = '#fff';
+                    card.style.color = '#1a1a1a';
+                });
+                document.querySelectorAll('.setting-label').forEach(label => {
+                    label.style.color = '#1a1a1a';
+                });
+                document.querySelectorAll('.setting-description').forEach(desc => {
+                    desc.style.color = '#666';
+                });
+            } else if (theme === 'auto') {
+                const hour = new Date().getHours();
+                const isDark = hour < 6 || hour >= 18;
+                applyTheme(isDark ? 'dark' : 'light');
+            }
+        }
+
+        function changePassword() {
+            const currentPassword = prompt('Ingresa tu contraseña actual:');
+            if (!currentPassword) return;
+
+            const newPassword = prompt('Ingresa tu nueva contraseña:');
+            if (!newPassword || newPassword.length < 6) {
+                alert('La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            const confirmPassword = prompt('Confirma tu nueva contraseña:');
+            if (newPassword !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Guardar en localStorage (en producción esto iría a un backend)
+            localStorage.setItem('userPassword', newPassword);
+            showNotification('Contraseña actualizada exitosamente ✓');
+        }
+
+        function changeEmail() {
+            const newEmail = prompt('Ingresa tu nuevo correo electrónico:');
+            if (!newEmail) return;
+
+            if (!newEmail.includes('@') || !newEmail.includes('.')) {
+                alert('Por favor ingresa un correo válido');
+                return;
+            }
+
+            // Guardar en localStorage
+            localStorage.setItem('userEmail', newEmail);
+            
+            // Actualizar en la UI
+            const emailDescription = document.querySelector('.setting-label').parentElement.querySelector('.setting-description');
+            document.querySelectorAll('.setting-description')[6].textContent = newEmail;
+            
+            showNotification('Correo actualizado exitosamente ✓');
+        }
+
+        function saveSettings() {
+            saveCurrentSettings();
+            showNotification('✓ Todos los cambios han sido guardados', 'success');
+        }
+
+        function cancelSettings() {
+            if (confirm('¿Deseas descartar los cambios realizados?')) {
+                loadSettings();
+                showNotification('Cambios descartados', 'info');
+            }
+        }
+
+        function deleteAccount() {
+            const confirmation = prompt('⚠️ ADVERTENCIA: Esta acción es irreversible.\n\nPara eliminar tu cuenta permanentemente, escribe "ELIMINAR CUENTA":');
+            
+            if (confirmation === 'ELIMINAR CUENTA') {
+                const finalConfirm = confirm('¿Estás completamente seguro? Se perderán todos tus datos, horas libres y progreso.');
+                
+                if (finalConfirm) {
+                    showNotification('Eliminando cuenta...', 'danger');
+                    
+                    setTimeout(() => {
+                        // Limpiar todos los datos del usuario
+                        localStorage.clear();
+                        alert('Tu cuenta ha sido eliminada. Serás redirigido al inicio.');
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            } else if (confirmation !== null && confirmation !== '') {
+                alert('Texto incorrecto. Tu cuenta permanece segura.');
+            }
+        }
+
+        // Sistema de notificaciones toast
+        function showNotification(message, type = 'success') {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${type === 'success' ? '#4caf50' : type === 'danger' ? '#f44336' : '#2196F3'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-weight: 500;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+
+            // Agregar animación
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(400px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                @keyframes slideOut {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(400px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            document.body.appendChild(notification);
+
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Cambio de idioma
+        document.querySelectorAll('select')[1].addEventListener('change', function() {
+            const language = this.value;
+            saveCurrentSettings();
+            
+            if (language === 'en') {
+                showNotification('Language changed to English (Coming soon)', 'info');
+            } else {
+                showNotification('Idioma cambiado a Español ✓');
+            }
+        });
+
+        // Auto-guardar al cambiar theme
+        document.querySelector('select[onchange*="changeTheme"]').addEventListener('change', function() {
+            saveCurrentSettings();
+        });
+    </script>
+</body>
+</html>

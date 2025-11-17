@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Campus - UNAB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles - copiado de index.html */
+        header {
+            background: #6b1fa8;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform 0.25s;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-left: 80px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            padding: 8px;
+            transition: transform 0.3s;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+            background: white;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .notification-dropdown.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background: #e3f2fd;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .notification-item-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .notification-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 200px;
+            font-size: 14px;
+            transition: width 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            width: 240px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .user-name-display {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .perfil-btn {
+            background: white;
+            color: #2b5a9e;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .perfil-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #2b5a9e;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+            color: #f44336;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f9f9f9;
+        }
+
+        .icon-btn {
+            padding: 8px;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .icon-btn svg { 
+            display:block; 
+        }
+
+        /* Main content */
+        .main-container {
+            flex: 1;
+            padding: 40px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .building-marker {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(134, 0, 221, 0.9);
+            border: 3px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: popIn 0.5s;
+        }
+
+        .building-marker:hover {
+            transform: scale(1.2);
+            background: #6b1fa8;
+            box-shadow: 0 6px 20px rgba(107, 31, 168, 0.5);
+            z-index: 10;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Posiciones de los marcadores basadas en la imagen */
+        .marker-a { top: 28%; left: 42%; }
+        .marker-b1 { top: 65%; left: 78%; }
+        .marker-d { top: 22%; left: 58%; }
+        .marker-e { top: 48%; left: 48%; }
+        .marker-ea { top: 30%; left: 52%; }
+        .marker-f { top: 52%; left: 58%; }
+        .marker-g { top: 55%; left: 35%; }
+        .marker-h { top: 72%; left: 38%; }
+        .marker-i { top: 67%; left: 24%; }
+        .marker-j { top: 60%; left: 15%; }
+        .marker-k { top: 48%; left: 10%; }
+        .marker-l { top: 28%; left: 18%; }
+        .marker-n { top: 18%; left: 68%; }
+
+        /* Modal de información */
+        .building-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+
+        .building-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section h3::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #8600DD;
+            border-radius: 2px;
+        }
+
+        .facilities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .facility-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .facility-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .facility-icon {
+            font-size: 24px;
+        }
+
+        .facility-name {
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .photo-item {
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 48px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer styles - copiado de index.html */
+        footer {
+            background: white;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        /* Barra de navegación móvil */
+        .mobile-nav {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-image {
+                height: 50px;
+            }
+
+            .nav-menu {
+                display: none !important;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .search-container {
+                display: none !important;
+            }
+
+            .perfil-btn {
+                display: none !important;
+            }
+
+            .user-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .user-name-display {
+                display: none !important;
+            }
+
+            .notification-bell {
+                font-size: 18px;
+                padding: 4px;
+            }
+
+            .notification-dropdown {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+
+            .user-dropdown {
+                right: 0;
+                width: 200px;
+            }
+
+            .main-container {
+                padding: 20px 15px;
+                padding-bottom: 90px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .map-container {
+                padding: 15px;
+            }
+
+            .building-marker {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+                border: 2px solid white;
+            }
+
+            .modal-content {
+                margin: 20px;
+                max-height: 85vh;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 22px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .facilities-list {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                margin-bottom: 70px;
+            }
+
+            .footer-links {
+                gap: 20px;
+            }
+
+            /* Barra de navegación móvil inferior */
+            .mobile-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 10px 0 5px 0;
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                color: #999;
+                font-size: 11px;
+                padding: 5px 10px;
+                transition: all 0.3s;
+                font-weight: 500;
+            }
+
+            .mobile-nav-item.active {
+                color: #8600DD;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.95);
+            }
+
+            .mobile-nav-item svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
+        </a>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Inicio</a>
+            <a href="Mapa.html">Mapa</a>
+            <a href="Calculadora.html">Calculadora</a>
+            <a href="Calendario.html">Calendario</a>
+        </nav>
+
+        <div class="header-right">
+            <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </a>
+            
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" placeholder="Buscar edificios...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()">
+                🔔
+                <span class="notification-badge">2</span>
+            </div>
+
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">
+                    Notificaciones
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Nuevo evento disponible</div>
+                        <div class="notification-item-text">Conferencia de Tecnología - 2 HL disponibles</div>
+                        <div class="notification-item-time">Hace 5 minutos</div>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Recordatorio</div>
+                        <div class="notification-item-text">Te faltan 20 horas para completar tu requisito</div>
+                        <div class="notification-item-time">Hace 1 hora</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-menu">
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display" id="userNameDisplay">Usuario</span>
+                    <div class="user-icon">👤</div>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="viewProfile()">
+                        👤 Mi Perfil
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewSettings()">
+                        ⚙️ Configuración
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewHelp()">
+                        ❓ Ayuda
+                    </div>
+                    <div class="user-dropdown-item" onclick="logout()">
+                        🚪 Cerrar Sesión
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1>Mapa del Campus UNAB</h1>
+            <p>Explora los edificios y descubre qué hay en cada uno</p>
+        </div>
+
+        <div class="map-container">
+            <div class="map-wrapper">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%2395C93D' width='1200' height='800'/%3E%3Ctext x='600' y='400' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EMapa del Campus%3C/text%3E%3C/svg%3E" alt="Mapa Campus UNAB" class="map-image">
+                
+                <!-- Marcadores de edificios -->
+                <div class="building-marker marker-a" onclick="showBuildingInfo('A')" data-building="A">A</div>
+                <div class="building-marker marker-b1" onclick="showBuildingInfo('B1')" data-building="B1">B1</div>
+                <div class="building-marker marker-d" onclick="showBuildingInfo('D')" data-building="D">D</div>
+                <div class="building-marker marker-e" onclick="showBuildingInfo('E')" data-building="E">E</div>
+                <div class="building-marker marker-ea" onclick="showBuildingInfo('EA')" data-building="EA">EA</div>
+                <div class="building-marker marker-f" onclick="showBuildingInfo('F')" data-building="F">F</div>
+                <div class="building-marker marker-g" onclick="showBuildingInfo('G')" data-building="G">G</div>
+                <div class="building-marker marker-h" onclick="showBuildingInfo('H')" data-building="H">H</div>
+                <div class="building-marker marker-i" onclick="showBuildingInfo('I')" data-building="I">I</div>
+                <div class="building-marker marker-j" onclick="showBuildingInfo('J')" data-building="J">J</div>
+                <div class="building-marker marker-k" onclick="showBuildingInfo('K')" data-building="K">K</div>
+                <div class="building-marker marker-l" onclick="showBuildingInfo('L')" data-building="L">L</div>
+                <div class="building-marker marker-n" onclick="showBuildingInfo('N')" data-building="N">N</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de información de edificios -->
+    <div class="building-modal" id="buildingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Edificio A</h2>
+                <p id="modalSubtitle">Bloque Administrativo</p>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>📍 Ubicación y descripción</h3>
+                    <p id="modalDescription">Descripción del edificio</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🏢 Instalaciones principales</h3>
+                    <div class="facilities-list" id="facilitiesList">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>📸 Galería</h3>
+                    <div class="photo-gallery" id="photoGallery">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Universidad Autonoma de Bucaramanga</p>
+        <div class="footer-links">
+            <a href="#">Acerca de</a>
+            <a href="soporte.html">Soporte</a>
+        </div>
+    </footer>
+
+    <!-- Barra de navegación móvil -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <a href="Calendario.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+            </svg>
+            <span>Calendario</span>
+        </a>
+        <a href="Calculadora.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span>Notas</span>
+        </a>
+        <a href="Mapa.html" class="mobile-nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Mapa</span>
+        </a>
+        <a href="Amigos.html" class="mobile-nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span>Amigos</span>
+        </a>
+    </nav>
+
+    <script>
+        // Información de los edificios
+        const buildingsData = {
+            'A': {
+                name: 'Edificio A - Aula 2',
+                subtitle: 'Bloque Administrativo y Aulas',
+                description: 'El Edificio A alberga las principales oficinas administrativas de la universidad, incluyendo rectoría, vicerrectorías y oficinas de atención al estudiante. También cuenta con aulas de clase equipadas con tecnología moderna.',
+                facilities: [
+                    { icon: '🏛️', name: 'Rectoría' },
+                    { icon: '📋', name: 'Registro Académico' },
+                    { icon: '💼', name: 'Bienestar Universitario' },
+                    { icon: '🎓', name: 'Admisiones' },
+                    { icon: '🖥️', name: 'Aulas Tecnológicas' },
+                    { icon: '📚', name: 'Oficinas Administrativas' }
+                ],
+                photos: ['🏢', '📖', '💻']
+            },
+            'B1': {
+                name: 'Edificio B1 - AINF',
+                subtitle: 'Ingeniería y Tecnología',
+                description: 'Dedicado a las carreras de ingeniería y tecnología. Cuenta con laboratorios especializados, aulas de computación y espacios de innovación para proyectos estudiantiles.',
+                facilities: [
+                    { icon: '💻', name: 'Laboratorios de Cómputo' },
+                    { icon: '🔬', name: 'Laboratorio de Física' },
+                    { icon: '⚙️', name: 'Taller de Mecánica' },
+                    { icon: '🤖', name: 'Lab. de Robótica' },
+                    { icon: '📡', name: 'Lab. de Redes' },
+                    { icon: '🔌', name: 'Lab. de Electrónica' }
+                ],
+                photos: ['💻', '🔬', '⚙️']
+            },
+            'D': {
+                name: 'Edificio D',
+                subtitle: 'Ciencias Sociales y Humanidades',
+                description: 'Centro de estudios sociales y humanísticos. Incluye aulas, salas de conferencias y espacios para seminarios y eventos académicos.',
+                facilities: [
+                    { icon: '📖', name: 'Aulas de Clase' },
+                    { icon: '🎭', name: 'Sala de Teatro' },
+                    { icon: '🎨', name: 'Taller de Arte' },
+                    { icon: '🗣️', name: 'Salas de Conferencias' },
+                    { icon: '📚', name: 'Sala de Lectura' },
+                    { icon: '🎬', name: 'Sala Audiovisual' }
+                ],
+                photos: ['📖', '🎭', '🎨']
+            },
+            'E': {
+                name: 'Edificio E',
+                subtitle: 'Ciencias de la Salud',
+                description: 'Facultad de Ciencias de la Salud con laboratorios médicos, salas de simulación clínica y aulas especializadas para programas de medicina, enfermería y áreas afines.',
+                facilities: [
+                    { icon: '🏥', name: 'Laboratorio Clínico' },
+                    { icon: '🩺', name: 'Sala de Simulación' },
+                    { icon: '💉', name: 'Consultorio de Práctica' },
+                    { icon: '🔬', name: 'Lab. de Microbiología' },
+                    { icon: '🦴', name: 'Lab. de Anatomía' },
+                    { icon: '💊', name: 'Farmacia Didáctica' }
+                ],
+                photos: ['🏥', '🩺', '🔬']
+            },
+            'EA': {
+                name: 'Edificio EA - Plazoleta',
+                subtitle: 'Zona Social y Deportiva',
+                description: 'Área de esparcimiento y recreación con plazoleta central, canchas deportivas y zonas verdes. Ideal para actividades extracurriculares y eventos estudiantiles.',
+                facilities: [
+                    { icon: '⚽', name: 'Canchas Deportivas' },
+                    { icon: '🌳', name: 'Zonas Verdes' },
+                    { icon: '🍽️', name: 'Cafetería Central' },
+                    { icon: '🎪', name: 'Plazoleta de Eventos' },
+                    { icon: '🏃', name: 'Pista de Trote' },
+                    { icon: '🧘', name: 'Zona de Descanso' }
+                ],
+                photos: ['⚽', '🌳', '🍽️']
+            },
+            'F': {
+                name: 'Edificio F',
+                subtitle: 'Ciencias Económicas y Administrativas',
+                description: 'Sede de las facultades de Administración, Economía y Contaduría. Incluye aulas, salas de juntas y espacios para emprendimiento.',
+                facilities: [
+                    { icon: '💼', name: 'Aulas Empresariales' },
+                    { icon: '📊', name: 'Sala de Finanzas' },
+                    { icon: '🚀', name: 'Centro de Emprendimiento' },
+                    { icon: '📈', name: 'Lab. de Mercadeo' },
+                    { icon: '💰', name: 'Simulador Bursátil' },
+                    { icon: '🤝', name: 'Salas de Negociación' }
+                ],
+                photos: ['💼', '📊', '🚀']
+            },
+            'G': {
+                name: 'Edificio G',
+                subtitle: 'Posgrados e Investigación',
+                description: 'Destinado a programas de posgrado, maestrías y doctorados. Cuenta con oficinas para investigadores y salas especializadas.',
+                facilities: [
+                    { icon: '🎓', name: 'Aulas de Posgrado' },
+                    { icon: '🔬', name: 'Centros de Investigación' },
+                    { icon: '📝', name: 'Oficinas Docentes' },
+                    { icon: '📚', name: 'Biblioteca Especializada' },
+                    { icon: '💻', name: 'Salas de Cómputo' },
+                    { icon: '🗂️', name: 'Archivo Académico' }
+                ],
+                photos: ['🎓', '🔬', '📚']
+            },
+            'H': {
+                name: 'Edificio H',
+                subtitle: 'Servicios Complementarios',
+                description: 'Edificio de servicios con cafeterías, tiendas, áreas de estudio y espacios recreativos para la comunidad universitaria.',
+                facilities: [
+                    { icon: '☕', name: 'Cafeterías' },
+                    { icon: '🏪', name: 'Tiendas' },
+                    { icon: '📖', name: 'Salas de Estudio' },
+                    { icon: '🖨️', name: 'Centro de Copiado' },
+                    { icon: '🎮', name: 'Sala de Recreación' },
+                    { icon: '📦', name: 'Casilleros Estudiantiles' }
+                ],
+                photos: ['☕', '🏪', '📖']
+            },
+            'I': {
+                name: 'Edificio I',
+                subtitle: 'Artes y Diseño',
+                description: 'Centro dedicado a programas de diseño gráfico, diseño industrial, artes visuales y arquitectura.',
+                facilities: [
+                    { icon: '🎨', name: 'Talleres de Arte' },
+                    { icon: '🖌️', name: 'Estudio de Diseño' },
+                    { icon: '📐', name: 'Sala de Arquitectura' },
+                    { icon: '🖥️', name: 'Lab. de Diseño Digital' },
+                    { icon: '📷', name: 'Estudio Fotográfico' },
+                    { icon: '🎬', name: 'Sala de Edición' }
+                ],
+                photos: ['🎨', '🖌️', '📐']
+            },
+            'J': {
+                name: 'Edificio J',
+                subtitle: 'Derecho y Ciencias Políticas',
+                description: 'Facultad de Derecho con salas de audiencia simuladas, biblioteca jurídica y espacios para debate y oratoria.',
+                facilities: [
+                    { icon: '⚖️', name: 'Sala de Audiencias' },
+                    { icon: '📚', name: 'Biblioteca Jurídica' },
+                    { icon: '🗣️', name: 'Sala de Oratoria' },
+                    { icon: '📋', name: 'Consultorio Jurídico' },
+                    { icon: '🏛️', name: 'Centro de Conciliación' },
+                    { icon: '💼', name: 'Oficinas Docentes' }
+                ],
+                photos: ['⚖️', '📚', '🗣️']
+            },
+            'K': {
+                name: 'Edificio K',
+                subtitle: 'Idiomas y Comunicación',
+                description: 'Centro de idiomas con laboratorios de lenguas, estudios de radio y televisión, y espacios multimedia.',
+                facilities: [
+                    { icon: '🗣️', name: 'Lab. de Idiomas' },
+                    { icon: '📻', name: 'Estudio de Radio' },
+                    { icon: '📺', name: 'Estudio de TV' },
+                    { icon: '🎙️', name: 'Cabinas de Grabación' },
+                    { icon: '💬', name: 'Salas de Conversación' },
+                    { icon: '🌍', name: 'Centro Cultural' }
+                ],
+                photos: ['🗣️', '📻', '📺']
+            },
+            'L': {
+                name: 'Edificio L - Torres L',
+                subtitle: 'Aulas Múltiples',
+                description: 'Complejo de torres con múltiples aulas de clase distribuidas en varios pisos (L5-1 a L7-2 AINF). Equipadas con tecnología audiovisual.',
+                facilities: [
+                    { icon: '🏫', name: 'Aulas de Clase' },
+                    { icon: '🖥️', name: 'Salas Audiovisuales' },
+                    { icon: '📊', name: 'Salas de Conferencias' },
+                    { icon: '🔬', name: 'Laboratorios' },
+                    { icon: '📚', name: 'Salas de Estudio' },
+                    { icon: '☕', name: 'Cafetería' }
+                ],
+                photos: ['🏫', '🖥️', '📊']
+            },
+            'N': {
+                name: 'Edificio N',
+                subtitle: 'Servicios Académicos',
+                description: 'Centro de servicios académicos, tutorías, asesorías y programas de apoyo estudiantil.',
+                facilities: [
+                    { icon: '👨‍🏫', name: 'Centro de Tutorías' },
+                    { icon: '📖', name: 'Asesoría Académica' },
+                    { icon: '💻', name: 'Salas de Cómputo' },
+                    { icon: '📝', name: 'Centro de Escritura' },
+                    { icon: '🧮', name: 'Tutorías de Matemáticas' },
+                    { icon: '🌐', name: 'Centro de Idiomas' }
+                ],
+                photos: ['👨‍🏫', '📖', '💻']
+            }
+        };
+
+        let isLoggedIn = !!localStorage.getItem('userName');
+
+        function showBuildingInfo(buildingId) {
+            const building = buildingsData[buildingId];
+            if (!building) return;
+
+            document.getElementById('modalTitle').textContent = building.name;
+            document.getElementById('modalSubtitle').textContent = building.subtitle;
+            document.getElementById('modalDescription').textContent = building.description;
+
+            // Llenar instalaciones
+            const facilitiesList = document.getElementById('facilitiesList');
+            facilitiesList.innerHTML = '';
+            building.facilities.forEach(facility => {
+                const facilityItem = document.createElement('div');
+                facilityItem.className = 'facility-item';
+                facilityItem.innerHTML = `
+                    <span class="facility-icon">${facility.icon}</span>
+                    <span class="facility-name">${facility.name}</span>
+                `;
+                facilitiesList.appendChild(facilityItem);
+            });
+
+            // Llenar galería
+            const photoGallery = document.getElementById('photoGallery');
+            photoGallery.innerHTML = '';
+            building.photos.forEach(photo => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.textContent = photo;
+                photoGallery.appendChild(photoItem);
+            });
+
+            document.getElementById('buildingModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('buildingModal').classList.remove('active');
+        }
+
+        function toggleNotifications() {
+            if (!isLoggedIn) return;
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function toggleUserMenu() {
+            if (!isLoggedIn) return;
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+            document.getElementById('notificationDropdown').classList.remove('active');
+        }
+
+        function viewProfile() {
+            if (isLoggedIn) {
+                window.location.href = 'perfil.html';
+            }
+        }
+
+        function viewSettings() {
+            if (isLoggedIn) {
+                window.location.href = 'configuracion.html';
+            } else {
+                alert('Debes iniciar sesión para acceder a la configuración.');
+            }
+        }
+
+        function viewHelp() {
+            window.location.href = 'soporte.html';
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        }
+
+        function goToAmigos() {
+            if (isLoggedIn) {
+                window.location.href = 'Amigos.html';
+            } else {
+                alert('Debes iniciar sesión para acceder al chat de Amigos.');
+            }
+        }
+
+        function updateUI() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+
+            document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
+            document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById('buildingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Cerrar dropdowns al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
+                document.getElementById('notificationDropdown').classList.remove('active');
+            }
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUI();
+            applyGlobalTheme();
+        });
+
+        // Función para aplicar el tema global
+        function applyGlobalTheme() {
+            const theme = localStorage.getItem('globalTheme') || 'light';
+            
+            if (theme === 'dark') {
+                document.body.style.background = '#1a1a1a';
+                document.body.style.color = '#fff';
+                
+                document.querySelectorAll('.map-container, .modal-content').forEach(card => {
+                    card.style.background = '#2a2a2a';
+                    card.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.page-header h1, .page-header p').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.facility-item').forEach(item => {
+                    item.style.background = '#333';
+                    item.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.modal-body p').forEach(p => {
+                    p.style.color = '#ccc';
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#2a2a2a';
+                    footer.style.color = '#ccc';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#ccc';
+                });
+                
+            } else if (theme === 'light') {
+                document.body.style.background = '#f5f5f5';
+                document.body.style.color = '#1a1a1a';
+                
+                document.querySelectorAll('.map-container, .modal-content').forEach(card => {
+                    card.style.background = '#fff';
+                    card.style.color = '#1a1a1a';
+                });
+                
+                document.querySelectorAll('.page-header h1').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.page-header p').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.facility-item').forEach(item => {
+                    item.style.background = '#f9f9f9';
+                    item.style.color = '#555';
+                });
+                
+                document.querySelectorAll('.modal-body p').forEach(p => {
+                    p.style.color = '#666';
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#fff';
+                    footer.style.color = '#666';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#666';
+                });
+            } else if (theme === 'auto') {
+                const hour = new Date().getHours();
+                const isDark = hour < 6 || hour >= 18;
+                localStorage.setItem('globalTheme', isDark ? 'dark' : 'light');
+                applyGlobalTheme();
+            }
+        }
+    </script>
+</body>
+</html>
