@@ -123,8 +123,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px; 
             color: #8C0FAA;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+        }
+        
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .user-name-display {
@@ -186,14 +196,21 @@
             background: #f9f9f9;
         }
 
+        .main-content-wrapper {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
         .container {
             width: 100%;
             margin: 0;
-            padding: 40px;
+            padding: 40px 40px 20px 40px; 
             display: grid;
             grid-template-columns: 400px 1fr;
             gap: 40px;
-            flex: 1;
+            flex-grow: 1; 
         }
 
         .profile-card {
@@ -205,9 +222,13 @@
             flex-direction: column;
             align-items: flex-start;
             text-align: left;
-            height: fit-content;
+            height: 100%; 
             min-width: 400px;
             position: relative;
+        }
+        
+        #photoUploadInput {
+            display: none;
         }
 
         .profile-card-header {
@@ -220,6 +241,7 @@
         .profile-card-content {
             padding: 0 40px 40px 40px;
             width: 100%;
+            flex-grow: 1;
         }
 
         .profile-image-container {
@@ -232,11 +254,49 @@
             justify-content: center;
             border: 3px solid #8C0FAA;
             margin: -60px auto 30px auto;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .profile-placeholder-icon {
             font-size: 50px;
             color: #8C0FAA;
+            font-weight: 600; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+        }
+
+        .change-photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 50%;
+            font-size: 24px;
+        }
+
+        .profile-image-container:hover .change-photo-overlay {
+            opacity: 1;
         }
 
         .profile-name {
@@ -250,6 +310,7 @@
             width: 100%;
             text-align: left;
             margin: 20px 0;
+            flex-grow: 1;
         }
 
         .profile-info-item {
@@ -269,6 +330,53 @@
             font-weight: normal;
             color: #666;
             font-size: 14px;
+        }
+
+        .profile-info-edit {
+            width: 100%;
+            margin: 20px 0 0 0;
+            flex-grow: 1;
+        }
+
+        .profile-info-edit .profile-info-item {
+            padding: 5px 0;
+            display: block; 
+        }
+
+        .profile-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box; 
+            color: #333;
+        }
+
+        .profile-input:focus {
+            border-color: #8C0FAA;
+            box-shadow: 0 0 0 3px rgba(140, 15, 170, 0.1);
+            outline: none;
+        }
+
+        #editName {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            border-radius: 0;
+            padding: 0;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        #editName:focus {
+            border-bottom-color: #8C0FAA;
+            box-shadow: none;
         }
 
         .edit-profile-btn {
@@ -291,6 +399,34 @@
             box-shadow: 0 5px 20px rgba(140, 15, 170, 0.4);
         }
 
+        #editProfileBtn[data-editing="true"] {
+            background: #4CAF50;
+        }
+        #editProfileBtn[data-editing="true"]:hover {
+            background: #388E3C;
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .remove-photo-btn {
+            background: #f44336;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+
+        .remove-photo-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(244, 67, 54, 0.4);
+        }
+
         .info-section {
             display: flex;
             flex-direction: column;
@@ -303,7 +439,6 @@
             padding: 0;
             border-radius: 16px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
             width: 100%;
         }
 
@@ -332,6 +467,8 @@
         .info-card-content {
             transition: max-height 0.3s, opacity 0.3s;
             overflow: hidden;
+            max-height: 500px; 
+            opacity: 1;
         }
 
         .info-card-content.collapsed {
@@ -399,7 +536,6 @@
             color: #8C0FAA;
         }
 
-        /* Barra de navegación móvil (oculta en desktop) */
         .mobile-nav {
             display: none;
         }
@@ -408,10 +544,11 @@
             .container {
                 grid-template-columns: 1fr;
                 gap: 30px;
-                padding: 30px;
+                padding: 30px 30px 20px 30px;
             }
             .profile-card {
                 min-width: 100%;
+                height: auto; 
             }
         }
 
@@ -437,13 +574,7 @@
             }
 
             .container {
-                padding: 20px 15px;
-                padding-bottom: 100px;
-            }
-
-            .profile-card {
-                padding: 0;
-                min-width: 100%;
+                padding: 20px 15px 100px 15px; 
             }
 
             .profile-card-content {
@@ -468,13 +599,9 @@
                 font-size: 14px;
             }
 
-            .edit-profile-btn {
+            .edit-profile-btn, .remove-photo-btn {
                 width: 100%;
                 text-align: center;
-            }
-
-            .info-card {
-                padding: 0;
             }
 
             .info-card-header {
@@ -491,7 +618,6 @@
                 display: none !important;
             }
 
-            /* Barra de navegación móvil inferior */
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -558,8 +684,8 @@
 
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">
-                    <span class="user-name-display">Kevin </span>
-                    <div class="user-icon">👤</div>
+                    <span class="user-name-display" id="headerUserName">Usuario</span>
+                    <div class="user-icon" id="headerUserIcon">U</div> 
                 </div>
                 
                 <div class="user-dropdown" id="userDropdown">
@@ -575,75 +701,104 @@
                     <div class="user-dropdown-item" onclick="goBack()">
                         🏠 Volver a Inicio
                     </div>
+                    <div class="user-dropdown-item" onclick="logout()" style="color: #f44336;">
+                        🚪 Cerrar Sesión
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="profile-card">
-            <div class="profile-card-header"></div>
-            <div class="profile-image-container">
-                <div class="profile-placeholder-icon">👤</div>
-            </div>
-            <div class="profile-card-content">
-                <h1 class="profile-name">Kevin </h1>
+    <div class="main-content-wrapper">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-card-header"></div>
                 
-                <div class="profile-info">
-                    <div class="profile-info-item">
-                        <span class="profile-info-label">ID:</span> U00186140
-                    </div>
-                    <div class="profile-info-item">
-                        <span class="profile-info-label">Programa:</span> Ing sistemas
-                    </div>
-                    <div class="profile-info-item">
-                        <span class="profile-info-label">Semestre:</span> 2do
-                    </div>
-                </div>
-                
-                <button class="edit-profile-btn" onclick="editProfile()">Editar Perfil</button>
-            </div>
-        </div>
+                <input type="file" id="photoUploadInput" accept="image/*">
 
-        <div class="info-section">
-            <div class="info-card">
-                <div class="info-card-header">
-                    Proximos Parciales / Horario semanal
-                    <span class="collapse-icon" onclick="toggleCollapse(this)">🔽</span>
+                <div class="profile-image-container" onclick="document.getElementById('photoUploadInput').click()">
+                    <img src="" alt="Foto de Perfil" class="profile-img" id="profileImage">
+                    <div class="profile-placeholder-icon" id="profileCardIcon">U</div> 
+                    <div class="change-photo-overlay">📷</div>
                 </div>
-                <div class="info-card-content">
-                    <div class="schedule-item">
-                        <span class="schedule-icon">🕐</span>
-                        <span class="schedule-text">Cálculo II - Lun, 4pm - 6pm - Aula D21</span>
+
+                <div class="profile-card-content">
+                    <h1 class="profile-name" id="profileNameDisplay">Usuario</h1>
+
+                    <input type="text" id="editName" class="profile-input" placeholder="Nombre completo" style="display: none;">
+                    
+                    <div class="profile-info" id="profileInfoStatic">
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">ID:</span> <span id="profileIdDisplay">U00000000</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Programa:</span> <span id="profileProgramDisplay">Programa</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Semestre:</span> <span id="profileSemesterDisplay">1ro</span>
+                        </div>
                     </div>
-                    <div class="schedule-item">
-                        <span class="schedule-icon">🔧</span>
-                        <span class="schedule-text">Mecanica - jue, 10am - 1pm - Aula J21</span>
+
+                    <div class="profile-info-edit" id="profileInfoEdit" style="display: none;">
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">ID:</span>
+                            <input type="text" id="editId" class="profile-input" value="U00000000" disabled>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Programa:</span>
+                            <input type="text" id="editProgram" class="profile-input" value="Programa">
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Semestre:</span>
+                            <input type="number" id="editSemester" class="profile-input" value="1">
+                        </div>
                     </div>
-                    <div class="schedule-item">
-                        <span class="schedule-icon">🧪</span>
-                        <span class="schedule-text">Laboratorio - mar, 10am - 12pm - lab mecanica</span>
-                    </div>
+                    
+                    <button class="edit-profile-btn" id="editProfileBtn" onclick="handleEditProfile()">Editar Perfil</button>
+                    <button class="remove-photo-btn" id="removePhotoBtn" onclick="removeProfilePhoto()" style="display: none;">Eliminar Foto</button>
                 </div>
             </div>
 
-            <div class="info-card">
-                <div class="info-card-header">
-                    Notificaciones
-                    <span class="collapse-icon" onclick="toggleCollapse(this)">🔽</span>
+            <div class="info-section">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        Proximos Parciales / Horario semanal
+                        <span class="collapse-icon" onclick="toggleCollapse(this)">🔽</span>
+                    </div>
+                    <div class="info-card-content">
+                        <div class="schedule-item">
+                            <span class="schedule-icon">🕐</span>
+                            <span class="schedule-text">Cálculo II - Lun, 4pm - 6pm - Aula D21</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-icon">🔧</span>
+                            <span class="schedule-text">Mecanica - jue, 10am - 1pm - Aula J21</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-icon">🧪</span>
+                            <span class="schedule-text">Laboratorio - mar, 10am - 12pm - lab mecanica</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-card-content">
-                    <div class="notification-item-card">
-                        <span class="notification-icon">📊</span>
-                        <span class="notification-text">Tienes una nueva calificación en Calculo</span>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        Notificaciones
+                        <span class="collapse-icon" onclick="toggleCollapse(this)">🔽</span>
                     </div>
-                    <div class="notification-item-card">
-                        <span class="notification-icon">⏰</span>
-                        <span class="notification-text">Recordatorio: Pago de matricula en 3 dias</span>
-                    </div>
-                    <div class="notification-item-card">
-                        <span class="notification-icon">🎵</span>
-                        <span class="notification-text">Evento: Concierto UNAB</span>
+                    <div class="info-card-content">
+                        <div class="notification-item-card">
+                            <span class="notification-icon">📊</span>
+                            <span class="notification-text">Tienes una nueva calificación en Calculo</span>
+                        </div>
+                        <div class="notification-item-card">
+                            <span class="notification-icon">⏰</span>
+                            <span class="notification-text">Recordatorio: Pago de matricula en 3 dias</span>
+                        </div>
+                        <div class="notification-item-card">
+                            <span class="notification-icon">🎵</span>
+                            <span class="notification-text">Evento: Concierto UNAB</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -652,13 +807,9 @@
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
-        <div class="footer-links">
-            <a href="#">Acerca de</a>
-            <a href="soporte.html">soporte</a>
-        </div>
+    
     </footer>
 
-    
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -693,11 +844,229 @@
     </nav>
 
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Kevin Bayona';
-            document.querySelector('.profile-name').textContent = userName;
-            document.querySelector('.user-name-display').textContent = userName;
-        });
+        let isEditing = false;
+
+      
+        function initializeUserIcon() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const initial = userName.charAt(0).toUpperCase();
+
+          
+            const userIcons = document.querySelectorAll('.user-icon');
+            
+            userIcons.forEach(icon => {
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                   
+                    icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
+                } else {
+                 
+                    icon.textContent = initial;
+                }
+            });
+        }
+
+       
+        function handleProfilePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+          
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor selecciona un archivo de imagen válido.');
+                return;
+            }
+
+          
+            if (file.size > 5 * 1024 * 1024) {
+                alert('La imagen es demasiado grande. Por favor selecciona una imagen menor a 5MB.');
+                return;
+            }
+
+           
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imageDataUrl = e.target.result;
+                
+                
+                localStorage.setItem('userPhotoUrl', imageDataUrl);
+                
+                
+                initializeUserIcon();
+                
+                
+                const profileImage = document.getElementById('profileImage');
+                const profileCardIcon = document.getElementById('profileCardIcon');
+                
+                if (profileImage && profileCardIcon) {
+                    profileImage.src = imageDataUrl;
+                    profileImage.style.display = 'block';
+                    profileCardIcon.style.display = 'none';
+                }
+                
+               
+                document.getElementById('removePhotoBtn').style.display = 'block';
+                
+                alert('¡Foto de perfil actualizada con éxito!');
+            };
+            
+            reader.onerror = function() {
+                alert('Error al cargar la imagen. Por favor intenta de nuevo.');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+      
+        function removeProfilePhoto() {
+            if (!confirm('¿Estás seguro de que quieres eliminar tu foto de perfil?')) {
+                return;
+            }
+            
+            localStorage.removeItem('userPhotoUrl');
+            initializeUserIcon();
+            
+           
+            const profileImage = document.getElementById('profileImage');
+            const profileCardIcon = document.getElementById('profileCardIcon');
+            
+            if (profileImage && profileCardIcon) {
+                profileImage.style.display = 'none';
+                profileCardIcon.style.display = 'flex';
+                
+                const userName = localStorage.getItem('userName') || 'Usuario';
+                profileCardIcon.textContent = userName.charAt(0).toUpperCase();
+            }
+            
+            
+            document.getElementById('removePhotoBtn').style.display = 'none';
+            
+            alert('Foto de perfil eliminada.');
+        }
+
+       
+        function loadProfileData() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userId = localStorage.getItem('userId') || 'U00000000';
+            const userProgram = localStorage.getItem('userProgram') || 'Programa';
+            const userSemester = localStorage.getItem('userSemester') || '1';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const initial = userName.charAt(0).toUpperCase();
+
+        
+            const profileNameDisplay = document.getElementById('profileNameDisplay');
+            const profileIdDisplay = document.getElementById('profileIdDisplay');
+            const profileProgramDisplay = document.getElementById('profileProgramDisplay');
+            const profileSemesterDisplay = document.getElementById('profileSemesterDisplay');
+            
+            if (profileNameDisplay) profileNameDisplay.textContent = userName;
+            if (profileIdDisplay) profileIdDisplay.textContent = userId;
+            if (profileProgramDisplay) profileProgramDisplay.textContent = userProgram;
+            if (profileSemesterDisplay) profileSemesterDisplay.textContent = userSemester + 'do';
+            
+         
+            const editName = document.getElementById('editName');
+            const editId = document.getElementById('editId');
+            const editProgram = document.getElementById('editProgram');
+            const editSemester = document.getElementById('editSemester');
+            
+            if (editName) editName.value = userName;
+            if (editId) editId.value = userId;
+            if (editProgram) editProgram.value = userProgram;
+            if (editSemester) editSemester.value = userSemester;
+
+           
+            const profileImage = document.getElementById('profileImage');
+            const profileCardIcon = document.getElementById('profileCardIcon');
+            
+            if (profileImage && profileCardIcon) {
+                profileCardIcon.textContent = initial;
+                
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                    profileImage.src = userPhotoUrl;
+                    profileImage.style.display = 'block';
+                    profileCardIcon.style.display = 'none';
+                    document.getElementById('removePhotoBtn').style.display = 'block';
+                } else {
+                    profileImage.style.display = 'none';
+                    profileCardIcon.style.display = 'flex';
+                    document.getElementById('removePhotoBtn').style.display = 'none';
+                }
+            }
+            
+          
+            const headerUserName = document.getElementById('headerUserName');
+            if (headerUserName) {
+                headerUserName.textContent = userName.split(' ')[0];
+            }
+            
+           
+            initializeUserIcon();
+        }
+
+       
+
+        function handleEditProfile() {
+            isEditing ? saveProfile() : toggleEditMode(true);
+        }
+
+        function toggleEditMode(shouldEdit) {
+            const staticDiv = document.getElementById('profileInfoStatic');
+            const editDiv = document.getElementById('profileInfoEdit');
+            const nameDisplay = document.getElementById('profileNameDisplay');
+            const nameInput = document.getElementById('editName');
+            const editBtn = document.getElementById('editProfileBtn');
+
+            if (shouldEdit) {
+                
+                isEditing = true;
+
+                nameDisplay.style.display = 'none';
+                staticDiv.style.display = 'none';
+                nameInput.style.display = 'block';
+                editDiv.style.display = 'block';
+                
+                editBtn.textContent = 'Guardar Cambios';
+                editBtn.setAttribute('data-editing', 'true');
+
+            } else {
+               
+                isEditing = false;
+                loadProfileData();
+                
+                nameDisplay.style.display = 'block';
+                staticDiv.style.display = 'block';
+                nameInput.style.display = 'none';
+                editDiv.style.display = 'none';
+
+                editBtn.textContent = 'Editar Perfil';
+                editBtn.setAttribute('data-editing', 'false');
+            }
+        }
+
+        function saveProfile() {
+            const newName = document.getElementById('editName').value.trim();
+            const newProgram = document.getElementById('editProgram').value.trim();
+            const newSemester = document.getElementById('editSemester').value.trim();
+            
+            if (!newName || !newProgram || !newSemester) {
+                alert('Todos los campos son obligatorios.');
+                return;
+            }
+
+            
+            localStorage.setItem('userName', newName);
+            localStorage.setItem('userProgram', newProgram);
+            localStorage.setItem('userSemester', newSemester);
+            
+           
+            toggleEditMode(false);
+            
+            alert('Perfil actualizado con éxito!');
+        }
+
+        
 
         function toggleCollapse(element) {
             element.classList.toggle('collapsed');
@@ -709,12 +1078,8 @@
             document.getElementById('userDropdown').classList.toggle('active');
         }
 
-        function editProfile() {
-            alert('Funcionalidad de editar perfil - En desarrollo');
-        }
-
         function viewSettings() {
-            alert('Configuración - Funcionalidad en desarrollo');
+            window.location.href = 'Configuracion.html';
             document.getElementById('userDropdown').classList.remove('active');
         }
 
@@ -729,11 +1094,34 @@
         function goBack() {
             window.location.href = 'index.html';
         }
+        
+        function logout() {
+            if (!confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                return;
+            }
+            
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userId'); 
+            localStorage.removeItem('userProgram'); 
+            localStorage.removeItem('userSemester');
+            localStorage.removeItem('userPhotoUrl'); 
+            
+            window.location.href = 'index.html';
+        }
 
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.user-menu') && !event.target.closest('.icon-btn')) {
                 document.getElementById('userDropdown').classList.remove('active');
             }
+        });
+
+       
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+            
+          
+            document.getElementById('photoUploadInput').addEventListener('change', handleProfilePhotoUpload);
         });
     </script>
 </body>
