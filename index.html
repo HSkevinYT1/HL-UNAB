@@ -708,7 +708,7 @@
             display: none;
         }
 
-        /* Modal de recuperación de contraseña */
+       
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1049,7 +1049,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu" style="display: none;">
@@ -1599,8 +1599,13 @@
         }
 
         function viewHelp() {
-            alert('Ver Ayuda');
+            if (isLoggedIn) {
+                window.location.href = 'Soporte.html';
+            } else {
+                alert('Debes iniciar sesión para acceder a la ayuda');
+            }
         }
+
 
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
@@ -1759,3 +1764,4 @@
     </script>
 </body>
 </html>
+
