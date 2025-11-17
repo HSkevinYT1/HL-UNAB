@@ -809,7 +809,7 @@
         </div>
 
         <div class="settings-container">
-            <!-- Notificaciones -->
+          
             <div class="settings-card">
                 <h2>🔔 Notificaciones</h2>
                 
@@ -838,7 +838,7 @@
                 </div>
             </div>
 
-            <!-- Apariencia -->
+          
             <div class="settings-card">
                 <h2>🎨 Apariencia</h2>
                 
@@ -866,7 +866,7 @@
                 </div>
             </div>
 
-            <!-- Privacidad -->
+           
             <div class="settings-card">
                 <h2>🔒 Privacidad y Seguridad</h2>
                 
@@ -939,12 +939,10 @@
     </nav>
 
     <script>
-        // Verificar sesión
+       
         let isLoggedIn = !!localStorage.getItem('userName');
 
-        // ====================================
-        // SISTEMA DE ICONOS DE USUARIO GLOBAL
-        // ====================================
+       
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
@@ -961,9 +959,7 @@
             });
         }
 
-        // ====================================
-        // FUNCIONES DEL HEADER
-        // ====================================
+        
         function toggleNotifications() {
             if (!isLoggedIn) return;
             const dropdown = document.getElementById('notificationDropdown');
@@ -978,14 +974,14 @@
             document.getElementById('notificationDropdown').classList.remove('active');
         }
 
-        // Actualizar UI según estado de sesión
+      
         function updateHeaderUI() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const firstName = userName.split(' ')[0];
             
             document.getElementById('userNameDisplay').textContent = firstName;
             
-            // Mostrar/ocultar elementos según sesión
+         
             const navMenu = document.getElementById('navMenu');
             const searchContainer = document.getElementById('searchContainer');
             const notificationBell = document.getElementById('notificationBell');
@@ -1002,7 +998,7 @@
         }
 
         function viewSettings() {
-            // Ya estamos en configuración
+           
             document.getElementById('userDropdown').classList.remove('active');
         }
 
@@ -1025,7 +1021,7 @@
             window.location.href = 'Amigos.html';
         }
 
-        // Cerrar dropdowns al hacer clic fuera
+       
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
@@ -1035,11 +1031,9 @@
             }
         });
 
-        // ====================================
-        // FUNCIONES DE CONFIGURACIÓN
-        // ====================================
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // Verificar si hay sesión iniciada
+           
             if (!isLoggedIn) {
                 alert('Debes iniciar sesión para acceder a la configuración');
                 window.location.href = 'index.html';
@@ -1090,7 +1084,7 @@
 
             localStorage.setItem('userSettings', JSON.stringify(settings));
             
-            // Actualizar tema global para otras páginas
+           
             localStorage.setItem('globalTheme', settings.theme);
         }
 
@@ -1114,22 +1108,22 @@
             const header = document.querySelector('header');
             
             if (theme === 'dark') {
-                // Background y colores base
+                
                 body.style.background = '#1a1a1a';
                 body.style.color = '#fff';
                 
-                // Header
+               
                 if (header) {
                     header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
                     header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
                 }
                 
-                // Nav links
+               
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.style.color = '#ffffff';
                 });
                 
-                // Search input
+               
                 const searchInput = document.querySelector('.search-input');
                 if (searchInput) {
                     searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
@@ -1137,28 +1131,28 @@
                     searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
                 }
                 
-                // User button
+               
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255, 255, 255, 0.2)';
                     userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                 }
                 
-                // Notification bell
+               
                 const notifBell = document.getElementById('notificationBell');
                 if (notifBell) {
                     notifBell.style.color = '#ffffff';
                     notifBell.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
                 }
                 
-                // Amigos button
+               
                 const amigosBtn = document.getElementById('amigosLink');
                 if (amigosBtn) {
                     amigosBtn.style.background = 'rgba(255, 255, 255, 0.2)';
                     amigosBtn.style.color = '#ffffff';
                 }
                 
-                // Dropdowns
+                
                 document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
                     dropdown.style.background = '#2a2a2a';
                     dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
@@ -1200,19 +1194,19 @@
                     item.style.color = '#ff5252';
                 });
                 
-                // Cards de configuración
+               
                 document.querySelectorAll('.settings-card').forEach(card => {
                     card.style.background = '#2a2a2a';
                     card.style.color = '#fff';
                     card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
                 });
                 
-                // Títulos de las cards
+                
                 document.querySelectorAll('.settings-card h2').forEach(h2 => {
                     h2.style.color = '#fff';
                 });
                 
-                // Labels y descripciones
+              
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#fff';
                 });
@@ -1220,7 +1214,7 @@
                     desc.style.color = '#b0b0b0';
                 });
                 
-                // Títulos de página
+               
                 document.querySelectorAll('.page-title').forEach(el => {
                     el.style.color = '#fff';
                 });
@@ -1228,26 +1222,26 @@
                     el.style.color = '#b0b0b0';
                 });
                 
-                // Inputs y selects
+              
                 document.querySelectorAll('.select-input, .input-field').forEach(input => {
                     input.style.background = '#333';
                     input.style.color = '#fff';
                     input.style.borderColor = '#555';
                 });
                 
-                // Botones secundarios
+              
                 document.querySelectorAll('.btn-secondary').forEach(btn => {
                     btn.style.background = '#333';
                     btn.style.color = '#fff';
                     btn.style.borderColor = '#555';
                 });
                 
-                // Setting items borders
+               
                 document.querySelectorAll('.setting-item').forEach(item => {
                     item.style.borderBottomColor = '#333';
                 });
                 
-                // Footer
+              
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#2a2a2a';
@@ -1258,7 +1252,7 @@
                     link.style.color = '#ccc';
                 });
                 
-                // Danger zone
+               
                 const dangerZone = document.querySelector('.danger-zone');
                 if (dangerZone) {
                     dangerZone.style.borderColor = '#ff5252';
@@ -1268,7 +1262,7 @@
                     if (p) p.style.color = '#b0b0b0';
                 }
                 
-                // ========== NAVEGACIÓN MÓVIL ==========
+                
                 const mobileNav = document.querySelector('.mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.background = '#2a2a2a';
@@ -1285,22 +1279,22 @@
                 });
                 
             } else if (theme === 'light') {
-                // Background y colores base
+               
                 body.style.background = '#f5f5f5';
                 body.style.color = '#1a1a1a';
                 
-                // Header
+                
                 if (header) {
                     header.style.background = '#6b1fa8';
                     header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
                 }
                 
-                // Nav links
+              
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.style.color = 'white';
                 });
                 
-                // Search input
+               
                 const searchInput = document.querySelector('.search-input');
                 if (searchInput) {
                     searchInput.style.background = '#fff';
@@ -1308,28 +1302,28 @@
                     searchInput.style.border = 'none';
                 }
                 
-                // User button
+               
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255,255,255,0.1)';
                     userButton.style.borderColor = 'transparent';
                 }
                 
-                // Notification bell
+               
                 const notifBell = document.getElementById('notificationBell');
                 if (notifBell) {
                     notifBell.style.color = 'white';
                     notifBell.style.textShadow = 'none';
                 }
                 
-                // Amigos button
+               
                 const amigosBtn = document.getElementById('amigosLink');
                 if (amigosBtn) {
                     amigosBtn.style.background = 'white';
                     amigosBtn.style.color = '#2b5a9e';
                 }
                 
-                // Dropdowns
+               
                 document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
                     dropdown.style.background = 'white';
                     dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
@@ -1371,19 +1365,19 @@
                     item.style.color = '#f44336';
                 });
                 
-                // Cards de configuración
+               
                 document.querySelectorAll('.settings-card').forEach(card => {
                     card.style.background = '#fff';
                     card.style.color = '#1a1a1a';
                     card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
                 });
                 
-                // Títulos de las cards
+                
                 document.querySelectorAll('.settings-card h2').forEach(h2 => {
                     h2.style.color = '#1a1a1a';
                 });
                 
-                // Labels y descripciones
+               
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#1a1a1a';
                 });
@@ -1391,7 +1385,7 @@
                     desc.style.color = '#666';
                 });
                 
-                // Títulos de página
+              
                 document.querySelectorAll('.page-title').forEach(el => {
                     el.style.color = '#1a1a1a';
                 });
@@ -1399,26 +1393,26 @@
                     el.style.color = '#666';
                 });
                 
-                // Inputs y selects
+               
                 document.querySelectorAll('.select-input, .input-field').forEach(input => {
                     input.style.background = 'white';
                     input.style.color = '#1a1a1a';
                     input.style.borderColor = '#d1d5db';
                 });
                 
-                // Botones secundarios
+               
                 document.querySelectorAll('.btn-secondary').forEach(btn => {
                     btn.style.background = 'white';
                     btn.style.color = '#666';
                     btn.style.borderColor = '#d1d5db';
                 });
                 
-                // Setting items borders
+               
                 document.querySelectorAll('.setting-item').forEach(item => {
                     item.style.borderBottomColor = '#f0f0f0';
                 });
                 
-                // Footer
+               
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#fff';
@@ -1429,7 +1423,7 @@
                     link.style.color = '#666';
                 });
                 
-                // Danger zone
+               
                 const dangerZone = document.querySelector('.danger-zone');
                 if (dangerZone) {
                     dangerZone.style.borderColor = '#f44336';
@@ -1439,7 +1433,7 @@
                     if (p) p.style.color = '#666';
                 }
                 
-                // ========== NAVEGACIÓN MÓVIL ==========
+                
                 const mobileNav = document.querySelector('.mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.background = 'white';
@@ -1462,7 +1456,7 @@
             }
         }
 
-        // Aplicar tema global desde otras páginas
+       
         function applyGlobalTheme() {
             const globalTheme = localStorage.getItem('globalTheme');
             if (globalTheme) {
@@ -1487,7 +1481,7 @@
                 return;
             }
 
-            // Actualizar contraseña en el sistema de usuarios
+           
             const userId = localStorage.getItem('userId');
             const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
             const userIndex = users.findIndex(u => u.id === userId);
@@ -1554,3 +1548,4 @@
     </script>
 </body>
 </html>
+
