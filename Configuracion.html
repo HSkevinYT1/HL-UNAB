@@ -83,6 +83,10 @@
             transition: transform 0.3s;
         }
 
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
         .notification-badge {
             position: absolute;
             top: 0;
@@ -97,6 +101,84 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+            background: white;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .notification-dropdown.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background: #e3f2fd;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .notification-item-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .notification-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
         }
 
         .search-container {
@@ -109,6 +191,12 @@
             border-radius: 25px;
             width: 200px;
             font-size: 14px;
+            transition: width 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            width: 240px;
         }
 
         .search-icon {
@@ -117,6 +205,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #666;
+            pointer-events: none;
         }
 
         .user-menu {
@@ -132,6 +221,12 @@
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
         }
 
         .user-name-display {
@@ -149,12 +244,63 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
-            color: #6b1fa8;
+            color: #2b5a9e;
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            padding: 15px 20px;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+            border-bottom: none;
+            color: #f44336;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f9f9f9;
         }
 
         .perfil-btn {
             background: white;
-            color: #6b1fa8;
+            color: #2b5a9e;
             padding: 6px 12px;
             border-radius: 25px;
             font-size: 12px;
@@ -162,6 +308,11 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s;
+        }
+
+        .perfil-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .icon-btn {
@@ -455,6 +606,17 @@
                 padding: 4px;
             }
 
+            .notification-dropdown {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+
+            .user-dropdown {
+                right: 0;
+                width: 200px;
+            }
+
             main {
                 padding: 20px 15px;
                 padding-bottom: 100px;
@@ -572,26 +734,69 @@
         </nav>
 
         <div class="header-right">
-            <a href="Amigos.html" class="perfil-btn icon-btn" aria-label="Amigos (chat)">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <a href="javascript:void(0);" onclick="goToAmigos()" class="perfil-btn icon-btn" id="amigosLink" aria-label="Amigos (chat)" title="Amigos">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
             </a>
 
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar...">
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
                 <span class="search-icon">🔍</span>
             </div>
 
-            <div class="notification-bell">
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()">
                 🔔
                 <span class="notification-badge">2</span>
             </div>
 
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">
+                    Notificaciones
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Nuevo evento disponible</div>
+                        <div class="notification-item-text">Conferencia de Tecnología - 2 HL disponibles</div>
+                        <div class="notification-item-time">Hace 5 minutos</div>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">Recordatorio</div>
+                        <div class="notification-item-text">Te faltan 20 horas para completar tu requisito</div>
+                        <div class="notification-item-time">Hace 1 hora</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-item-title">Horas aprobadas</div>
+                        <div class="notification-item-text">Tus 5 HL del voluntariado han sido aprobadas</div>
+                        <div class="notification-item-time">Hace 2 horas</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-item-title">Nueva actividad</div>
+                        <div class="notification-item-text">Club de Lectura - Inscripciones abiertas</div>
+                        <div class="notification-item-time">Ayer</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="user-menu">
-                <div class="user-button">
-                    <span class="user-name-display" id="userNameDisplay">Kevin Bayona</span>
-                    <div class="user-icon">👤</div>
+                <div class="user-button" onclick="toggleUserMenu()">
+                    <span class="user-name-display" id="userNameDisplay">Usuario</span>
+                    <div class="user-icon" id="headerUserIcon">👤</div>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="viewProfile()">
+                        👤 Mi Perfil
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewSettings()">
+                        ⚙️ Configuración
+                    </div>
+                    <div class="user-dropdown-item" onclick="viewHelp()">
+                        ❓ Ayuda
+                    </div>
+                    <div class="user-dropdown-item" onclick="logout()">
+                        🚪 Cerrar Sesión
+                    </div>
                 </div>
             </div>
         </div>
@@ -642,7 +847,7 @@
                         <div class="setting-label">Tema</div>
                         <div class="setting-description">Selecciona el tema de la aplicación</div>
                     </div>
-                    <select class="select-input" onchange="changeTheme(this.value)">
+                    <select class="select-input" id="themeSelect" onchange="changeTheme(this.value)">
                         <option value="light">Claro</option>
                         <option value="dark">Oscuro</option>
                         <option value="auto">Automático</option>
@@ -687,37 +892,6 @@
                         <div class="setting-description">Añade una capa extra de seguridad</div>
                     </div>
                     <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
-                </div>
-            </div>
-
-            <!-- Cuenta -->
-            <div class="settings-card">
-                <h2>👤 Información de la Cuenta</h2>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-label">Correo electrónico</div>
-                        <div class="setting-description">kbayona435@unab.edu.co</div>
-                    </div>
-                    <button class="btn-secondary" onclick="changeEmail()">Editar</button>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-label">ID de estudiante</div>
-                        <div class="setting-description">U00123456</div>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button class="btn-primary" onclick="saveSettings()">Guardar cambios</button>
-                    <button class="btn-secondary" onclick="cancelSettings()">Cancelar</button>
-                </div>
-
-                <div class="danger-zone">
-                    <h3>⚠️ Zona de Peligro</h3>
-                    <p>Una vez elimines tu cuenta, no hay vuelta atrás. Por favor, ten cuidado.</p>
-                    <button class="btn-danger" onclick="deleteAccount()">Eliminar cuenta</button>
                 </div>
             </div>
         </div>
@@ -765,14 +939,119 @@
     </nav>
 
     <script>
-        // Cargar configuración guardada al iniciar
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSettings();
-            const userName = localStorage.getItem('userName') || 'Kevin Bayona';
-            document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
+        // Verificar sesión
+        let isLoggedIn = !!localStorage.getItem('userName');
+
+        // ====================================
+        // SISTEMA DE ICONOS DE USUARIO GLOBAL
+        // ====================================
+        function initializeUserIcon() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const initial = userName.charAt(0).toUpperCase();
+
+            const userIcons = document.querySelectorAll('.user-icon');
+            
+            userIcons.forEach(icon => {
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                    icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
+                } else {
+                    icon.textContent = initial;
+                }
+            });
+        }
+
+        // ====================================
+        // FUNCIONES DEL HEADER
+        // ====================================
+        function toggleNotifications() {
+            if (!isLoggedIn) return;
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function toggleUserMenu() {
+            if (!isLoggedIn) return;
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+            document.getElementById('notificationDropdown').classList.remove('active');
+        }
+
+        // Actualizar UI según estado de sesión
+        function updateHeaderUI() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const firstName = userName.split(' ')[0];
+            
+            document.getElementById('userNameDisplay').textContent = firstName;
+            
+            // Mostrar/ocultar elementos según sesión
+            const navMenu = document.getElementById('navMenu');
+            const searchContainer = document.getElementById('searchContainer');
+            const notificationBell = document.getElementById('notificationBell');
+            const amigosLink = document.getElementById('amigosLink');
+            
+            if (navMenu) navMenu.style.display = isLoggedIn ? 'flex' : 'none';
+            if (searchContainer) searchContainer.style.display = isLoggedIn ? 'block' : 'none';
+            if (notificationBell) notificationBell.style.display = isLoggedIn ? 'block' : 'none';
+            if (amigosLink) amigosLink.style.display = isLoggedIn ? 'flex' : 'none';
+        }
+
+        function viewProfile() {
+            window.location.href = 'perfil.html';
+        }
+
+        function viewSettings() {
+            // Ya estamos en configuración
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function viewHelp() {
+            window.location.href = 'Soporte.html';
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userProgram');
+                localStorage.removeItem('userSemester');
+                localStorage.removeItem('userPhotoUrl');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function goToAmigos() {
+            window.location.href = 'Amigos.html';
+        }
+
+        // Cerrar dropdowns al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
+                document.getElementById('notificationDropdown').classList.remove('active');
+            }
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
         });
 
-        // Cargar configuración desde localStorage
+        // ====================================
+        // FUNCIONES DE CONFIGURACIÓN
+        // ====================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar si hay sesión iniciada
+            if (!isLoggedIn) {
+                alert('Debes iniciar sesión para acceder a la configuración');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            updateHeaderUI();
+            loadSettings();
+            initializeUserIcon();
+            applyGlobalTheme();
+        });
+
         function loadSettings() {
             const settings = JSON.parse(localStorage.getItem('userSettings')) || {
                 notificationsPush: true,
@@ -784,7 +1063,6 @@
                 twoFactor: false
             };
 
-            // Aplicar estados de los toggles
             const toggles = document.querySelectorAll('.toggle-switch');
             toggles[0].classList.toggle('active', settings.notificationsPush);
             toggles[1].classList.toggle('active', settings.notificationsEmail);
@@ -792,15 +1070,12 @@
             toggles[3].classList.toggle('active', settings.publicProfile);
             toggles[4].classList.toggle('active', settings.twoFactor);
 
-            // Aplicar selects
-            document.querySelector('select[onchange*="changeTheme"]').value = settings.theme;
+            document.getElementById('themeSelect').value = settings.theme;
             document.querySelectorAll('select')[1].value = settings.language;
 
-            // Aplicar tema
             applyTheme(settings.theme);
         }
 
-        // Guardar configuración en localStorage
         function saveCurrentSettings() {
             const toggles = document.querySelectorAll('.toggle-switch');
             const settings = {
@@ -809,23 +1084,22 @@
                 notificationsReminders: toggles[2].classList.contains('active'),
                 publicProfile: toggles[3].classList.contains('active'),
                 twoFactor: toggles[4].classList.contains('active'),
-                theme: document.querySelector('select[onchange*="changeTheme"]').value,
+                theme: document.getElementById('themeSelect').value,
                 language: document.querySelectorAll('select')[1].value
             };
 
             localStorage.setItem('userSettings', JSON.stringify(settings));
+            
+            // Actualizar tema global para otras páginas
+            localStorage.setItem('globalTheme', settings.theme);
         }
 
         function toggleSwitch(element) {
             element.classList.toggle('active');
-            const settingCard = element.closest('.settings-card');
             const settingLabel = element.previousElementSibling.querySelector('.setting-label').textContent;
             const isActive = element.classList.contains('active');
             
-            // Guardar automáticamente
             saveCurrentSettings();
-            
-            // Mostrar notificación
             showNotification(`${settingLabel}: ${isActive ? 'Activado ✓' : 'Desactivado'}`);
         }
 
@@ -837,37 +1111,363 @@
 
         function applyTheme(theme) {
             const body = document.body;
+            const header = document.querySelector('header');
             
             if (theme === 'dark') {
+                // Background y colores base
                 body.style.background = '#1a1a1a';
                 body.style.color = '#fff';
+                
+                // Header
+                if (header) {
+                    header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
+                    header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
+                }
+                
+                // Nav links
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = '#ffffff';
+                });
+                
+                // Search input
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
+                    searchInput.style.color = '#fff';
+                    searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+                
+                // User button
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255, 255, 255, 0.2)';
+                    userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+                
+                // Notification bell
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = '#ffffff';
+                    notifBell.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
+                }
+                
+                // Amigos button
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    amigosBtn.style.color = '#ffffff';
+                }
+                
+                // Dropdowns
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = '#2a2a2a';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
+                    dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#fff';
+                    notifHeader.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = 'rgba(139, 47, 201, 0.2)';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#fff';
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#ff5252';
+                });
+                
+                // Cards de configuración
                 document.querySelectorAll('.settings-card').forEach(card => {
                     card.style.background = '#2a2a2a';
                     card.style.color = '#fff';
+                    card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
                 });
+                
+                // Títulos de las cards
+                document.querySelectorAll('.settings-card h2').forEach(h2 => {
+                    h2.style.color = '#fff';
+                });
+                
+                // Labels y descripciones
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#fff';
                 });
                 document.querySelectorAll('.setting-description').forEach(desc => {
-                    desc.style.color = '#ccc';
+                    desc.style.color = '#b0b0b0';
                 });
+                
+                // Títulos de página
+                document.querySelectorAll('.page-title').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                document.querySelectorAll('.page-subtitle').forEach(el => {
+                    el.style.color = '#b0b0b0';
+                });
+                
+                // Inputs y selects
+                document.querySelectorAll('.select-input, .input-field').forEach(input => {
+                    input.style.background = '#333';
+                    input.style.color = '#fff';
+                    input.style.borderColor = '#555';
+                });
+                
+                // Botones secundarios
+                document.querySelectorAll('.btn-secondary').forEach(btn => {
+                    btn.style.background = '#333';
+                    btn.style.color = '#fff';
+                    btn.style.borderColor = '#555';
+                });
+                
+                // Setting items borders
+                document.querySelectorAll('.setting-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                // Footer
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#2a2a2a';
+                    footer.style.color = '#ccc';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#ccc';
+                });
+                
+                // Danger zone
+                const dangerZone = document.querySelector('.danger-zone');
+                if (dangerZone) {
+                    dangerZone.style.borderColor = '#ff5252';
+                    const h3 = dangerZone.querySelector('h3');
+                    const p = dangerZone.querySelector('p');
+                    if (h3) h3.style.color = '#ff5252';
+                    if (p) p.style.color = '#b0b0b0';
+                }
+                
+                // ========== NAVEGACIÓN MÓVIL ==========
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = '#2a2a2a';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(139, 47, 201, 0.3)';
+                    mobileNav.style.borderTop = '1px solid rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#9d4fda';
+                });
+                
             } else if (theme === 'light') {
+                // Background y colores base
                 body.style.background = '#f5f5f5';
                 body.style.color = '#1a1a1a';
+                
+                // Header
+                if (header) {
+                    header.style.background = '#6b1fa8';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
+                
+                // Nav links
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = 'white';
+                });
+                
+                // Search input
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = '#fff';
+                    searchInput.style.color = '#1a1a1a';
+                    searchInput.style.border = 'none';
+                }
+                
+                // User button
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255,255,255,0.1)';
+                    userButton.style.borderColor = 'transparent';
+                }
+                
+                // Notification bell
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = 'white';
+                    notifBell.style.textShadow = 'none';
+                }
+                
+                // Amigos button
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'white';
+                    amigosBtn.style.color = '#2b5a9e';
+                }
+                
+                // Dropdowns
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = 'white';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+                    dropdown.style.border = 'none';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#333';
+                    notifHeader.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = '#e3f2fd';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#333';
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#f44336';
+                });
+                
+                // Cards de configuración
                 document.querySelectorAll('.settings-card').forEach(card => {
                     card.style.background = '#fff';
                     card.style.color = '#1a1a1a';
+                    card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
                 });
+                
+                // Títulos de las cards
+                document.querySelectorAll('.settings-card h2').forEach(h2 => {
+                    h2.style.color = '#1a1a1a';
+                });
+                
+                // Labels y descripciones
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#1a1a1a';
                 });
                 document.querySelectorAll('.setting-description').forEach(desc => {
                     desc.style.color = '#666';
                 });
+                
+                // Títulos de página
+                document.querySelectorAll('.page-title').forEach(el => {
+                    el.style.color = '#1a1a1a';
+                });
+                document.querySelectorAll('.page-subtitle').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                // Inputs y selects
+                document.querySelectorAll('.select-input, .input-field').forEach(input => {
+                    input.style.background = 'white';
+                    input.style.color = '#1a1a1a';
+                    input.style.borderColor = '#d1d5db';
+                });
+                
+                // Botones secundarios
+                document.querySelectorAll('.btn-secondary').forEach(btn => {
+                    btn.style.background = 'white';
+                    btn.style.color = '#666';
+                    btn.style.borderColor = '#d1d5db';
+                });
+                
+                // Setting items borders
+                document.querySelectorAll('.setting-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                // Footer
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#fff';
+                    footer.style.color = '#666';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#666';
+                });
+                
+                // Danger zone
+                const dangerZone = document.querySelector('.danger-zone');
+                if (dangerZone) {
+                    dangerZone.style.borderColor = '#f44336';
+                    const h3 = dangerZone.querySelector('h3');
+                    const p = dangerZone.querySelector('p');
+                    if (h3) h3.style.color = '#f44336';
+                    if (p) p.style.color = '#666';
+                }
+                
+                // ========== NAVEGACIÓN MÓVIL ==========
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = 'white';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.1)';
+                    mobileNav.style.borderTop = 'none';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#8600DD';
+                });
+                
             } else if (theme === 'auto') {
                 const hour = new Date().getHours();
                 const isDark = hour < 6 || hour >= 18;
                 applyTheme(isDark ? 'dark' : 'light');
+            }
+        }
+
+        // Aplicar tema global desde otras páginas
+        function applyGlobalTheme() {
+            const globalTheme = localStorage.getItem('globalTheme');
+            if (globalTheme) {
+                document.getElementById('themeSelect').value = globalTheme;
+                applyTheme(globalTheme);
             }
         }
 
@@ -887,66 +1487,23 @@
                 return;
             }
 
-            // Guardar en localStorage (en producción esto iría a un backend)
-            localStorage.setItem('userPassword', newPassword);
-            showNotification('Contraseña actualizada exitosamente ✓');
-        }
-
-        function changeEmail() {
-            const newEmail = prompt('Ingresa tu nuevo correo electrónico:');
-            if (!newEmail) return;
-
-            if (!newEmail.includes('@') || !newEmail.includes('.')) {
-                alert('Por favor ingresa un correo válido');
-                return;
-            }
-
-            // Guardar en localStorage
-            localStorage.setItem('userEmail', newEmail);
+            // Actualizar contraseña en el sistema de usuarios
+            const userId = localStorage.getItem('userId');
+            const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            const userIndex = users.findIndex(u => u.id === userId);
             
-            // Actualizar en la UI
-            const emailDescription = document.querySelector('.setting-label').parentElement.querySelector('.setting-description');
-            document.querySelectorAll('.setting-description')[6].textContent = newEmail;
-            
-            showNotification('Correo actualizado exitosamente ✓');
-        }
-
-        function saveSettings() {
-            saveCurrentSettings();
-            showNotification('✓ Todos los cambios han sido guardados', 'success');
-        }
-
-        function cancelSettings() {
-            if (confirm('¿Deseas descartar los cambios realizados?')) {
-                loadSettings();
-                showNotification('Cambios descartados', 'info');
-            }
-        }
-
-        function deleteAccount() {
-            const confirmation = prompt('⚠️ ADVERTENCIA: Esta acción es irreversible.\n\nPara eliminar tu cuenta permanentemente, escribe "ELIMINAR CUENTA":');
-            
-            if (confirmation === 'ELIMINAR CUENTA') {
-                const finalConfirm = confirm('¿Estás completamente seguro? Se perderán todos tus datos, horas libres y progreso.');
-                
-                if (finalConfirm) {
-                    showNotification('Eliminando cuenta...', 'danger');
-                    
-                    setTimeout(() => {
-                        // Limpiar todos los datos del usuario
-                        localStorage.clear();
-                        alert('Tu cuenta ha sido eliminada. Serás redirigido al inicio.');
-                        window.location.href = 'index.html';
-                    }, 2000);
+            if (userIndex !== -1) {
+                if (users[userIndex].password === currentPassword) {
+                    users[userIndex].password = newPassword;
+                    localStorage.setItem('registeredUsers', JSON.stringify(users));
+                    showNotification('Contraseña actualizada exitosamente ✓');
+                } else {
+                    alert('Contraseña actual incorrecta');
                 }
-            } else if (confirmation !== null && confirmation !== '') {
-                alert('Texto incorrecto. Tu cuenta permanece segura.');
             }
         }
 
-        // Sistema de notificaciones toast
         function showNotification(message, type = 'success') {
-            // Crear elemento de notificación
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -963,44 +1520,27 @@
             `;
             notification.textContent = message;
 
-            // Agregar animación
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes slideIn {
-                    from {
-                        transform: translateX(400px);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
+                    from { transform: translateX(400px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
                 }
                 @keyframes slideOut {
-                    from {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(400px);
-                        opacity: 0;
-                    }
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(400px); opacity: 0; }
                 }
             `;
             document.head.appendChild(style);
 
             document.body.appendChild(notification);
 
-            // Remover después de 3 segundos
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
+                setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
 
-        // Cambio de idioma
         document.querySelectorAll('select')[1].addEventListener('change', function() {
             const language = this.value;
             saveCurrentSettings();
@@ -1010,11 +1550,6 @@
             } else {
                 showNotification('Idioma cambiado a Español ✓');
             }
-        });
-
-        // Auto-guardar al cambiar theme
-        document.querySelector('select[onchange*="changeTheme"]').addEventListener('change', function() {
-            saveCurrentSettings();
         });
     </script>
 </body>
