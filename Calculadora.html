@@ -389,7 +389,7 @@
             }
         }
 
-        /* Barra de navegación móvil (oculta en desktop) */
+       
         .mobile-nav {
             display: none;
         }
@@ -454,7 +454,7 @@
                 display: none !important;
             }
 
-            /* Barra de navegación móvil inferior */
+          
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -605,7 +605,7 @@
         </div>
     </footer>
 
-    <!-- Barra de navegación móvil (solo visible en móviles) -->
+    
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -640,14 +640,14 @@
     </nav>
 
     <script>
-        // Cargar nombre de usuario si está logueado
+       
         document.addEventListener('DOMContentLoaded', () => {
             const userName = localStorage.getItem('userName');
             if (userName) {
                 document.getElementById('userNameDisplay').textContent = userName.split(' ')[0];
                 document.getElementById('navMenu').style.display = 'flex';
             } else {
-                // Redirigir a login si no está autenticado
+               
                 window.location.href = 'index.html';
             }
         });
@@ -684,7 +684,7 @@
             }
         }
 
-        // Cerrar dropdown al hacer clic fuera
+       
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.user-menu')) {
                 document.getElementById('userDropdown').classList.remove('active');
@@ -692,22 +692,22 @@
         });
 
         function calculateGrade() {
-            // Verificar que los elementos existan
+            
             if (!document.getElementById('targetGrade')) return;
 
             const targetGrade = parseFloat(document.getElementById('targetGrade').value);
             
-            // Obtener las notas ingresadas
+           
             const parcial1 = parseFloat(document.getElementById('parcial1').value);
             const parcial2 = parseFloat(document.getElementById('parcial2').value);
             const proyecto = parseFloat(document.getElementById('proyecto').value);
 
-            // Obtener los pesos (convertir de porcentaje a decimal)
+          
             const peso1 = parseFloat(document.getElementById('peso1').value) / 100;
             const peso2 = parseFloat(document.getElementById('peso2').value) / 100;
             const pesoProyecto = parseFloat(document.getElementById('peso3').value) / 100;
 
-            // Obtener los nombres de las notas
+          
             const nombre1 = document.getElementById('nombre1').value || 'nota 1';
             const nombre2 = document.getElementById('nombre2').value || 'nota 2';
             const nombre3 = document.getElementById('nombre3').value || 'nota 3';
@@ -715,7 +715,7 @@
             const resultElement = document.getElementById('resultValue');
             const descriptionElement = document.getElementById('resultDescription');
 
-            // Validar que haya meta de promedio
+            
             if (isNaN(targetGrade)) {
                 resultElement.textContent = '?';
                 resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
@@ -726,9 +726,9 @@
             let notaNecesaria = 0;
             let campoVacio = '';
 
-            // Determinar qué campo está vacío y calcular la nota necesaria
+           
             if (isNaN(parcial1) && !isNaN(parcial2) && !isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
-                // Falta Parcial 1
+                
                 if (peso1 === 0) {
                     resultElement.textContent = 'N/A';
                     descriptionElement.textContent = `El peso de ${nombre1} es 0%`;
@@ -737,7 +737,7 @@
                 notaNecesaria = (targetGrade - (parcial2 * peso2) - (proyecto * pesoProyecto)) / peso1;
                 campoVacio = nombre1;
             } else if (!isNaN(parcial1) && isNaN(parcial2) && !isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
-                // Falta Parcial 2
+              
                 if (peso2 === 0) {
                     resultElement.textContent = 'N/A';
                     descriptionElement.textContent = `El peso de ${nombre2} es 0%`;
@@ -746,7 +746,7 @@
                 notaNecesaria = (targetGrade - (parcial1 * peso1) - (proyecto * pesoProyecto)) / peso2;
                 campoVacio = nombre2;
             } else if (!isNaN(parcial1) && !isNaN(parcial2) && isNaN(proyecto) && !isNaN(peso1) && !isNaN(peso2) && !isNaN(pesoProyecto)) {
-                // Falta Proyecto
+              
                 if (pesoProyecto === 0) {
                     resultElement.textContent = 'N/A';
                     descriptionElement.textContent = `El peso de ${nombre3} es 0%`;
@@ -755,14 +755,14 @@
                 notaNecesaria = (targetGrade - (parcial1 * peso1) - (parcial2 * peso2)) / pesoProyecto;
                 campoVacio = nombre3;
             } else {
-                // Ningún campo vacío o más de uno vacío o faltan porcentajes
+               
                 resultElement.textContent = '?';
                 resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
                 descriptionElement.textContent = 'Completa los datos correctamente';
                 return;
             }
 
-            // Mostrar resultado
+           
             if (notaNecesaria > 5) {
                 resultElement.textContent = notaNecesaria.toFixed(1);
                 resultElement.style.background = 'linear-gradient(135deg, #f44336 0%, #c62828 100%)';
@@ -774,11 +774,12 @@
                 resultElement.style.background = 'linear-gradient(135deg, #8600DD 0%, #6b1fa8 100%)';
             }
 
-            // Actualizar el texto descriptivo
+            
             descriptionElement.textContent = `Nota requerida en ${campoVacio}`;
         }
     </script>
 </body>
 
 </html>
+
 
