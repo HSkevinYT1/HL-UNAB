@@ -708,7 +708,6 @@
             display: none;
         }
 
-       
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1049,7 +1048,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu" style="display: none;">
@@ -1139,10 +1138,10 @@
             <div class="external-links-card" id="externalLinksCard" style="display: none;">
                 <h3>Acceso a otras páginas UNAB</h3>
                 <div class="link-grid">
-                    <a href="https://miportalu.unab.edu.co/" target="_blank">Mi portal U 🌐</a>
-                    <a href="https://tema.unab.edu.co/" target="_blank">TEMA 💻</a>
-                    <a href="https://cosmos.unab.edu.co/" target="_blank">COSMOS 🛒</a>
-                    <a href="https://unab.edu.co/sistema-de-bibliotecas-unab/" target="_blank">Biblioteca 📚</a>
+                    <a href="https://unab.edu.co/portal/" target="_blank">Portal UNAB 🌐</a>
+                    <a href="https://campus.unab.edu.co/" target="_blank">Campus Virtual 💻</a>
+                    <a href="https://genesis.unab.edu.co/" target="_blank">Génesis 🛒</a>
+                    <a href="https://biblioteca.unab.edu.co/" target="_blank">Biblioteca 📚</a>
                 </div>
             </div>
             <div class="auth-section" id="authSection">
@@ -1241,7 +1240,6 @@
 
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
-       
     </footer>
 
     <nav class="mobile-nav">
@@ -1277,7 +1275,6 @@
         </a>
     </nav>
 
-    
     <div class="modal-overlay" id="forgotPasswordModal">
         <div class="modal-content">
             <div class="modal-header">Recuperar Contraseña</div>
@@ -1305,26 +1302,20 @@
     </div>
 
     <script>
-      
         const USERS_KEY = 'registeredUsers';
-        
-       
         let isLoggedIn = !!localStorage.getItem('userName');
-       
+
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-           
             const userIcons = document.querySelectorAll('.user-icon');
             
             userIcons.forEach(icon => {
                 if (userPhotoUrl && userPhotoUrl !== '') {
-                  
                     icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
                 } else {
-                   
                     icon.textContent = initial;
                 }
             });
@@ -1344,7 +1335,6 @@
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
-        
         
         function register() {
             const registerName = document.getElementById('registerName').value.trim();
@@ -1404,7 +1394,6 @@
             switchTab({target: loginTab}, 'login');
         }
 
-      
         function login() {
             const loginId = document.getElementById('loginId').value.trim();
             const loginPassword = document.getElementById('loginPassword').value.trim();
@@ -1451,7 +1440,7 @@
             localStorage.removeItem('userId'); 
             localStorage.removeItem('userProgram'); 
             localStorage.removeItem('userSemester');
-            localStorage.removeItem('userPhotoUrl'); 
+            localStorage.removeItem('userPhotoUrl');
 
             updateUI('');
 
@@ -1468,7 +1457,6 @@
             document.getElementById('userDropdown').classList.remove('active');
             document.getElementById('notificationDropdown').classList.remove('active');
             
-            
             const headerUserIcon = document.getElementById('headerUserIcon');
             if (headerUserIcon) {
                 headerUserIcon.textContent = '👤';
@@ -1482,8 +1470,6 @@
                 alert('Debes iniciar sesión para acceder al chat de Amigos.');
             }
         }
-
-        
 
         function openForgotPasswordModal(event) {
             event.preventDefault();
@@ -1561,7 +1547,6 @@
                 externalLinksCard.style.display = isLoggedIn ? 'block' : 'none';
             }
 
-           
             initializeUserIcon();
         }
 
@@ -1606,7 +1591,6 @@
             }
         }
 
-
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
@@ -1615,7 +1599,6 @@
                 document.getElementById('userDropdown').classList.remove('active');
             }
             
-           
             const modal = document.getElementById('forgotPasswordModal');
             if (event.target === modal) {
                 closeForgotPasswordModal();
@@ -1634,16 +1617,107 @@
             }
             
             applyGlobalTheme();
-            initializeUserIcon(); 
+            initializeUserIcon();
         });
 
-        
         function applyGlobalTheme() {
             const theme = localStorage.getItem('globalTheme') || 'light';
+            const header = document.querySelector('header');
+            const body = document.body;
             
             if (theme === 'dark') {
-                document.body.style.background = '#1a1a1a';
-                document.body.style.color = '#fff';
+                body.style.background = '#1a1a1a';
+                body.style.color = '#fff';
+                
+                if (header) {
+                    header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
+                    header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = '#ffffff';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
+                    searchInput.style.color = '#fff';
+                    searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255, 255, 255, 0.2)';
+                    userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = '#ffffff';
+                    notifBell.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    amigosBtn.style.color = '#ffffff';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = '#2a2a2a';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
+                    dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#fff';
+                    notifHeader.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = 'rgba(139, 47, 201, 0.2)';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#fff';
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#ff5252';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = '#2a2a2a';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(139, 47, 201, 0.3)';
+                    mobileNav.style.borderTop = '1px solid rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#9d4fda';
+                });
                 
                 document.querySelectorAll('.auth-section, .welcome-message, .progress-card, .hours-card, .external-links-card').forEach(card => {
                     card.style.background = '#2a2a2a';
@@ -1680,6 +1754,10 @@
                     }
                 });
                 
+                document.querySelectorAll('.tabs').forEach(tabs => {
+                    tabs.style.borderBottomColor = '#444';
+                });
+                
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#2a2a2a';
@@ -1694,9 +1772,121 @@
                     line.style.background = '#444';
                 });
                 
+                const modalContent = document.querySelector('.modal-content');
+                if (modalContent) {
+                    modalContent.style.background = '#2a2a2a';
+                    modalContent.style.color = '#fff';
+                }
+                
+                document.querySelectorAll('.modal-header').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.modal-description').forEach(el => {
+                    el.style.color = '#b0b0b0';
+                });
+                
+                const recoveryResult = document.getElementById('recoveryResult');
+                if (recoveryResult && recoveryResult.style.display !== 'none') {
+                    if (recoveryResult.style.background.includes('e8f5e9')) {
+                        recoveryResult.style.background = '#1b5e20';
+                        recoveryResult.style.color = '#a5d6a7';
+                    }
+                }
+                
             } else if (theme === 'light') {
-                document.body.style.background = '#f5f5f5';
-                document.body.style.color = '#1a1a1a';
+                body.style.background = '#f5f5f5';
+                body.style.color = '#1a1a1a';
+                
+                if (header) {
+                    header.style.background = '#6b1fa8';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = 'white';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = '#fff';
+                    searchInput.style.color = '#1a1a1a';
+                    searchInput.style.border = 'none';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255,255,255,0.1)';
+                    userButton.style.borderColor = 'transparent';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = 'white';
+                    notifBell.style.textShadow = 'none';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'white';
+                    amigosBtn.style.color = '#2b5a9e';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = 'white';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+                    dropdown.style.border = 'none';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#333';
+                    notifHeader.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = '#e3f2fd';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#333';
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#f44336';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = 'white';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.1)';
+                    mobileNav.style.borderTop = 'none';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#8600DD';
+                });
                 
                 document.querySelectorAll('.auth-section, .welcome-message, .progress-card, .hours-card, .external-links-card').forEach(card => {
                     card.style.background = '#fff';
@@ -1741,6 +1931,10 @@
                     }
                 });
                 
+                document.querySelectorAll('.tabs').forEach(tabs => {
+                    tabs.style.borderBottomColor = '#e0e0e0';
+                });
+                
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#fff';
@@ -1754,6 +1948,21 @@
                 document.querySelectorAll('.placeholder-line').forEach(line => {
                     line.style.background = '#d0d0d0';
                 });
+                
+                const modalContent = document.querySelector('.modal-content');
+                if (modalContent) {
+                    modalContent.style.background = 'white';
+                    modalContent.style.color = '#333';
+                }
+                
+                document.querySelectorAll('.modal-header').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.modal-description').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
             } else if (theme === 'auto') {
                 const hour = new Date().getHours();
                 const isDark = hour < 6 || hour >= 18;
@@ -1764,5 +1973,3 @@
     </script>
 </body>
 </html>
-
-
