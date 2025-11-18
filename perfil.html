@@ -849,64 +849,53 @@
     <script>
         let isEditing = false;
 
-        // ====================================
-        // SISTEMA DE ICONOS DE USUARIO GLOBAL
-        // ====================================
-
-        /**
-         * Inicializa todos los iconos de usuario en la página
-         */
+        
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-            // Buscar todos los iconos de usuario en la página
+           
             const userIcons = document.querySelectorAll('.user-icon');
             
             userIcons.forEach(icon => {
                 if (userPhotoUrl && userPhotoUrl !== '') {
-                    // Si hay foto, mostrarla
+                  
                     icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
                 } else {
-                    // Si no hay foto, mostrar inicial
                     icon.textContent = initial;
                 }
             });
         }
 
-        /**
-         * Maneja la carga de una nueva foto de perfil
-         */
+       
         function handleProfilePhotoUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            // Validar que sea una imagen
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona un archivo de imagen válido.');
                 return;
             }
 
-            // Validar tamaño (máximo 5MB)
             if (file.size > 5 * 1024 * 1024) {
                 alert('La imagen es demasiado grande. Por favor selecciona una imagen menor a 5MB.');
                 return;
             }
 
-            // Leer el archivo como Data URL (base64)
+           
             const reader = new FileReader();
             
             reader.onload = function(e) {
                 const imageDataUrl = e.target.result;
                 
-                // Guardar en localStorage
+               
                 localStorage.setItem('userPhotoUrl', imageDataUrl);
                 
-                // Actualizar todos los iconos en la página actual
+               
                 initializeUserIcon();
                 
-                // Actualizar la imagen de perfil grande
+               
                 const profileImage = document.getElementById('profileImage');
                 const profileCardIcon = document.getElementById('profileCardIcon');
                 
@@ -916,7 +905,7 @@
                     profileCardIcon.style.display = 'none';
                 }
                 
-                // Mostrar botón de eliminar foto
+               
                 document.getElementById('removePhotoBtn').style.display = 'block';
                 
                 alert('¡Foto de perfil actualizada con éxito!');
@@ -929,9 +918,7 @@
             reader.readAsDataURL(file);
         }
 
-        /**
-         * Elimina la foto de perfil actual
-         */
+      
         function removeProfilePhoto() {
             if (!confirm('¿Estás seguro de que quieres eliminar tu foto de perfil?')) {
                 return;
@@ -940,7 +927,7 @@
             localStorage.removeItem('userPhotoUrl');
             initializeUserIcon();
             
-            // Actualizar vista de perfil
+            
             const profileImage = document.getElementById('profileImage');
             const profileCardIcon = document.getElementById('profileCardIcon');
             
@@ -952,15 +939,13 @@
                 profileCardIcon.textContent = userName.charAt(0).toUpperCase();
             }
             
-            // Ocultar botón de eliminar foto
+           
             document.getElementById('removePhotoBtn').style.display = 'none';
             
             alert('Foto de perfil eliminada.');
         }
 
-        /**
-         * Carga todos los datos del perfil del usuario
-         */
+      
         function loadProfileData() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userId = localStorage.getItem('userId') || 'U00000000';
@@ -969,7 +954,7 @@
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-            // 1. Actualizar elementos de visualización
+           
             const profileNameDisplay = document.getElementById('profileNameDisplay');
             const profileIdDisplay = document.getElementById('profileIdDisplay');
             const profileProgramDisplay = document.getElementById('profileProgramDisplay');
@@ -980,7 +965,7 @@
             if (profileProgramDisplay) profileProgramDisplay.textContent = userProgram;
             if (profileSemesterDisplay) profileSemesterDisplay.textContent = userSemester + 'do';
             
-            // 2. Actualizar elementos de edición
+            
             const editName = document.getElementById('editName');
             const editId = document.getElementById('editId');
             const editProgram = document.getElementById('editProgram');
@@ -991,7 +976,7 @@
             if (editProgram) editProgram.value = userProgram;
             if (editSemester) editSemester.value = userSemester;
 
-            // 3. Configurar foto de perfil en la tarjeta grande
+           
             const profileImage = document.getElementById('profileImage');
             const profileCardIcon = document.getElementById('profileCardIcon');
             
@@ -1010,19 +995,17 @@
                 }
             }
             
-            // 4. Actualizar nombre en header
+           
             const headerUserName = document.getElementById('headerUserName');
             if (headerUserName) {
                 headerUserName.textContent = userName.split(' ')[0];
             }
             
-            // 5. Inicializar iconos de usuario (header, etc.)
+            
             initializeUserIcon();
         }
 
-        // ====================================
-        // FUNCIONALIDAD EDITAR PERFIL
-        // ====================================
+      
 
         function handleEditProfile() {
             isEditing ? saveProfile() : toggleEditMode(true);
@@ -1036,7 +1019,7 @@
             const editBtn = document.getElementById('editProfileBtn');
 
             if (shouldEdit) {
-                // Modo Edición
+               
                 isEditing = true;
 
                 nameDisplay.style.display = 'none';
@@ -1048,7 +1031,7 @@
                 editBtn.setAttribute('data-editing', 'true');
 
             } else {
-                // Modo Visualización
+               
                 isEditing = false;
                 loadProfileData();
                 
@@ -1072,20 +1055,14 @@
                 return;
             }
 
-            // Guardar en localStorage
             localStorage.setItem('userName', newName);
             localStorage.setItem('userProgram', newProgram);
             localStorage.setItem('userSemester', newSemester);
-            
-            // Volver a modo de visualización y recargar datos
+             
             toggleEditMode(false);
             
             alert('Perfil actualizado con éxito!');
         }
-
-        // ====================================
-        // OTRAS FUNCIONALIDADES
-        // ====================================
 
         function toggleCollapse(element) {
             element.classList.toggle('collapsed');
@@ -1392,4 +1369,5 @@
     </script>
 </body>
 </html>
+
 
