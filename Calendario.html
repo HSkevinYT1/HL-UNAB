@@ -1577,6 +1577,473 @@
             }
         }
 
+        function applyGlobalTheme() {
+            const theme = localStorage.getItem('globalTheme') || 'light';
+            const header = document.querySelector('header');
+            const body = document.body;
+            
+            if (theme === 'dark') {
+                body.style.background = '#1a1a1a';
+                body.style.color = '#fff';
+                
+                if (header) {
+                    header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
+                    header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = '#ffffff';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
+                    searchInput.style.color = '#fff';
+                    searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255, 255, 255, 0.2)';
+                    userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = '#ffffff';
+                    notifBell.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    amigosBtn.style.color = '#ffffff';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = '#2a2a2a';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
+                    dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#fff';
+                    notifHeader.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = 'rgba(139, 47, 201, 0.2)';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#fff';
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item.logout').forEach(item => {
+                    item.style.color = '#ff5252';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = '#2a2a2a';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(139, 47, 201, 0.3)';
+                    mobileNav.style.borderTop = '1px solid rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#9d4fda';
+                });
+                
+                document.querySelectorAll('.calendar-main, .sidebar-card').forEach(card => {
+                    card.style.background = '#2a2a2a';
+                    card.style.color = '#fff';
+                    card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
+                });
+                
+                document.querySelectorAll('.calendar-title, .calendar-month, .sidebar-title').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.calendar-tab').forEach(tab => {
+                    if (!tab.classList.contains('active')) {
+                        tab.style.color = '#999';
+                    }
+                });
+                
+                document.querySelectorAll('.nav-arrow').forEach(arrow => {
+                    arrow.style.color = '#ccc';
+                });
+                
+                const calendarGrid = document.querySelector('.calendar-grid');
+                if (calendarGrid) {
+                    calendarGrid.style.borderColor = '#444';
+                }
+                
+                const weekdays = document.querySelector('.calendar-weekdays');
+                if (weekdays) {
+                    weekdays.style.background = '#333';
+                    weekdays.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.weekday').forEach(day => {
+                    day.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.calendar-day').forEach(day => {
+                    day.style.background = '#2a2a2a';
+                    day.style.outline = '1px solid #444';
+                });
+                
+                document.querySelectorAll('.day-number').forEach(num => {
+                    num.style.color = '#fff';
+                });
+                
+                const dayViewHeader = document.querySelector('.day-view-header');
+                if (dayViewHeader) {
+                    dayViewHeader.style.background = '#333';
+                }
+                
+                document.querySelectorAll('.day-view-date, .day-view-weekday').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.style.borderColor = '#444';
+                    slot.style.background = '#2a2a2a';
+                });
+                
+                document.querySelectorAll('.time-label').forEach(label => {
+                    label.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.week-day-column').forEach(col => {
+                    col.style.borderColor = '#444';
+                });
+                
+                document.querySelectorAll('.week-day-header').forEach(header => {
+                    header.style.background = '#333';
+                });
+                
+                document.querySelectorAll('.week-day-name, .week-day-number').forEach(el => {
+                    el.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.filter-label').forEach(label => {
+                    label.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.event-title-upcoming').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.event-date').forEach(date => {
+                    date.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.modal-content, .event-detail-content').forEach(modal => {
+                    modal.style.background = '#2a2a2a';
+                    modal.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.modal-title, .event-detail-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.form-group label').forEach(label => {
+                    label.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+                    input.style.background = '#333';
+                    input.style.color = '#fff';
+                    input.style.borderColor = '#555';
+                });
+                
+                document.querySelectorAll('.event-info-row').forEach(row => {
+                    row.style.color = '#ccc';
+                });
+                
+                const eventDesc = document.querySelector('.event-description');
+                if (eventDesc) {
+                    eventDesc.style.background = '#333';
+                    eventDesc.style.color = '#ccc';
+                }
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = '#2a2a2a';
+                    footer.style.color = '#ccc';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.style.color = '#ccc';
+                });
+                
+            } else if (theme === 'light') {
+                body.style.background = '#f5f5f5';
+                body.style.color = '#1a1a1a';
+                
+                if (header) {
+                    header.style.background = '#6b1fa8';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = 'white';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = '#fff';
+                    searchInput.style.color = '#1a1a1a';
+                    searchInput.style.border = 'none';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255,255,255,0.1)';
+                    userButton.style.borderColor = 'transparent';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = 'white';
+                    notifBell.style.textShadow = 'none';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'rgba(255,255,255,0.1)';
+                    amigosBtn.style.color = 'white';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = 'white';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+                    dropdown.style.border = 'none';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#333';
+                    notifHeader.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = '#e3f2fd';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#333';
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item.logout').forEach(item => {
+                    item.style.color = '#f44336';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = 'white';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.1)';
+                    mobileNav.style.borderTop = 'none';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#8600DD';
+                });
+                
+                document.querySelectorAll('.calendar-main, .sidebar-card').forEach(card => {
+                    card.style.background = '#fff';
+                    card.style.color = '#1a1a1a';
+                    card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+                });
+                
+                document.querySelectorAll('.calendar-title, .calendar-month, .sidebar-title').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.calendar-tab').forEach(tab => {
+                    if (!tab.classList.contains('active')) {
+                        tab.style.color = '#666';
+                    }
+                });
+                
+                document.querySelectorAll('.nav-arrow').forEach(arrow => {
+                    arrow.style.color = '#666';
+                });
+                
+                const calendarGrid = document.querySelector('.calendar-grid');
+                if (calendarGrid) {
+                    calendarGrid.style.borderColor = '#e0e0e0';
+                }
+                
+                const weekdays = document.querySelector('.calendar-weekdays');
+                if (weekdays) {
+                    weekdays.style.background = '#f9f9f9';
+                    weekdays.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.weekday').forEach(day => {
+                    day.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.calendar-day').forEach(day => {
+                    day.style.background = 'white';
+                    day.style.outline = '1px solid #e0e0e0';
+                });
+                
+                document.querySelectorAll('.day-number').forEach(num => {
+                    num.style.color = '#333';
+                });
+                
+                const dayViewHeader = document.querySelector('.day-view-header');
+                if (dayViewHeader) {
+                    dayViewHeader.style.background = '#f9f9f9';
+                }
+                
+                document.querySelectorAll('.day-view-date').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.day-view-weekday').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.style.borderColor = '#e0e0e0';
+                    slot.style.background = 'white';
+                });
+                
+                document.querySelectorAll('.time-label').forEach(label => {
+                    label.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.week-day-column').forEach(col => {
+                    col.style.borderColor = '#e0e0e0';
+                });
+                
+                document.querySelectorAll('.week-day-header').forEach(header => {
+                    header.style.background = '#f9f9f9';
+                });
+                
+                document.querySelectorAll('.week-day-name').forEach(el => {
+                    el.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.week-day-number').forEach(el => {
+                    el.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.filter-label').forEach(label => {
+                    label.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.event-title-upcoming').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.event-date').forEach(date => {
+                    date.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.modal-content, .event-detail-content').forEach(modal => {
+                    modal.style.background = 'white';
+                    modal.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.modal-title, .event-detail-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.form-group label').forEach(label => {
+                    label.style.color = '#555';
+                });
+                
+                document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+                    input.style.background = '#fafafa';
+                    input.style.color = '#1a1a1a';
+                    input.style.borderColor = '#ddd';
+                });
+                
+                document.querySelectorAll('.event-info-row').forEach(row => {
+                    row.style.color = '#666';
+                });
+                
+                const eventDesc = document.querySelector('.event-description');
+                if (eventDesc) {
+                    eventDesc.style.background = '#f9f9f9';
+                    eventDesc.style.color = '#666';
+                }
+                
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.background = 'white';
+                    footer.style.color = '#666';
+                }
+                
+                document.querySelectorAll('.footer-links a').forEach(link => {
+                    link.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.style.color = '#666';
+                });
+                
+            } else if (theme === 'auto') {
+                const hour = new Date().getHours();
+                const isDark = hour < 6 || hour >= 18;
+                localStorage.setItem('globalTheme', isDark ? 'dark' : 'light');
+                applyGlobalTheme();
+            }
+        }
+
         let events = [];
         let currentDate = new Date(2025, 10, 13); 
         let currentView = 'month';
@@ -1874,6 +2341,7 @@
             
             loadUserEvents();
             renderCurrentView();
+            applyGlobalTheme();
             
             document.addEventListener('click', function(event) {
                 if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
