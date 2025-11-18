@@ -498,7 +498,7 @@
 <body>
     <header>
         <a href="index.html" class="logo-container">
-            <img src="logo_unab.png" alt="Logo UNAB" class="logo-image">
+            <img src="../Images/logo_unab.png" alt="Logo UNAB" class="logo-image">
         </a>
 
         <nav class="nav-menu" id="navMenu">
@@ -598,7 +598,7 @@
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
         <div class="footer-links">
-            
+           
         </div>
     </footer>
 
@@ -642,36 +642,36 @@
             const body = document.body;
             
             if (theme === 'dark') {
-              
+                // Fondo general
                 body.style.background = '#1a1a1a';
                 body.style.color = '#fff';
                 
-               
+                // Header con gradiente mejorado
                 if (header) {
                     header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
                     header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
                 }
                 
-              
+                // Links del menú
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.style.color = '#ffffff';
                 });
                 
-                
+                // Botón de usuario
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255, 255, 255, 0.2)';
                     userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                 }
                 
-               
+                // Botón de perfil/amigos
                 const perfilBtn = document.querySelector('.perfil-btn');
                 if (perfilBtn) {
                     perfilBtn.style.background = 'rgba(255, 255, 255, 0.2)';
                     perfilBtn.style.color = '#ffffff';
                 }
                 
-               
+                // Dropdown de usuario con modo oscuro
                 const userDropdown = document.querySelector('.user-dropdown');
                 if (userDropdown) {
                     userDropdown.style.background = '#2a2a2a';
@@ -688,7 +688,7 @@
                     item.style.color = '#ff5252';
                 });
                 
-               
+                // Navegación móvil
                 const mobileNav = document.querySelector('.mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.background = '#2a2a2a';
@@ -704,61 +704,61 @@
                     item.style.color = '#9d4fda';
                 });
                 
-                
+                // Título principal
                 const mainTitle = document.querySelector('h1');
                 if (mainTitle) {
                     mainTitle.style.color = '#fff';
                 }
                 
-                
+                // Secciones (gris oscuro como index.html)
                 document.querySelectorAll('.config-section, .results-section').forEach(section => {
                     section.style.background = '#2a2a2a';
                     section.style.color = '#fff';
                     section.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
                 });
                 
-                
+                // Títulos de sección
                 document.querySelectorAll('.section-title').forEach(title => {
                     title.style.color = '#fff';
                 });
                 
-                
+                // Labels
                 document.querySelectorAll('.input-group label').forEach(label => {
                     label.style.color = '#ccc';
                 });
                 
-                
+                // Inputs con fondo oscuro
                 document.querySelectorAll('select, input[type="number"], .notes-table input').forEach(input => {
                     input.style.background = '#333';
                     input.style.color = '#fff';
                     input.style.borderColor = '#555';
                 });
                 
-                
+                // Header de tabla
                 const tableHeader = document.querySelector('.table-header');
                 if (tableHeader) {
                     tableHeader.style.background = '#333';
                     tableHeader.style.color = '#ccc';
                 }
                 
-               
+                // Celdas de tabla
                 document.querySelectorAll('.notes-table th, .notes-table td').forEach(cell => {
                     cell.style.borderBottomColor = '#444';
                 });
                 
-               
+                // Inputs de texto en tabla
                 document.querySelectorAll('.notes-table input[type="text"]').forEach(input => {
                     input.style.background = 'transparent';
                     input.style.color = '#fff';
                 });
                 
-               
+                // Descripción del resultado
                 const resultDesc = document.querySelector('.result-description');
                 if (resultDesc) {
                     resultDesc.style.color = '#ccc';
                 }
                 
-               
+                // Footer
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#2a2a2a';
@@ -770,7 +770,7 @@
                 });
                 
             } else if (theme === 'light') {
-               
+                // Restaurar tema claro
                 body.style.background = '#f5f5f5';
                 body.style.color = '#1a1a1a';
                 
