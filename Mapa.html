@@ -19,7 +19,7 @@
             flex-direction: column;
         }
 
-        /* Header styles - copiado de index.html */
+      
         header {
             background: #6b1fa8;
             padding: 20px 50px;
@@ -321,7 +321,7 @@
             display:block; 
         }
 
-        /* Main content */
+       
         .main-container {
             flex: 1;
             padding: 40px 50px;
@@ -405,7 +405,7 @@
             }
         }
 
-        /* Posiciones de los marcadores basadas en la imagen */
+        
         .marker-a { top: 28%; left: 42%; }
         .marker-b1 { top: 65%; left: 78%; }
         .marker-d { top: 22%; left: 58%; }
@@ -420,7 +420,7 @@
         .marker-l { top: 28%; left: 18%; }
         .marker-n { top: 18%; left: 68%; }
 
-        /* Modal de información */
+       
         .building-modal {
             display: none;
             position: fixed;
@@ -588,7 +588,7 @@
             transform: scale(1.05);
         }
 
-        /* Footer styles - copiado de index.html */
+        
         footer {
             background: white;
             padding: 30px 50px;
@@ -613,12 +613,12 @@
             text-decoration: none;
         }
 
-        /* Barra de navegación móvil */
+        
         .mobile-nav {
             display: none;
         }
 
-        /* Responsive */
+       
         @media (max-width: 768px) {
             header {
                 padding: 15px 20px;
@@ -731,7 +731,7 @@
                 gap: 20px;
             }
 
-            /* Barra de navegación móvil inferior */
+           
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -856,7 +856,7 @@
             <div class="map-wrapper">
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%2395C93D' width='1200' height='800'/%3E%3Ctext x='600' y='400' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EMapa del Campus%3C/text%3E%3C/svg%3E" alt="Mapa Campus UNAB" class="map-image">
                 
-                <!-- Marcadores de edificios -->
+              
                 <div class="building-marker marker-a" onclick="showBuildingInfo('A')" data-building="A">A</div>
                 <div class="building-marker marker-b1" onclick="showBuildingInfo('B1')" data-building="B1">B1</div>
                 <div class="building-marker marker-d" onclick="showBuildingInfo('D')" data-building="D">D</div>
@@ -874,7 +874,7 @@
         </div>
     </div>
 
-    <!-- Modal de información de edificios -->
+   
     <div class="building-modal" id="buildingModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -891,14 +891,14 @@
                 <div class="modal-section">
                     <h3>🏢 Instalaciones principales</h3>
                     <div class="facilities-list" id="facilitiesList">
-                        <!-- Se llenará dinámicamente -->
+                      
                     </div>
                 </div>
 
                 <div class="modal-section">
                     <h3>📸 Galería</h3>
                     <div class="photo-gallery" id="photoGallery">
-                        <!-- Se llenará dinámicamente -->
+                       
                     </div>
                 </div>
             </div>
@@ -912,7 +912,7 @@
         </div>
     </footer>
 
-    <!-- Barra de navegación móvil -->
+  
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -947,7 +947,7 @@
     </nav>
 
     <script>
-        // Información de los edificios
+      
         const buildingsData = {
             'A': {
                 name: 'Edificio A - Aula 2',
@@ -1143,7 +1143,7 @@
             document.getElementById('modalSubtitle').textContent = building.subtitle;
             document.getElementById('modalDescription').textContent = building.description;
 
-            // Llenar instalaciones
+          
             const facilitiesList = document.getElementById('facilitiesList');
             facilitiesList.innerHTML = '';
             building.facilities.forEach(facility => {
@@ -1156,7 +1156,7 @@
                 facilitiesList.appendChild(facilityItem);
             });
 
-            // Llenar galería
+          
             const photoGallery = document.getElementById('photoGallery');
             photoGallery.innerHTML = '';
             building.photos.forEach(photo => {
@@ -1228,14 +1228,14 @@
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
         }
 
-        // Cerrar modal al hacer clic fuera
+      
         document.getElementById('buildingModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Cerrar dropdowns al hacer clic fuera
+      
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
@@ -1245,13 +1245,13 @@
             }
         });
 
-        // Inicializar
+        
         document.addEventListener('DOMContentLoaded', () => {
             updateUI();
             applyGlobalTheme();
         });
 
-        // Función para aplicar el tema global
+       
         function applyGlobalTheme() {
             const theme = localStorage.getItem('globalTheme') || 'light';
             
@@ -1332,4 +1332,3 @@
     </script>
 </body>
 </html>
-
