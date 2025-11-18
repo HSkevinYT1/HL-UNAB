@@ -19,7 +19,7 @@
             flex-direction: column;
         }
 
-      
+        
         header {
             background: #6b1fa8;
             padding: 20px 50px;
@@ -263,6 +263,15 @@
             justify-content: center;
             font-size: 16px;
             color: #2b5a9e;
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .user-dropdown {
@@ -321,7 +330,7 @@
             display:block; 
         }
 
-       
+        
         .main-container {
             flex: 1;
             padding: 40px 50px;
@@ -357,7 +366,7 @@
         .map-wrapper {
             position: relative;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -366,6 +375,7 @@
             height: auto;
             display: block;
             border-radius: 8px;
+            object-fit: contain;
         }
 
         .building-marker {
@@ -405,22 +415,21 @@
             }
         }
 
-        
-        .marker-a { top: 28%; left: 42%; }
-        .marker-b1 { top: 65%; left: 78%; }
-        .marker-d { top: 22%; left: 58%; }
-        .marker-e { top: 48%; left: 48%; }
-        .marker-ea { top: 30%; left: 52%; }
-        .marker-f { top: 52%; left: 58%; }
-        .marker-g { top: 55%; left: 35%; }
-        .marker-h { top: 72%; left: 38%; }
-        .marker-i { top: 67%; left: 24%; }
-        .marker-j { top: 60%; left: 15%; }
-        .marker-k { top: 48%; left: 10%; }
-        .marker-l { top: 28%; left: 18%; }
-        .marker-n { top: 18%; left: 68%; }
-
        
+        .marker-a { top: 20.5%; left: 53%; }
+        .marker-d { top: 21.2%; left: 71%; }
+        .marker-e { top: 44.7%; left: 45.9%; }
+        .marker-ea { top: 26.5%; left: 61.9%; }
+        .marker-f { top: 47%; left: 60.5%; }
+        .marker-g { top: 54.3%; left: 34%; }
+        .marker-h { top: 74.5%; left: 41.2%; }
+        .marker-i { top: 68%; left: 23.5%; }
+        .marker-j { top: 59%; left: 12%; }
+        .marker-k { top: 49.2%; left: 8.1%; }
+        .marker-l { top: 24.8%; left: 19.5%; }
+        .marker-n { top: 16%; left: 74.3%; }
+
+        
         .building-modal {
             display: none;
             position: fixed;
@@ -613,7 +622,7 @@
             text-decoration: none;
         }
 
-        
+       
         .mobile-nav {
             display: none;
         }
@@ -688,10 +697,14 @@
             }
 
             .building-marker {
-                width: 32px;
-                height: 32px;
-                font-size: 12px;
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
                 border: 2px solid white;
+            }
+
+            .building-marker:hover {
+                transform: scale(1.15);
             }
 
             .modal-content {
@@ -731,7 +744,7 @@
                 gap: 20px;
             }
 
-           
+            
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -825,7 +838,7 @@
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">
                     <span class="user-name-display" id="userNameDisplay">Usuario</span>
-                    <div class="user-icon">👤</div>
+                    <div class="user-icon" id="headerUserIcon">👤</div>
                 </div>
 
                 <div class="user-dropdown" id="userDropdown">
@@ -854,11 +867,11 @@
 
         <div class="map-container">
             <div class="map-wrapper">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%2395C93D' width='1200' height='800'/%3E%3Ctext x='600' y='400' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EMapa del Campus%3C/text%3E%3C/svg%3E" alt="Mapa Campus UNAB" class="map-image">
+                <img src="campus_map.png" alt="Mapa Campus UNAB" class="map-image">
                 
-              
+                
                 <div class="building-marker marker-a" onclick="showBuildingInfo('A')" data-building="A">A</div>
-                <div class="building-marker marker-b1" onclick="showBuildingInfo('B1')" data-building="B1">B1</div>
+               
                 <div class="building-marker marker-d" onclick="showBuildingInfo('D')" data-building="D">D</div>
                 <div class="building-marker marker-e" onclick="showBuildingInfo('E')" data-building="E">E</div>
                 <div class="building-marker marker-ea" onclick="showBuildingInfo('EA')" data-building="EA">EA</div>
@@ -874,7 +887,7 @@
         </div>
     </div>
 
-   
+    
     <div class="building-modal" id="buildingModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -891,7 +904,7 @@
                 <div class="modal-section">
                     <h3>🏢 Instalaciones principales</h3>
                     <div class="facilities-list" id="facilitiesList">
-                      
+                       
                     </div>
                 </div>
 
@@ -912,7 +925,7 @@
         </div>
     </footer>
 
-  
+    
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -947,7 +960,7 @@
     </nav>
 
     <script>
-      
+        
         const buildingsData = {
             'A': {
                 name: 'Edificio A - Aula 2',
@@ -1105,7 +1118,7 @@
             },
             'L': {
                 name: 'Edificio L - Torres L',
-                subtitle: 'Aulas Múltiples',
+                subtitle: 'Facultad de Ingeniería',
                 description: 'Complejo de torres con múltiples aulas de clase distribuidas en varios pisos (L5-1 a L7-2 AINF). Equipadas con tecnología audiovisual.',
                 facilities: [
                     { icon: '🏫', name: 'Aulas de Clase' },
@@ -1127,13 +1140,29 @@
                     { icon: '💻', name: 'Salas de Cómputo' },
                     { icon: '📝', name: 'Centro de Escritura' },
                     { icon: '🧮', name: 'Tutorías de Matemáticas' },
-                    { icon: '🌐', name: 'Centro de Idiomas' }
+                    { icon: '🌍', name: 'Centro de Idiomas' }
                 ],
                 photos: ['👨‍🏫', '📖', '💻']
             }
         };
 
         let isLoggedIn = !!localStorage.getItem('userName');
+
+        function initializeUserIcon() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const initial = userName.charAt(0).toUpperCase();
+
+            const userIcons = document.querySelectorAll('.user-icon');
+            
+            userIcons.forEach(icon => {
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                    icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
+                } else {
+                    icon.textContent = initial;
+                }
+            });
+        }
 
         function showBuildingInfo(buildingId) {
             const building = buildingsData[buildingId];
@@ -1143,7 +1172,7 @@
             document.getElementById('modalSubtitle').textContent = building.subtitle;
             document.getElementById('modalDescription').textContent = building.description;
 
-          
+            
             const facilitiesList = document.getElementById('facilitiesList');
             facilitiesList.innerHTML = '';
             building.facilities.forEach(facility => {
@@ -1156,7 +1185,7 @@
                 facilitiesList.appendChild(facilityItem);
             });
 
-          
+           
             const photoGallery = document.getElementById('photoGallery');
             photoGallery.innerHTML = '';
             building.photos.forEach(photo => {
@@ -1195,19 +1224,20 @@
 
         function viewSettings() {
             if (isLoggedIn) {
-                window.location.href = 'Configuracion.html';
+                window.location.href = 'configuracion.html';
             } else {
                 alert('Debes iniciar sesión para acceder a la configuración.');
             }
         }
 
         function viewHelp() {
-            window.location.href = 'Soporte.html';
+            window.location.href = 'soporte.html';
         }
 
         function logout() {
             isLoggedIn = false;
             localStorage.removeItem('userName');
+            localStorage.removeItem('userPhotoUrl');
             window.location.href = 'index.html';
         }
 
@@ -1226,16 +1256,18 @@
             document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
             document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
+            
+            initializeUserIcon();
         }
 
-      
+        
         document.getElementById('buildingModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-      
+        
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
@@ -1251,13 +1283,105 @@
             applyGlobalTheme();
         });
 
-       
+      
         function applyGlobalTheme() {
             const theme = localStorage.getItem('globalTheme') || 'light';
+            const header = document.querySelector('header');
+            const body = document.body;
             
             if (theme === 'dark') {
-                document.body.style.background = '#1a1a1a';
-                document.body.style.color = '#fff';
+                body.style.background = '#1a1a1a';
+                body.style.color = '#fff';
+                
+                if (header) {
+                    header.style.background = 'linear-gradient(135deg, #7b2fb8 0%, #8c3fc9 50%, #9d4fda 100%)';
+                    header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = '#ffffff';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
+                    searchInput.style.color = '#fff';
+                    searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255, 255, 255, 0.2)';
+                    userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = '#ffffff';
+                    notifBell.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    amigosBtn.style.color = '#ffffff';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = '#2a2a2a';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
+                    dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#fff';
+                    notifHeader.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = 'rgba(139, 47, 201, 0.2)';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#fff';
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#ff5252';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = '#2a2a2a';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(139, 47, 201, 0.3)';
+                    mobileNav.style.borderTop = '1px solid rgba(139, 47, 201, 0.3)';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#9d4fda';
+                });
                 
                 document.querySelectorAll('.map-container, .modal-content').forEach(card => {
                     card.style.background = '#2a2a2a';
@@ -1271,6 +1395,14 @@
                 document.querySelectorAll('.facility-item').forEach(item => {
                     item.style.background = '#333';
                     item.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.facility-name').forEach(name => {
+                    name.style.color = '#ccc';
+                });
+                
+                document.querySelectorAll('.modal-section h3').forEach(h3 => {
+                    h3.style.color = '#fff';
                 });
                 
                 document.querySelectorAll('.modal-body p').forEach(p => {
@@ -1288,8 +1420,98 @@
                 });
                 
             } else if (theme === 'light') {
-                document.body.style.background = '#f5f5f5';
-                document.body.style.color = '#1a1a1a';
+                body.style.background = '#f5f5f5';
+                body.style.color = '#1a1a1a';
+                
+                if (header) {
+                    header.style.background = '#6b1fa8';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.style.color = 'white';
+                });
+                
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = '#fff';
+                    searchInput.style.color = '#1a1a1a';
+                    searchInput.style.border = 'none';
+                }
+                
+                const userButton = document.querySelector('.user-button');
+                if (userButton) {
+                    userButton.style.background = 'rgba(255,255,255,0.1)';
+                    userButton.style.borderColor = 'transparent';
+                }
+                
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = 'white';
+                    notifBell.style.textShadow = 'none';
+                }
+                
+                const amigosBtn = document.getElementById('amigosLink');
+                if (amigosBtn) {
+                    amigosBtn.style.background = 'white';
+                    amigosBtn.style.color = '#2b5a9e';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
+                    dropdown.style.background = 'white';
+                    dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+                    dropdown.style.border = 'none';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#333';
+                    notifHeader.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = '#e3f2fd';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item').forEach(item => {
+                    item.style.color = '#333';
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.user-dropdown-item:last-child').forEach(item => {
+                    item.style.color = '#f44336';
+                });
+                
+                const mobileNav = document.querySelector('.mobile-nav');
+                if (mobileNav) {
+                    mobileNav.style.background = 'white';
+                    mobileNav.style.boxShadow = '0 -2px 10px rgba(0,0,0,0.1)';
+                    mobileNav.style.borderTop = 'none';
+                }
+                
+                document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                    item.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+                    item.style.color = '#8600DD';
+                });
                 
                 document.querySelectorAll('.map-container, .modal-content').forEach(card => {
                     card.style.background = '#fff';
@@ -1306,7 +1528,15 @@
                 
                 document.querySelectorAll('.facility-item').forEach(item => {
                     item.style.background = '#f9f9f9';
-                    item.style.color = '#555';
+                    item.style.color = '#1a1a1a';
+                });
+                
+                document.querySelectorAll('.facility-name').forEach(name => {
+                    name.style.color = '#555';
+                });
+                
+                document.querySelectorAll('.modal-section h3').forEach(h3 => {
+                    h3.style.color = '#333';
                 });
                 
                 document.querySelectorAll('.modal-body p').forEach(p => {
@@ -1332,4 +1562,3 @@
     </script>
 </body>
 </html>
-
