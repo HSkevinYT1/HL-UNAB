@@ -428,12 +428,12 @@
         }
 
         .filter-btn.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-color: var(--accent) !important;
         }
 
-        .filter-btn:hover {
+        .filter-btn:not(.active):hover {
             background: var(--accent);
             color: #fff;
             border-color: var(--accent);
@@ -461,7 +461,7 @@
         }
 
         .contact-item.active {
-            background: #f0e8f5;
+            background: #f0e8f5 !important;
         }
 
         .contact-avatar {
@@ -1144,7 +1144,6 @@
                 display: flex !important;
             }
 
-            
             .back-btn {
                 display: inline-flex !important;
                 align-items: center;
@@ -1199,10 +1198,6 @@
                 font-size: 32px;
                 padding: 5px;
                 line-height: 1;
-            }
-
-            .chat-menu {
-                position: relative;
             }
 
             .messages-container {
@@ -1279,7 +1274,6 @@
                 display: none !important;
             }
 
-            
             .mobile-nav {
                 display: flex !important;
                 position: fixed;
@@ -1485,7 +1479,6 @@
         </div>
     </footer>
 
-    
     <div class="modal" id="addFriendModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1509,7 +1502,6 @@
         </div>
     </div>
 
-    
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -1546,7 +1538,6 @@
     <script>
         let isLoggedIn = !!localStorage.getItem('userName');
 
-       
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
@@ -1576,7 +1567,6 @@
             
             initializeUserIcon();
 
-            
             document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
             document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
@@ -1641,7 +1631,6 @@
             }
         });
 
-        
         const friends = [
             {
                 id: 1,
@@ -1737,7 +1726,8 @@
                 last: 'Mateo',
                 avatarColor: '#BBDEFB',
                 messages: [
-                    {from: 'other', text: 'Mateo'},
+                    {from: 'other', text: 'Mateo'}
+                   
                 ],
                 muted: false,
                 blocked: false
@@ -1757,24 +1747,19 @@
         const emojiPicker = document.getElementById('emojiPicker');
         const imageInput = document.getElementById('imageInput');
 
-        // Emojis comunes
         const commonEmojis = ['😀', '😂', '😊', '😍', '🥰', '😎', '🤔', '😅', '😭', '🥺', '😴', '🤗', '👍', '👎', '🙌', '❤️', '💯', '🔥', '✨', '🎉'];
 
-        
         let currentFilter = 'all';
 
-        
         function openAddFriendModal() {
             document.getElementById('addFriendModal').classList.add('active');
         }
 
-        
         function closeAddFriendModal() {
             document.getElementById('addFriendModal').classList.remove('active');
             document.getElementById('addFriendForm').reset();
         }
 
-        
         function toggleEmojiPicker() {
             emojiPicker.classList.toggle('active');
             if (emojiPicker.classList.contains('active') && emojiPicker.children.length === 0) {
@@ -1782,7 +1767,6 @@
             }
         }
 
-        
         function renderEmojiPicker() {
             emojiPicker.innerHTML = '';
             commonEmojis.forEach(emoji => {
@@ -1794,7 +1778,6 @@
             });
         }
 
-        
         function insertEmoji(emoji) {
             const input = document.getElementById('messageInput');
             input.value += emoji;
@@ -1802,13 +1785,11 @@
             emojiPicker.classList.remove('active');
         }
 
-        
         function toggleChatMenu() {
             const dropdown = document.getElementById('chatMenuDropdown');
             dropdown.classList.toggle('active');
         }
 
-        
         function viewContactInfo() {
             alert(`📋 Información de ${activeFriend.name}\n\nÚltima vez en línea: Hace 5 min`);
             document.getElementById('chatMenuDropdown').classList.remove('active');
@@ -1851,7 +1832,6 @@
             const muteMenuItem = document.getElementById('muteMenuItem');
             const blockMenuItem = document.getElementById('blockMenuItem');
             
-            
             if (activeFriend.blocked) {
                 statusIcon.textContent = '🚫';
                 statusIcon.title = 'Bloqueado';
@@ -1862,7 +1842,6 @@
                 statusIcon.textContent = '';
             }
             
-           
             if (activeFriend.muted) {
                 muteMenuItem.innerHTML = '🔔 Activar notificaciones';
             } else {
@@ -1894,7 +1873,6 @@
             }
         }
 
-        
         function addNewFriend(name, initialMessage) {
             const colors = ['#F8BBD0', '#C5CAE9', '#FFE0B2', '#C8E6C9', '#FFCCBC', '#B2DFDB', '#F0E68C', '#E1BEE7', '#BBDEFB'];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -1912,17 +1890,20 @@
             friends.unshift(newFriend); 
             renderContacts();
             
-            
             alert(`¡${name} ha sido agregado a tus amigos! 🎉`);
         }
 
-        
         function closeChatMobile() {
             chatPanel.classList.remove('active');
             sidebar.classList.remove('hidden');
+            
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            activeFriend = null;
         }
 
-        
         function openChatMobile() {
             if (window.innerWidth <= 768) {
                 const chatPanel = document.getElementById('chatPanel');
@@ -1933,21 +1914,16 @@
             }
         }
 
-        
         function renderContacts(filter = '') {
             contactsList.innerHTML = '';
-            
             
             let filtered = friends.filter(f => 
                 f.name.toLowerCase().includes(filter.toLowerCase())
             );
 
-           
             if (currentFilter === 'online') {
-                
                 filtered = filtered.slice(0, Math.ceil(filtered.length / 2));
             } else if (currentFilter === 'groups') {
-                
                 if (filter === '') {
                     contactsList.innerHTML = `
                         <div style="text-align: center; padding: 40px 20px; color: #999;">
@@ -1971,6 +1947,10 @@
                 return;
             }
 
+            const theme = localStorage.getItem('globalTheme') || 'light';
+            const nameColor = theme === 'dark' ? '#fff' : '#333';
+            const lastColor = theme === 'dark' ? '#b0b0b0' : '#888';
+
             filtered.forEach(friend => {
                 const contactDiv = document.createElement('div');
                 contactDiv.className = 'contact-item';
@@ -1983,8 +1963,8 @@
                         ${friend.name.charAt(0)}
                     </div>
                     <div class="contact-info">
-                        <div class="contact-name">${friend.name}</div>
-                        <div class="contact-last">${friend.last || ''}</div>
+                        <div class="contact-name" style="color: ${nameColor};">${friend.name}</div>
+                        <div class="contact-last" style="color: ${lastColor};">${friend.last || ''}</div>
                     </div>
                 `;
                 
@@ -1993,22 +1973,18 @@
             });
         }
 
-        
         function selectFriend(id) {
             activeFriend = friends.find(f => f.id === id);
             chatUserName.textContent = activeFriend.name;
             chatAvatar.style.background = activeFriend.avatarColor;
             
-           
             messageInput.value = '';
             
-           
             updateChatHeader();
             
             renderMessages();
             renderContacts();
             
-           
             if (window.innerWidth > 768) {
                 chatPanel.style.display = 'flex';
             }
@@ -2016,7 +1992,6 @@
             openChatMobile(); 
         }
 
-        
         function renderMessages() {
             messagesContainer.innerHTML = '';
             
@@ -2029,7 +2004,6 @@
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${msg.from === 'me' ? 'right' : 'left'}`;
                 
-                
                 if (msg.image) {
                     bubble.innerHTML = `${msg.text ? msg.text + '<br>' : ''}<img src="${msg.image}" alt="Imagen">`;
                 } else {
@@ -2041,8 +2015,16 @@
                     const avatar = document.createElement('div');
                     avatar.className = 'message-avatar';
                     avatar.style.background = '#d4b3e8';
+                    
                     const userName = localStorage.getItem('userName') || 'Usuario';
-                    avatar.textContent = userName.charAt(0).toUpperCase();
+                    const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+                    
+                    if (userPhotoUrl && userPhotoUrl !== '') {
+                        avatar.innerHTML = `<img src="${userPhotoUrl}" alt="Mi foto" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    } else {
+                        avatar.textContent = userName.charAt(0).toUpperCase();
+                    }
+                    
                     messageRow.appendChild(avatar);
                 } else {
                     const avatar = document.createElement('div');
@@ -2059,7 +2041,6 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        
         function sendMessage() {
             const text = messageInput.value.trim();
             if (!text || !activeFriend) return;
@@ -2069,7 +2050,6 @@
             renderMessages();
             messageInput.value = '';
             
-           
             setTimeout(() => {
                 const reply = {from: 'other', text: 'Respuesta automática de prueba'};
                 activeFriend.messages.push(reply);
@@ -2077,23 +2057,19 @@
             }, 800);
         }
 
-        
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file || !activeFriend) return;
             
-           
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona una imagen válida');
                 return;
             }
             
-            
             const reader = new FileReader();
             reader.onload = function(event) {
                 const imageUrl = event.target.result;
                 
-               
                 const newMessage = {
                     from: 'me',
                     text: messageInput.value.trim() || '',
@@ -2109,7 +2085,6 @@
             reader.readAsDataURL(file);
         });
 
-       
         sendMessageBtn.addEventListener('click', sendMessage);
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
@@ -2123,7 +2098,6 @@
             openAddFriendModal();
         });
 
-        
         document.getElementById('addFriendForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('friendName').value.trim();
@@ -2135,33 +2109,41 @@
             }
         });
 
-       
         document.getElementById('addFriendModal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('addFriendModal')) {
                 closeAddFriendModal();
             }
         });
 
-        
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active');
+                
+                    const theme = localStorage.getItem('globalTheme') || 'light';
+                    if (theme === 'dark') {
+                        b.style.background = '#333';
+                        b.style.color = '#fff';
+                        b.style.borderColor = '#444';
+                    } else {
+                        b.style.background = 'white';
+                        b.style.color = '#333';
+                        b.style.borderColor = '#e6e6e6';
+                    }
+                });
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
                 renderContacts(searchInput.value);
             });
         });
 
-        
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                
                 sidebar.classList.remove('hidden');
                 chatPanel.classList.remove('active');
             }
         });
 
-       
         function applyGlobalTheme() {
             const theme = localStorage.getItem('globalTheme') || 'light';
             const header = document.querySelector('header');
@@ -2284,20 +2266,6 @@
                         btn.style.color = '#fff';
                         btn.style.borderColor = '#444';
                     }
-                });
-                
-                document.querySelectorAll('.contact-item').forEach(item => {
-                    if (!item.classList.contains('active')) {
-                        item.style.background = 'transparent';
-                    }
-                });
-                
-                document.querySelectorAll('.contact-item:hover').forEach(item => {
-                    item.style.background = '#333';
-                });
-                
-                document.querySelectorAll('.contact-item.active').forEach(item => {
-                    item.style.background = 'rgba(139, 47, 201, 0.2)';
                 });
                 
                 document.querySelectorAll('.contact-name').forEach(name => {
@@ -2520,12 +2488,14 @@
                     }
                 });
                 
-                document.querySelectorAll('.contact-name').forEach(name => {
-                    name.style.color = '#333';
+                document.querySelectorAll('.contact-item').forEach(item => {
+                    if (!item.classList.contains('active')) {
+                        item.style.background = 'transparent';
+                    }
                 });
                 
-                document.querySelectorAll('.contact-last').forEach(last => {
-                    last.style.color = '#888';
+                document.querySelectorAll('.contact-item.active').forEach(item => {
+                    item.style.background = '#f0e8f5';
                 });
                 
                 const chatPanel = document.querySelector('.chat-panel');
@@ -2629,7 +2599,6 @@
             }
         }
 
-       
         document.addEventListener('DOMContentLoaded', () => {
             const storedUserName = localStorage.getItem('userName');
             
@@ -2644,12 +2613,9 @@
             applyGlobalTheme();
             initializeUserIcon();
 
-           
             if (window.innerWidth > 768) {
-               
                 chatPanel.style.display = 'none';
             }
-            
             
             if (window.innerWidth <= 768) {
                 const footer = document.querySelector('footer');
@@ -2660,13 +2626,10 @@
                 }
             }
             
-           
             document.addEventListener('click', (e) => {
-                
                 if (!e.target.closest('#emojiBtn') && !e.target.closest('#emojiPicker')) {
                     emojiPicker.classList.remove('active');
                 }
-                
                 
                 if (!e.target.closest('#chatMenuBtn') && !e.target.closest('#chatMenuDropdown')) {
                     document.getElementById('chatMenuDropdown').classList.remove('active');
@@ -2675,3 +2638,4 @@
         });
     </script>
 </body>
+</html>
