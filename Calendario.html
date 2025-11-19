@@ -229,6 +229,14 @@
             font-weight: 700;
             color: var(--purple);
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .user-dropdown {
@@ -307,11 +315,17 @@
             width: 200px;
             font-size: 14px;
             transition: width 0.3s;
+            background: white;
+            color: #1a1a1a;
         }
 
         .search-input:focus {
             outline: none;
             width: 240px;
+        }
+
+        .search-input::placeholder {
+            color: #999;
         }
 
         .search-icon {
@@ -1282,7 +1296,7 @@
             </a>
             
             <div class="search-container" id="searchContainer">
-                <input type="text" class="search-input" placeholder="Buscar...">
+                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
                 <span class="search-icon">🔍</span>
             </div>
           
@@ -1515,19 +1529,36 @@
     <script>
         let isLoggedIn = !!localStorage.getItem('userName'); 
 
+        function initializeUserIcon() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
+            const firstName = userName.split(' ')[0];
+            const initial = firstName.charAt(0).toUpperCase();
+
+            const userIcon = document.getElementById('userIcon');
+            
+            if (userIcon) {
+                if (userPhotoUrl && userPhotoUrl !== '') {
+                    userIcon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
+                } else {
+                    userIcon.textContent = initial;
+                }
+            }
+        }
+
         function updateUI(user) {
             const userName = user || localStorage.getItem('userName') || 'Invitado';
             const firstName = userName.split(' ')[0];
-            const initial = firstName.charAt(0).toUpperCase();
             
             document.getElementById('userNameDisplay').textContent = firstName;
-            document.getElementById('userIcon').textContent = (firstName === 'Invitado') ? '👤' : initial;
             document.getElementById('userNameDisplay').classList.toggle('active', isLoggedIn);
             
             document.getElementById('navMenu').style.display = isLoggedIn ? 'flex' : 'none';
             document.getElementById('notificationBell').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('searchContainer').style.display = isLoggedIn ? 'block' : 'none';
             document.getElementById('amigosLink').style.display = isLoggedIn ? 'inline-flex' : 'none';
+
+            initializeUserIcon();
 
             if (!isLoggedIn) {
                 window.location.href = 'index.html';
@@ -1600,6 +1631,11 @@
                     searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
                     searchInput.style.color = '#fff';
                     searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+
+                const searchIcon = document.querySelector('.search-icon');
+                if (searchIcon) {
+                    searchIcon.style.color = 'rgba(255, 255, 255, 0.8)';
                 }
                 
                 const userButton = document.querySelector('.user-button');
@@ -1823,6 +1859,11 @@
                     searchInput.style.background = '#fff';
                     searchInput.style.color = '#1a1a1a';
                     searchInput.style.border = 'none';
+                }
+
+                const searchIcon = document.querySelector('.search-icon');
+                if (searchIcon) {
+                    searchIcon.style.color = '#666';
                 }
                 
                 const userButton = document.querySelector('.user-button');
