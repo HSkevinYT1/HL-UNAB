@@ -809,7 +809,6 @@
         </div>
 
         <div class="settings-container">
-          
             <div class="settings-card">
                 <h2>🔔 Notificaciones</h2>
                 
@@ -838,7 +837,6 @@
                 </div>
             </div>
 
-          
             <div class="settings-card">
                 <h2>🎨 Apariencia</h2>
                 
@@ -866,7 +864,6 @@
                 </div>
             </div>
 
-           
             <div class="settings-card">
                 <h2>🔒 Privacidad y Seguridad</h2>
                 
@@ -938,7 +935,7 @@
     </nav>
 
     <script>
-        
+      
         let isLoggedIn = !!localStorage.getItem('userName');
 
       
@@ -958,7 +955,7 @@
             });
         }
 
-        
+    
         function toggleNotifications() {
             if (!isLoggedIn) return;
             const dropdown = document.getElementById('notificationDropdown');
@@ -973,13 +970,11 @@
             document.getElementById('notificationDropdown').classList.remove('active');
         }
 
-       
         function updateHeaderUI() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const firstName = userName.split(' ')[0];
             
             document.getElementById('userNameDisplay').textContent = firstName;
-            
             
             const navMenu = document.getElementById('navMenu');
             const searchContainer = document.getElementById('searchContainer');
@@ -997,7 +992,6 @@
         }
 
         function viewSettings() {
-           
             document.getElementById('userDropdown').classList.remove('active');
         }
 
@@ -1020,7 +1014,6 @@
             window.location.href = 'Amigos.html';
         }
 
-       
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
                 document.getElementById('notificationDropdown').classList.remove('active');
@@ -1030,7 +1023,7 @@
             }
         });
 
-       
+      
         document.addEventListener('DOMContentLoaded', () => {
            
             if (!isLoggedIn) {
@@ -1082,8 +1075,7 @@
             };
 
             localStorage.setItem('userSettings', JSON.stringify(settings));
-            
-           
+        
             localStorage.setItem('globalTheme', settings.theme);
         }
 
@@ -1107,7 +1099,7 @@
             const header = document.querySelector('header');
             
             if (theme === 'dark') {
-               
+              
                 body.style.background = '#1a1a1a';
                 body.style.color = '#fff';
                 
@@ -1117,12 +1109,11 @@
                     header.style.boxShadow = '0 2px 20px rgba(139, 47, 201, 0.3)';
                 }
                 
-                
+        
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.style.color = '#ffffff';
                 });
                 
-               
                 const searchInput = document.querySelector('.search-input');
                 if (searchInput) {
                     searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
@@ -1130,14 +1121,14 @@
                     searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
                 }
                 
-               
+              
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255, 255, 255, 0.2)';
                     userButton.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                 }
                 
-               
+              
                 const notifBell = document.getElementById('notificationBell');
                 if (notifBell) {
                     notifBell.style.color = '#ffffff';
@@ -1200,12 +1191,12 @@
                     card.style.boxShadow = '0 2px 15px rgba(255,255,255,0.08)';
                 });
                 
-                
+             
                 document.querySelectorAll('.settings-card h2').forEach(h2 => {
                     h2.style.color = '#fff';
                 });
                 
-               
+              
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#fff';
                 });
@@ -1213,7 +1204,7 @@
                     desc.style.color = '#b0b0b0';
                 });
                 
-               
+             
                 document.querySelectorAll('.page-title').forEach(el => {
                     el.style.color = '#fff';
                 });
@@ -1221,26 +1212,23 @@
                     el.style.color = '#b0b0b0';
                 });
                 
-               
+                
                 document.querySelectorAll('.select-input, .input-field').forEach(input => {
                     input.style.background = '#333';
                     input.style.color = '#fff';
                     input.style.borderColor = '#555';
                 });
                 
-              
                 document.querySelectorAll('.btn-secondary').forEach(btn => {
                     btn.style.background = '#333';
                     btn.style.color = '#fff';
                     btn.style.borderColor = '#555';
                 });
                 
-               
                 document.querySelectorAll('.setting-item').forEach(item => {
                     item.style.borderBottomColor = '#333';
                 });
                 
-              
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#2a2a2a';
@@ -1251,7 +1239,6 @@
                     link.style.color = '#ccc';
                 });
                 
-              
                 const dangerZone = document.querySelector('.danger-zone');
                 if (dangerZone) {
                     dangerZone.style.borderColor = '#ff5252';
@@ -1261,7 +1248,6 @@
                     if (p) p.style.color = '#b0b0b0';
                 }
                 
-              
                 const mobileNav = document.querySelector('.mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.background = '#2a2a2a';
@@ -1293,7 +1279,6 @@
                     link.style.color = 'white';
                 });
                 
-               
                 const searchInput = document.querySelector('.search-input');
                 if (searchInput) {
                     searchInput.style.background = '#fff';
@@ -1301,28 +1286,24 @@
                     searchInput.style.border = 'none';
                 }
                 
-               
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255,255,255,0.1)';
                     userButton.style.borderColor = 'transparent';
                 }
                 
-               
                 const notifBell = document.getElementById('notificationBell');
                 if (notifBell) {
                     notifBell.style.color = 'white';
                     notifBell.style.textShadow = 'none';
                 }
                 
-               
                 const amigosBtn = document.getElementById('amigosLink');
                 if (amigosBtn) {
                     amigosBtn.style.background = 'white';
                     amigosBtn.style.color = '#2b5a9e';
                 }
                 
-               
                 document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
                     dropdown.style.background = 'white';
                     dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
@@ -1364,18 +1345,15 @@
                     item.style.color = '#f44336';
                 });
                 
-              
                 document.querySelectorAll('.settings-card').forEach(card => {
                     card.style.background = '#fff';
                     card.style.color = '#1a1a1a';
                     card.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
                 });
                 
-               
                 document.querySelectorAll('.settings-card h2').forEach(h2 => {
                     h2.style.color = '#1a1a1a';
                 });
-                
                 
                 document.querySelectorAll('.setting-label').forEach(label => {
                     label.style.color = '#1a1a1a';
@@ -1384,7 +1362,6 @@
                     desc.style.color = '#666';
                 });
                 
-                
                 document.querySelectorAll('.page-title').forEach(el => {
                     el.style.color = '#1a1a1a';
                 });
@@ -1392,26 +1369,22 @@
                     el.style.color = '#666';
                 });
                 
-                
                 document.querySelectorAll('.select-input, .input-field').forEach(input => {
                     input.style.background = 'white';
                     input.style.color = '#1a1a1a';
                     input.style.borderColor = '#d1d5db';
                 });
                 
-               
                 document.querySelectorAll('.btn-secondary').forEach(btn => {
                     btn.style.background = 'white';
                     btn.style.color = '#666';
                     btn.style.borderColor = '#d1d5db';
                 });
                 
-               
                 document.querySelectorAll('.setting-item').forEach(item => {
                     item.style.borderBottomColor = '#f0f0f0';
                 });
                 
-              
                 const footer = document.querySelector('footer');
                 if (footer) {
                     footer.style.background = '#fff';
@@ -1422,7 +1395,6 @@
                     link.style.color = '#666';
                 });
                 
-              
                 const dangerZone = document.querySelector('.danger-zone');
                 if (dangerZone) {
                     dangerZone.style.borderColor = '#f44336';
@@ -1432,7 +1404,6 @@
                     if (p) p.style.color = '#666';
                 }
                 
-               
                 const mobileNav = document.querySelector('.mobile-nav');
                 if (mobileNav) {
                     mobileNav.style.background = 'white';
@@ -1455,7 +1426,6 @@
             }
         }
 
-        
         function applyGlobalTheme() {
             const globalTheme = localStorage.getItem('globalTheme');
             if (globalTheme) {
@@ -1480,7 +1450,6 @@
                 return;
             }
 
-           
             const userId = localStorage.getItem('userId');
             const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
             const userIndex = users.findIndex(u => u.id === userId);
