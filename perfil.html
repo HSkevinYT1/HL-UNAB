@@ -26,6 +26,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-right { 
@@ -73,6 +76,142 @@
         .nav-menu a.active {
             background: rgba(255,255,255,0.2);
         }
+
+       
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            padding: 8px;
+            transition: transform 0.3s;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 50px;
+            background: white;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+            animation: slideDown 0.3s;
+        }
+
+        .notification-dropdown.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background: #e3f2fd;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .notification-item-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .notification-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+         .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 200px;
+            font-size: 14px;
+            transition: width 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            width: 240px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+
         
         .icon-btn {
             background: rgba(255,255,255,0.1);
@@ -158,17 +297,6 @@
 
         .user-dropdown.active {
             display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .user-dropdown-item {
@@ -569,8 +697,29 @@
                 display: none !important;
             }
 
-            .icon-btn {
+            .search-container {
                 display: none !important;
+            }
+
+            .notification-bell {
+                font-size: 18px;
+                padding: 4px;
+            }
+
+            .notification-dropdown {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+
+            .icon-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .icon-btn svg {
+                width: 16px;
+                height: 16px;
             }
 
             .container {
@@ -675,12 +824,54 @@
             <a href="Calendario.html">Calendario</a>
         </nav>
         
-        <div class="header-right"> 
+        <div class="header-right">
+          
             <a href="Amigos.html" class="icon-btn" aria-label="Chat" title="Chat">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
             </a>
+
+          
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" placeholder="Buscar eventos, actividades...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+        
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications()">
+                🔔
+                <span class="notification-badge">2</span>
+            </div>
+
+          
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">
+                    Notificaciones
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">📊 Nueva calificación</div>
+                        <div class="notification-item-text">Tienes una nueva calificación en Cálculo</div>
+                        <div class="notification-item-time">Hace 5 minutos</div>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-item-title">⏰ Recordatorio</div>
+                        <div class="notification-item-text">Pago de matrícula en 3 días</div>
+                        <div class="notification-item-time">Hace 1 hora</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-item-title">🎵 Evento</div>
+                        <div class="notification-item-text">Concierto UNAB - Viernes 7pm</div>
+                        <div class="notification-item-time">Hace 2 horas</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-item-title">✅ Horas aprobadas</div>
+                        <div class="notification-item-text">5 HL del voluntariado aprobadas</div>
+                        <div class="notification-item-time">Ayer</div>
+                    </div>
+                </div>
+            </div>
 
             <div class="user-menu">
                 <div class="user-button" onclick="toggleUserMenu()">
@@ -808,8 +999,7 @@
     <footer>
         <p>© 2025 Universidad Autonoma de Bucaramanga</p>
         <div class="footer-links">
-            <a href="#">Acerca de</a>
-            <a href="soporte.html">soporte</a>
+           
         </div>
     </footer>
 
@@ -849,13 +1039,13 @@
     <script>
         let isEditing = false;
 
-        
+
         function initializeUserIcon() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userPhotoUrl = localStorage.getItem('userPhotoUrl') || '';
             const initial = userName.charAt(0).toUpperCase();
 
-           
+          
             const userIcons = document.querySelectorAll('.user-icon');
             
             userIcons.forEach(icon => {
@@ -863,27 +1053,30 @@
                   
                     icon.innerHTML = `<img src="${userPhotoUrl}" alt="Foto de Perfil">`;
                 } else {
+                   
                     icon.textContent = initial;
                 }
             });
         }
 
-       
+        
         function handleProfilePhotoUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
+          
             if (!file.type.startsWith('image/')) {
                 alert('Por favor selecciona un archivo de imagen válido.');
                 return;
             }
 
+          
             if (file.size > 5 * 1024 * 1024) {
                 alert('La imagen es demasiado grande. Por favor selecciona una imagen menor a 5MB.');
                 return;
             }
 
-           
+         
             const reader = new FileReader();
             
             reader.onload = function(e) {
@@ -918,7 +1111,7 @@
             reader.readAsDataURL(file);
         }
 
-      
+       
         function removeProfilePhoto() {
             if (!confirm('¿Estás seguro de que quieres eliminar tu foto de perfil?')) {
                 return;
@@ -927,7 +1120,7 @@
             localStorage.removeItem('userPhotoUrl');
             initializeUserIcon();
             
-            
+           
             const profileImage = document.getElementById('profileImage');
             const profileCardIcon = document.getElementById('profileCardIcon');
             
@@ -945,7 +1138,6 @@
             alert('Foto de perfil eliminada.');
         }
 
-      
         function loadProfileData() {
             const userName = localStorage.getItem('userName') || 'Usuario';
             const userId = localStorage.getItem('userId') || 'U00000000';
@@ -965,7 +1157,7 @@
             if (profileProgramDisplay) profileProgramDisplay.textContent = userProgram;
             if (profileSemesterDisplay) profileSemesterDisplay.textContent = userSemester + 'do';
             
-            
+         
             const editName = document.getElementById('editName');
             const editId = document.getElementById('editId');
             const editProgram = document.getElementById('editProgram');
@@ -995,13 +1187,13 @@
                 }
             }
             
-           
+         
             const headerUserName = document.getElementById('headerUserName');
             if (headerUserName) {
                 headerUserName.textContent = userName.split(' ')[0];
             }
             
-            
+           
             initializeUserIcon();
         }
 
@@ -1031,7 +1223,7 @@
                 editBtn.setAttribute('data-editing', 'true');
 
             } else {
-               
+              
                 isEditing = false;
                 loadProfileData();
                 
@@ -1055,14 +1247,28 @@
                 return;
             }
 
+           
             localStorage.setItem('userName', newName);
             localStorage.setItem('userProgram', newProgram);
             localStorage.setItem('userSemester', newSemester);
-             
+            
+          
             toggleEditMode(false);
             
             alert('Perfil actualizado con éxito!');
         }
+
+       
+
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+            
+           
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+       
 
         function toggleCollapse(element) {
             element.classList.toggle('collapsed');
@@ -1072,6 +1278,9 @@
 
         function toggleUserMenu() {
             document.getElementById('userDropdown').classList.toggle('active');
+            
+           
+            document.getElementById('notificationDropdown').classList.remove('active');
         }
 
         function viewSettings() {
@@ -1109,6 +1318,9 @@
             if (!event.target.closest('.user-menu') && !event.target.closest('.icon-btn')) {
                 document.getElementById('userDropdown').classList.remove('active');
             }
+            if (!event.target.closest('.notification-bell') && !event.target.closest('.notification-dropdown')) {
+                document.getElementById('notificationDropdown').classList.remove('active');
+            }
         });
 
         function applyGlobalTheme() {
@@ -1129,6 +1341,18 @@
                     link.style.color = '#ffffff';
                 });
                 
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = 'rgba(255, 255, 255, 0.15)';
+                    searchInput.style.color = '#fff';
+                    searchInput.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                }
+                
+                const searchIcon = document.querySelector('.search-icon');
+                if (searchIcon) {
+                    searchIcon.style.color = '#fff';
+                }
+                
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255, 255, 255, 0.2)';
@@ -1141,10 +1365,41 @@
                     iconBtn.style.color = '#ffffff';
                 }
                 
-                document.querySelectorAll('.user-dropdown').forEach(dropdown => {
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = '#ffffff';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
                     dropdown.style.background = '#2a2a2a';
                     dropdown.style.boxShadow = '0 8px 30px rgba(139, 47, 201, 0.4)';
                     dropdown.style.border = '1px solid rgba(139, 47, 201, 0.3)';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#fff';
+                    notifHeader.style.borderBottomColor = '#444';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#fff';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#b0b0b0';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#888';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = 'rgba(139, 47, 201, 0.2)';
                 });
                 
                 document.querySelectorAll('.user-dropdown-item').forEach(item => {
@@ -1247,6 +1502,18 @@
                     link.style.color = 'white';
                 });
                 
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.style.background = '#fff';
+                    searchInput.style.color = '#1a1a1a';
+                    searchInput.style.border = 'none';
+                }
+                
+                const searchIcon = document.querySelector('.search-icon');
+                if (searchIcon) {
+                    searchIcon.style.color = '#666';
+                }
+                
                 const userButton = document.querySelector('.user-button');
                 if (userButton) {
                     userButton.style.background = 'rgba(255,255,255,0.1)';
@@ -1259,10 +1526,41 @@
                     iconBtn.style.color = '#fff';
                 }
                 
-                document.querySelectorAll('.user-dropdown').forEach(dropdown => {
+                const notifBell = document.getElementById('notificationBell');
+                if (notifBell) {
+                    notifBell.style.color = 'white';
+                }
+                
+                document.querySelectorAll('.notification-dropdown, .user-dropdown').forEach(dropdown => {
                     dropdown.style.background = 'white';
                     dropdown.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
                     dropdown.style.border = 'none';
+                });
+                
+                const notifHeader = document.querySelector('.notification-header');
+                if (notifHeader) {
+                    notifHeader.style.color = '#333';
+                    notifHeader.style.borderBottomColor = '#e0e0e0';
+                }
+                
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.style.borderBottomColor = '#f0f0f0';
+                });
+                
+                document.querySelectorAll('.notification-item-title').forEach(title => {
+                    title.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.notification-item-text').forEach(text => {
+                    text.style.color = '#666';
+                });
+                
+                document.querySelectorAll('.notification-item-time').forEach(time => {
+                    time.style.color = '#999';
+                });
+                
+                document.querySelectorAll('.notification-item.unread').forEach(item => {
+                    item.style.background = '#e3f2fd';
                 });
                 
                 document.querySelectorAll('.user-dropdown-item').forEach(item => {
@@ -1369,5 +1667,3 @@
     </script>
 </body>
 </html>
-
-
